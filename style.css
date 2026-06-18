@@ -586,8 +586,8 @@ body {
 }
 
 .footer__company {
-  margin-top: 24px;
-  padding-top: 16px;
+  margin-top: 16px;
+  padding-top: 10px;
   border-top: 1px solid rgba(255, 106, 0, 0.12);
   text-align: center;
 }
