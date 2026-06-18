@@ -32,9 +32,21 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+@media (min-width: 1600px) {
+  .container {
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .container {
+    padding: 0 80px;
+  }
 }
 
 /* Header */
