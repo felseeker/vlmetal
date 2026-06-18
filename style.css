@@ -729,6 +729,22 @@ body {
   opacity: 0.8;
 }
 
+.gallery__label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(11px, 1.2vw, 16px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.6;
+  text-align: center;
+  transition: opacity 0.3s;
+}
+
+.gallery__item:hover .gallery__label {
+  opacity: 1;
+}
+
 /* Portfolio meta */
 .card--portfolio {
   display: flex;
