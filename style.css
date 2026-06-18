@@ -786,15 +786,23 @@ body {
 @media (max-width: 1100px) {
   .nav {
     gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav__link {
     font-size: 11px;
     letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .logo__text {
+    font-size: 20px;
+    letter-spacing: 3px;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .hamburger {
     display: flex;
   }
