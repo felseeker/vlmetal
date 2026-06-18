@@ -65,10 +65,11 @@ body {
 
 .logo__text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 22px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav {
@@ -794,11 +795,6 @@ body {
     font-size: 11px;
     letter-spacing: 1px;
     white-space: nowrap;
-  }
-
-  .logo__text {
-    font-size: 20px;
-    letter-spacing: 3px;
   }
 }
 

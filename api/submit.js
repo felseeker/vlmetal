@@ -19,14 +19,14 @@ export default async function handler(req, res) {
   }
 
   const text = [
-    '**\u2705 Новая заявка с сайта VL METAL**',
+    '**\u2705 Новая заявка — Концепция строительства**',
     '',
     '**\uD83D\uDC64 Имя:** ' + name,
     '**\uD83D\uDCDE Телефон:** ' + phone,
     message ? '**\uD83D\uDCDD Сообщение:** ' + message : '',
     '',
-    '—',
-    'Отправлено с vlmetal.ru'
+    '\u2014',
+    'Отправлено с сайта'
   ].filter(Boolean).join('\n');
 
   try {
