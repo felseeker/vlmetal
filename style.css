@@ -585,6 +585,28 @@ body {
   align-items: center;
 }
 
+.footer__company {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 106, 0, 0.12);
+  text-align: center;
+}
+
+.footer__company p {
+  color: #555;
+  font-size: clamp(10px, 0.9vw, 12px);
+  line-height: 1.6;
+  margin: 2px 0;
+  letter-spacing: 0.3px;
+}
+
+.footer__company p:first-child {
+  color: #888;
+  font-weight: 600;
+  font-size: clamp(11px, 1vw, 13px);
+  margin-bottom: 4px;
+}
+
 /* Fade-in animation */
 .fade-in {
   opacity: 0;
