@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://felseeker.github.io/vlmetal/sitemap.txt
