@@ -1117,6 +1117,12 @@ body {
   }
 }
 
+@media (max-width: 640px) {
+  .logo__text {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   .hero__carousel {
     max-width: 220px;

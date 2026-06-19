@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram Story Promo</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px; height: 1920px;
+  background: #0a0a0a;
+  font-family: 'Rajdhani', 'Montserrat', sans-serif;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px;
+}
+/* Background texture */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255, 106, 0, 0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 30%, rgba(255, 106, 0, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 106, 0, 0.02) 0%, transparent 50%);
+}
+/* Decorative lines */
+.lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.lines svg {
+  width: 100%; height: 100%;
+}
+/* Sparks */
+.sparks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.spark {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: #ff6a00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff6a00, 0 0 30px rgba(255, 106, 0, 0.6);
+  animation: float 3s ease-in-out infinite;
+}
+.spark:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; }
+.spark:nth-child(2) { left: 85%; top: 30%; animation-delay: 0.5s; animation-duration: 3.5s; width: 4px; height: 4px; }
+.spark:nth-child(3) { left: 25%; top: 75%; animation-delay: 1s; animation-duration: 2.8s; }
+.spark:nth-child(4) { left: 75%; top: 70%; animation-delay: 1.5s; width: 5px; height: 5px; }
+.spark:nth-child(5) { left: 50%; top: 15%; animation-delay: 2s; animation-duration: 3.2s; width: 3px; height: 3px; }
+.spark:nth-child(6) { left: 10%; top: 50%; animation-delay: 0.8s; animation-duration: 3.8s; }
+.spark:nth-child(7) { left: 90%; top: 60%; animation-delay: 1.3s; width: 4px; height: 4px; }
+.spark:nth-child(8) { left: 40%; top: 85%; animation-delay: 0.3s; animation-duration: 3.1s; }
+@keyframes float {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  15% { opacity: 1; }
+  50% { opacity: 1; transform: translateY(-40px) scale(1.3); }
+  85% { opacity: 0.3; }
+  100% { transform: translateY(-80px) scale(0.3); opacity: 0; }
+}
+/* Content */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.logo {
+  width: 160px; height: 160px;
+  border: 3px solid #ff6a00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  margin-bottom: 10px;
+}
+.logo svg {
+  width: 100%; height: 100%;
+}
+.tagline {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  letter-spacing: 6px;
+  color: #ff6a00;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 72px;
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 1.1;
+  max-width: 900px;
+}
+h1 span {
+  color: #ff6a00;
+}
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  color: #999;
+  letter-spacing: 2px;
+  max-width: 700px;
+  line-height: 1.5;
+}
+.cta {
+  margin-top: 20px;
+  background: #ff6a00;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 24px 80px;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(255, 106, 0, 0.3);
+}
+.contact-row {
+  display: flex;
+  gap: 40px;
+  margin-top: 15px;
+}
+.contact-item {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  color: #666;
+  letter-spacing: 1px;
+}
+.contact-item strong {
+  color: #ff6a00;
+  font-weight: 600;
+}
+.bottom-line {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: #444;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+/* Glow circle */
+.glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.06) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="lines">
+<svg viewBox="0 0 1080 1920" fill="none">
+  <line x1="0" y1="300" x2="1080" y2="300" stroke="rgba(255,106,0,0.06)" stroke-width="1"/>
+  <line x1="0" y1="1620" x2="1080" y2="1620" stroke="rgba(255,106,0,0.06)" stroke-width="1"/>
+  <line x1="100" y1="0" x2="100" y2="1920" stroke="rgba(255,106,0,0.03)" stroke-width="1"/>
+  <line x1="980" y1="0" x2="980" y2="1920" stroke="rgba(255,106,0,0.03)" stroke-width="1"/>
+  <path d="M540 200 L540 1720" stroke="rgba(255,106,0,0.04)" stroke-width="1" stroke-dasharray="10 10"/>
+  <path d="M200 1920 Q540 1400 880 1920" stroke="rgba(255,106,0,0.08)" stroke-width="1"/>
+  <path d="M300 1920 Q540 1500 780 1920" stroke="rgba(255,106,0,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+</svg>
+</div>
+
+<div class="sparks">
+  <div class="spark"></div>
+  <div class="spark"></div>
+  <div class="spark"></div>
+  <div class="spark"></div>
+  <div class="spark"></div>
+  <div class="spark"></div>
+  <div class="spark"></div>
+  <div class="spark"></div>
+</div>
+
+<div class="content">
+  <div class="logo">
+    <svg viewBox="0 0 100 100" fill="none">
+      <path d="M50 10L90 30V70L50 90L10 70V30L50 10Z" stroke="#ff6a00" stroke-width="2.5" fill="none"/>
+      <path d="M50 25L75 37.5V62.5L50 75L25 62.5V37.5L50 25Z" stroke="#ff6a00" stroke-width="1.5" fill="none"/>
+      <circle cx="50" cy="50" r="3" fill="#ff6a00"/>
+    </svg>
+  </div>
+  <p class="tagline">Цех металлообработки</p>
+  <h1>
+    КОНЦЕПЦИЯ<br>
+    <span>СТРОИТЕЛЬСТВА</span>
+  </h1>
+  <p class="subtitle">Мангалы · Ворота · Навесы · Лестницы<br>Резка ЧПУ · Сварка · Покраска</p>
+  <div class="cta">ЗАКАЗАТЬ</div>
+  <div class="contact-row">
+    <div class="contact-item"><strong>Тел:</strong> +7 (939) 779-42-47</div>
+    <div class="contact-item"><strong>📍</strong> Владивосток</div>
+  </div>
+</div>
+
+<p class="bottom-line">концепция-строительства.рф</p>
+
+</body>
+</html>
