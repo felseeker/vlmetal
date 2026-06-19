@@ -401,6 +401,14 @@ body {
   color: var(--accent);
 }
 
+.card__icon-img {
+  display: block;
+  margin: 0 auto 24px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
 .card__title {
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(14px, 1.5vw, 20px);
