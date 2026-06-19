@@ -521,6 +521,28 @@ body {
   color: #555;
 }
 
+.form__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  margin: 8px 0;
+}
+
+.form__checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.form__checkbox a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .form__textarea {
   resize: vertical;
   min-height: 100px;
