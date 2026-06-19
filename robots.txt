@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://felseeker.github.io/vlmetal/sitemap.txt
+Sitemap: https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/sitemap.txt
+Host: xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai
