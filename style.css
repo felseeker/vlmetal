@@ -404,8 +404,8 @@ body {
 .card__icon-img {
   display: block;
   margin: 0 auto 24px;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
