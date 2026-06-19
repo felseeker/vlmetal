@@ -18,6 +18,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Bot not configured' });
   }
 
+  const mentions = '@felseeker @KGLOVEPUSSY';
+
   const text = [
     '**\u2705 Новая заявка — Концепция строительства**',
     '',
@@ -26,7 +28,9 @@ export default async function handler(req, res) {
     message ? '**\uD83D\uDCDD Сообщение:** ' + message : '',
     '',
     '\u2014',
-    'Отправлено с сайта'
+    'Отправлено с сайта',
+    '',
+    mentions
   ].filter(Boolean).join('\n');
 
   try {
