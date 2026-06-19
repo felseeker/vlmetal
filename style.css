@@ -75,13 +75,10 @@ body {
   flex-shrink: 0;
 }
 
-.logo__text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  white-space: nowrap;
+.logo__img {
+  height: 48px;
+  width: auto;
+  display: block;
 }
 
 .nav {
