@@ -351,11 +351,14 @@
     <p class="section__label fade-in">КОНТАКТЫ</p>
     <h2 class="section__title fade-in">СВЯЖИТЕСЬ С НАМИ</h2>
     <div class="contacts__grid">
-      <form class="contacts__form fade-in" action="https://vlmetal.vercel.app/api/submit" method="POST">
+        <form class="contacts__form fade-in" id="contactForm">
+        <div id="formSuccess" style="display:none; text-align:center; padding:40px 0;"><svg width="64" height="64" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#ff6a00" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#ff6a00" stroke-width="2" stroke-linecap="round"/></svg><p style="margin-top:16px; font-size:clamp(16px,1.6vw,22px); font-weight:700; letter-spacing:1px;">ЗАЯВКА ОТПРАВЛЕНА</p><p style="color:#888; margin-top:6px;">Мы свяжемся с вами в ближайшее время</p></div>
+        <div id="formFields">
         <input type="text" class="form__input" name="name" placeholder="Имя" required>
         <input type="tel" class="form__input" name="phone" placeholder="Телефон" required>
         <textarea class="form__input form__textarea" name="message" placeholder="Сообщение" rows="4"></textarea>
-        <button type="submit" class="btn btn--primary">ОТПРАВИТЬ ЗАЯВКУ</button>
+        <button type="submit" class="btn btn--primary" id="submitBtn">ОТПРАВИТЬ ЗАЯВКУ</button>
+        </div>
       </form>
       <div class="contacts__info fade-in">
         <div class="contacts__map">
@@ -465,6 +468,30 @@
   });
 
   startAuto();
+})();
+
+(function() {
+  var form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('submitBtn');
+      btn.textContent = 'ОТПРАВЛЯЕМ...';
+      btn.disabled = true;
+      var data = { name: form.name.value, phone: form.phone.value, message: form.message.value };
+      fetch('https://vlmetal.vercel.app/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function(r) { return r.json(); }).then(function() {
+        document.getElementById('formFields').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }).catch(function() {
+        btn.textContent = 'ОШИБКА, ПОПРОБУЙТЕ ЕЩЁ';
+        btn.disabled = false;
+      });
+    });
+  }
 })();
 
 (function() {
