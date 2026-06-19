@@ -373,7 +373,6 @@ body {
 }
 
 .card--service {
-  background: #0a0a0a;
   border: 1px solid var(--accent);
   box-shadow: 0 0 25px rgba(255, 106, 0, 0.25);
   padding: 40px 24px;
@@ -405,8 +404,8 @@ body {
 .card__icon-img {
   display: block;
   margin: 0 auto 24px;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
 }
 
