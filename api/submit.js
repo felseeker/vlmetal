@@ -12,9 +12,9 @@ export default async function handler(req, res) {
   }
 
   const botToken = process.env.TG_BOT_TOKEN;
-  const chatId = process.env.TG_CHAT_ID;
+  const chatId = -5408984431;
 
-  if (!botToken || !chatId) {
+  if (!botToken) {
     return res.status(500).json({ error: 'Bot not configured' });
   }
 
