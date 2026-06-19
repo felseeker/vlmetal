@@ -76,9 +76,18 @@ body {
 }
 
 .logo__img {
-  height: 48px;
+  height: 40px;
   width: auto;
   display: block;
+}
+
+.logo__text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav {
