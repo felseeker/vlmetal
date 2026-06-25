@@ -1048,7 +1048,7 @@ body {
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-rows: auto;
   gap: 16px;
 }
 
@@ -1067,11 +1067,9 @@ body {
 }
 
 .bento-card--large {
-  grid-row: span 2;
 }
 
 .bento-card--wide {
-  grid-column: span 2;
 }
 
 .bento-card__icon {
@@ -1205,7 +1203,7 @@ body {
 
 .card--product-img .card__image {
   width: calc(100% + 48px);
-  height: 220px;
+  height: 320px;
   overflow: hidden;
   margin: -28px -24px 20px;
   line-height: 0;
@@ -1214,7 +1212,8 @@ body {
 .card--product-img .card__image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #111;
   transition: transform 0.4s;
 }
 
