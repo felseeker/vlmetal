@@ -1199,26 +1199,27 @@ body {
 .card--product-img {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .card--product-img .card__image {
   width: calc(100% + 48px);
-  height: 320px;
-  overflow: hidden;
   margin: -28px -24px 20px;
   line-height: 0;
+  background: #0d0d0d;
 }
 
 .card--product-img .card__image img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #111;
+  height: auto;
+  display: block;
   transition: transform 0.4s;
+  padding: 20px;
+  object-fit: contain;
 }
 
 .card--product-img:hover .card__image img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .card--product-img .card__badge {
@@ -1229,12 +1230,6 @@ body {
 
 .card--product-img {
   position: relative;
-}
-
-@media (max-width: 480px) {
-  .card--product-img .card__image {
-    height: 180px;
-  }
 }
 
 /* Pricing */
