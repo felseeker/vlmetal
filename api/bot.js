@@ -59,11 +59,31 @@ async function fetchMetrikaSources(date1, date2) {
   return res.json();
 }
 
+async function fetchMetrikaRegions(date1, date2) {
+  const url = 'https://api-metrika.yandex.net/stat/v1/data?' + new URLSearchParams({
+    ids: YM_COUNTER,
+    metrics: 'ym:s:visits',
+    dimensions: 'ym:s:regionCity',
+    date1, date2,
+    limit: 10,
+    accuracy: 'full'
+  });
+
+  const res = await fetch(url, {
+    headers: { Authorization: 'OAuth ' + YM_TOKEN }
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error('Metrika regions error: ' + res.status + ' ' + err);
+  }
+  return res.json();
+}
+
 function formatNumber(n) {
   return Number(n).toLocaleString('ru-RU');
 }
 
-function buildStatsMessage(period, totals, sources) {
+function buildStatsMessage(period, totals, sources, regions) {
   const periodNames = { day: 'За вчера', week: 'За последние 7 дней', month: 'За последние 30 дней' };
   const header = periodNames[period] || 'За период';
   const total = totals.data[0] || {};
@@ -75,6 +95,15 @@ function buildStatsMessage(period, totals, sources) {
   msg += '\uD83D\uDC65 Визиты: *' + formatNumber(metrics[0]) + '*\n';
   msg += '\uD83D\uDCF1 Просмотры: *' + formatNumber(metrics[1]) + '*\n';
   msg += '\uD83D\uDC64 Посетители: *' + formatNumber(metrics[2]) + '*\n';
+
+  if (regions && regions.data && regions.data.length > 0) {
+    msg += '\n*Регионы:*\n';
+    for (const row of regions.data) {
+      const name = row.dimensions[0].name;
+      const visits = row.metrics[0];
+      msg += '\uD83D\uDCCD ' + name + ': *' + formatNumber(visits) + '*\n';
+    }
+  }
 
   if (sources && sources.data && sources.data.length > 0) {
     msg += '\n*Поисковые системы:*\n';
@@ -135,14 +164,14 @@ export default async function handler(req, res) {
     }
 
     try {
-      const [totals, sources] = await Promise.all([
-        fetchMetrika(period === 'day' ? dateRange('day').date1 : dateRange(period).date1,
-                     period === 'day' ? dateRange('day').date2 : dateRange(period).date2),
-        fetchMetrikaSources(period === 'day' ? dateRange('day').date1 : dateRange(period).date1,
-                            period === 'day' ? dateRange('day').date2 : dateRange(period).date2)
+      const dr = period === 'day' ? dateRange('day') : dateRange(period);
+      const [totals, sources, regions] = await Promise.all([
+        fetchMetrika(dr.date1, dr.date2),
+        fetchMetrikaSources(dr.date1, dr.date2),
+        fetchMetrikaRegions(dr.date1, dr.date2)
       ]);
 
-      const message = buildStatsMessage(period, totals, sources);
+      const message = buildStatsMessage(period, totals, sources, regions);
       await sendMessage(chatId, message);
     } catch (err) {
       await sendMessage(chatId, '\u274C Ошибка: ' + err.message);
@@ -161,9 +190,10 @@ export default async function handler(req, res) {
     }
 
     try {
-      const [totals, sources] = await Promise.all([
+      const [totals, sources, regions] = await Promise.all([
         fetchMetrika(dr.date1, dr.date2),
-        fetchMetrikaSources(dr.date1, dr.date2)
+        fetchMetrikaSources(dr.date1, dr.date2),
+        fetchMetrikaRegions(dr.date1, dr.date2)
       ]);
       return res.json({
         period,
@@ -174,6 +204,10 @@ export default async function handler(req, res) {
           engine: r.dimensions[0].name,
           visits: r.metrics[0],
           pageviews: r.metrics[1]
+        })),
+        regions: (regions.data || []).map(r => ({
+          city: r.dimensions[0].name,
+          visits: r.metrics[0]
         }))
       });
     } catch (err) {
