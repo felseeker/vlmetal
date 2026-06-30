@@ -619,7 +619,7 @@
         <label class="form__checkbox">
           <input type="checkbox" name="consent" required>
           <span class="form__checkmark"></span>
-          <span>Согласен(на) с <a href="/privacy/" target="_blank">Политикой конфиденциальности</a></span>
+          <span>Согласен(на) на <a href="/privacy/" target="_blank">обработку персональных данных</a></span>
         </label>
         <button type="submit" class="btn btn--primary" id="submitBtn">ОТПРАВИТЬ ЗАЯВКУ</button>
       </form>
@@ -818,6 +818,46 @@
     });
   }, { threshold: 0.15 });
   els.forEach(function(el) { observer.observe(el); });
+})();
+</script>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p class="cookie-banner__text">Этот сайт использует файлы cookie для аналитики (Яндекс.Метрика). Продолжая использовать сайт, вы соглашаетесь на обработку данных. <a href="/privacy/" target="_blank">Подробнее</a></p>
+  <button class="cookie-banner__btn" id="cookieAccept">Принять</button>
+</div>
+
+<style>
+.cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #1a1a1a; border-top: 1px solid #333;
+  padding: 14px 20px; display: flex; align-items: center;
+  justify-content: center; gap: 16px; flex-wrap: wrap;
+  z-index: 9999; font-size: 13px;
+}
+.cookie-banner__text { color: #ccc; margin: 0; }
+.cookie-banner__text a { color: #ff6a00; }
+.cookie-banner__btn {
+  background: #ff6a00; color: #fff; border: none;
+  padding: 8px 24px; border-radius: 4px; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-weight: 600;
+  font-size: 13px; white-space: nowrap;
+}
+.cookie-banner__btn:hover { background: #e55e00; }
+</style>
+
+<script>
+(function() {
+  var banner = document.getElementById('cookieBanner');
+  var btn = document.getElementById('cookieAccept');
+  if (!banner || !btn) return;
+  if (localStorage.getItem('cookieConsent')) {
+    banner.style.display = 'none';
+    return;
+  }
+  btn.addEventListener('click', function() {
+    localStorage.setItem('cookieConsent', '1');
+    banner.style.display = 'none';
+  });
 })();
 </script>
 </body>
