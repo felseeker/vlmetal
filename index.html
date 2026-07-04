@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="preload" as="image" href="img/hero-1.jpg" fetchpriority="high">
@@ -1169,6 +1169,48 @@
 
   elements.forEach(function(el) {
     observer.observe(el);
+  });
+})();
+</script>
+
+<!-- Mobile bottom navigation -->
+<nav class="mobile-tabs" id="mobileTabs">
+  <div class="mobile-tabs__inner">
+    <button class="mobile-tabs__btn" data-tab="tab-mangaly">Мангалы</button>
+    <button class="mobile-tabs__btn" data-tab="tab-gates">Ворота</button>
+    <button class="mobile-tabs__btn" data-tab="tab-navesy">Навесы</button>
+    <button class="mobile-tabs__btn" data-tab="tab-stairs">Лестницы</button>
+    <button class="mobile-tabs__btn" data-tab="tab-workshop">Цех</button>
+    <button class="mobile-tabs__btn" data-tab="tab-lowrise">Строит.</button>
+    <button class="mobile-tabs__btn" data-tab="tab-other">Прочее</button>
+  </div>
+</nav>
+
+<script>
+// Mobile tabs - scroll to services section and switch tab
+(function() {
+  var mobileTabs = document.getElementById('mobileTabs');
+  if (!mobileTabs) return;
+
+  var buttons = mobileTabs.querySelectorAll('.mobile-tabs__btn');
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tabId = this.getAttribute('data-tab');
+      var servicesSection = document.getElementById('services');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(function() {
+          // Click the corresponding desktop tab
+          var desktopTabs = document.querySelectorAll('.tabs__btn');
+          desktopTabs.forEach(function(dt) {
+            var onclickAttr = dt.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.indexOf(tabId) !== -1) {
+              dt.click();
+            }
+          });
+        }, 500);
+      }
+    });
   });
 })();
 </script>

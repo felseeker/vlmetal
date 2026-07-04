@@ -827,7 +827,7 @@ body {
 /* WhatsApp button */
 .whatsapp-btn {
   position: fixed;
-  bottom: 80px;
+  bottom: 130px;
   right: 24px;
   z-index: 200;
   display: flex;
@@ -855,7 +855,7 @@ body {
 /* Telegram button */
 .telegram-btn {
   position: fixed;
-  bottom: 148px;
+  bottom: 198px;
   right: 24px;
   z-index: 200;
   display: flex;
@@ -878,6 +878,72 @@ body {
 .telegram-btn svg {
   width: 26px;
   height: 26px;
+}
+
+/* Mobile bottom tabs */
+.mobile-tabs {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 190;
+  background: rgba(10, 10, 10, 0.98);
+  border-top: 1px solid rgba(255, 106, 0, 0.2);
+  backdrop-filter: blur(12px);
+  padding: 8px 0;
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+.mobile-tabs__inner {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 0 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-tabs__inner::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-tabs__btn {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 106, 0, 0.15);
+  padding: 8px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.mobile-tabs__btn:hover,
+.mobile-tabs__btn--active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+@media (max-width: 900px) {
+  .mobile-tabs {
+    display: block;
+  }
+
+  body {
+    padding-bottom: 60px;
+  }
+}
+
+@media (min-width: 901px) {
+  .mobile-tabs {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1742,8 +1808,8 @@ body {
 }
 
 .testimonial-card__avatar {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   flex-shrink: 0;
   overflow: hidden;
