@@ -1735,6 +1735,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .card--product-img .card__image {
+    aspect-ratio: 16 / 9;
+  }
+
   .logo__text {
     display: none;
   }
@@ -1768,6 +1772,10 @@ body {
 
   .grid--gallery {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card--product-img .card__image {
+    aspect-ratio: 2 / 1;
   }
 
   .faq__question {
