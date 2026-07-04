@@ -924,7 +924,6 @@ body {
   cursor: pointer;
   border-radius: 6px;
   transition: background 0.3s, color 0.3s;
-  white-space: nowrap;
 }
 
 .mobile-tabs__btn:hover {
