@@ -880,7 +880,7 @@ body {
   height: 26px;
 }
 
-/* Mobile bottom tabs */
+/* Mobile bottom tabs - same style as desktop tabs */
 .mobile-tabs {
   display: none;
   position: sticky;
@@ -897,10 +897,13 @@ body {
 
 .mobile-tabs__inner {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
   padding: 0 12px;
   -webkit-overflow-scrolling: touch;
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: 4px;
 }
 
 .mobile-tabs__inner::-webkit-scrollbar {
@@ -911,23 +914,26 @@ body {
   flex-shrink: 0;
   background: transparent;
   color: var(--text-secondary);
-  border: 1px solid rgba(255, 106, 0, 0.15);
-  padding: 10px 16px;
+  border: none;
+  padding: 12px 20px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-size: clamp(11px, 1.1vw, 14px);
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  border-radius: 20px;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+  white-space: nowrap;
 }
 
-.mobile-tabs__btn:hover,
+.mobile-tabs__btn:hover {
+  color: #fff;
+}
+
 .mobile-tabs__btn--active {
   background: var(--accent);
   color: #fff;
-  border-color: var(--accent);
 }
 
 @media (max-width: 900px) {
