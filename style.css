@@ -127,21 +127,8 @@ body {
   padding-top: 80px;
   padding-bottom: 40px;
   position: relative;
-  overflow-x: hidden;
+  overflow: visible;
   max-width: 100%;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: calc(100% + 400px);
-  background: radial-gradient(ellipse at center, rgba(255, 106, 0, 0.18) 0%, rgba(255, 106, 0, 0.06) 40%, transparent 60%);
-  pointer-events: none;
-  z-index: -1;
 }
 
 .hero::before {
@@ -248,14 +235,15 @@ body {
 
 .hero__glow {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 600px;
+  height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 106, 0, 0.2) 0%, transparent 60%);
-  z-index: 0;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.25) 0%, rgba(255, 106, 0, 0.08) 40%, transparent 65%);
+  z-index: -1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .hero__sparks {
