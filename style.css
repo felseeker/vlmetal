@@ -129,18 +129,7 @@ body {
   position: relative;
   overflow: visible;
   max-width: 100%;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -150px;
-  right: 0;
-  width: 60%;
-  height: calc(100% + 300px);
-  background: radial-gradient(ellipse at 70% 50%, rgba(255, 106, 0, 0.18) 0%, rgba(255, 106, 0, 0.06) 40%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
+  background: radial-gradient(ellipse at 65% 50%, rgba(255, 106, 0, 0.2) 0%, rgba(255, 106, 0, 0.06) 35%, transparent 55%);
 }
 
 .hero__grid {
@@ -149,7 +138,6 @@ body {
   gap: 60px;
   align-items: center;
   width: 100%;
-  overflow-x: hidden;
 }
 
 .hero__content {
