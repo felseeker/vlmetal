@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="preload" as="image" href="img/hero-1.jpg" fetchpriority="high">
@@ -805,6 +805,19 @@
   </div>
 </section>
 
+<!-- Mobile tabs (under products) -->
+<nav class="mobile-tabs" id="mobileTabs">
+  <div class="mobile-tabs__inner">
+    <button class="mobile-tabs__btn" data-tab="tab-mangaly">Мангалы</button>
+    <button class="mobile-tabs__btn" data-tab="tab-gates">Ворота</button>
+    <button class="mobile-tabs__btn" data-tab="tab-navesy">Навесы</button>
+    <button class="mobile-tabs__btn" data-tab="tab-stairs">Лестницы</button>
+    <button class="mobile-tabs__btn" data-tab="tab-workshop">Цех</button>
+    <button class="mobile-tabs__btn" data-tab="tab-lowrise">Строит.</button>
+    <button class="mobile-tabs__btn" data-tab="tab-other">Прочее</button>
+  </div>
+</nav>
+
 <!-- 5. TESTIMONIALS -->
 <section class="section section--dark" id="testimonials">
   <div class="container">
@@ -1173,45 +1186,72 @@
 })();
 </script>
 
-<!-- Mobile bottom navigation -->
-<nav class="mobile-tabs" id="mobileTabs">
-  <div class="mobile-tabs__inner">
-    <button class="mobile-tabs__btn" data-tab="tab-mangaly">Мангалы</button>
-    <button class="mobile-tabs__btn" data-tab="tab-gates">Ворота</button>
-    <button class="mobile-tabs__btn" data-tab="tab-navesy">Навесы</button>
-    <button class="mobile-tabs__btn" data-tab="tab-stairs">Лестницы</button>
-    <button class="mobile-tabs__btn" data-tab="tab-workshop">Цех</button>
-    <button class="mobile-tabs__btn" data-tab="tab-lowrise">Строит.</button>
-    <button class="mobile-tabs__btn" data-tab="tab-other">Прочее</button>
-  </div>
-</nav>
-
 <script>
-// Mobile tabs - scroll to services section and switch tab
+// Mobile tabs - sync with desktop tabs
 (function() {
   var mobileTabs = document.getElementById('mobileTabs');
   if (!mobileTabs) return;
 
-  var buttons = mobileTabs.querySelectorAll('.mobile-tabs__btn');
-  buttons.forEach(function(btn) {
+  var mobileBtns = mobileTabs.querySelectorAll('.mobile-tabs__btn');
+  var desktopBtns = document.querySelectorAll('.tabs__btn');
+
+  // Mobile click -> switch desktop tab
+  mobileBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       var tabId = this.getAttribute('data-tab');
-      var servicesSection = document.getElementById('services');
-      if (servicesSection) {
-        servicesSection.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(function() {
-          // Click the corresponding desktop tab
-          var desktopTabs = document.querySelectorAll('.tabs__btn');
-          desktopTabs.forEach(function(dt) {
-            var onclickAttr = dt.getAttribute('onclick');
-            if (onclickAttr && onclickAttr.indexOf(tabId) !== -1) {
-              dt.click();
-            }
-          });
-        }, 500);
-      }
+
+      // Update mobile active state
+      mobileBtns.forEach(function(b) { b.classList.remove('mobile-tabs__btn--active'); });
+      this.classList.add('mobile-tabs__btn--active');
+
+      // Click corresponding desktop tab
+      desktopBtns.forEach(function(dt) {
+        var onclickAttr = dt.getAttribute('onclick');
+        if (onclickAttr && onclickAttr.indexOf(tabId) !== -1) {
+          dt.click();
+        }
+      });
     });
   });
+
+  // Desktop click -> update mobile active state
+  desktopBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var onclickAttr = this.getAttribute('onclick');
+      if (!onclickAttr) return;
+
+      // Extract tab id from onclick
+      var match = onclickAttr.match(/showTab\('([^']+)'/);
+      if (!match) return;
+      var tabId = match[1];
+
+      // Update mobile buttons
+      mobileBtns.forEach(function(mb) {
+        mb.classList.remove('mobile-tabs__btn--active');
+        if (mb.getAttribute('data-tab') === tabId) {
+          mb.classList.add('mobile-tabs__btn--active');
+          // Scroll mobile tabs to show active button
+          mb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
+    });
+  });
+
+  // Set initial active state
+  var activeDesktop = document.querySelector('.tabs__btn--active');
+  if (activeDesktop) {
+    var onclickAttr = activeDesktop.getAttribute('onclick');
+    if (onclickAttr) {
+      var match = onclickAttr.match(/showTab\('([^']+)'/);
+      if (match) {
+        mobileBtns.forEach(function(mb) {
+          if (mb.getAttribute('data-tab') === match[1]) {
+            mb.classList.add('mobile-tabs__btn--active');
+          }
+        });
+      }
+    }
+  }
 })();
 </script>
 </body>
