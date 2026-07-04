@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="preload" as="image" href="img/hero-1.jpg" fetchpriority="high">
@@ -1166,27 +1166,6 @@
 </script>
 
 <script>
-// Scroll animations (lightweight)
-(function() {
-  var elements = document.querySelectorAll('.fade-in');
-  if (!elements.length) return;
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in--visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  elements.forEach(function(el) {
-    observer.observe(el);
-  });
-})();
-</script>
-
-<script>
 // Mobile tabs - sync with desktop tabs
 (function() {
   var mobileTabs = document.getElementById('mobileTabs');
@@ -1195,62 +1174,62 @@
   var mobileBtns = mobileTabs.querySelectorAll('.mobile-tabs__btn');
   var desktopBtns = document.querySelectorAll('.tabs__btn');
 
-  // Mobile click -> switch desktop tab
+  // Map tab IDs: mobile uses "tab-mangaly" format, desktop uses "mangals"
+  var tabMap = {
+    'tab-mangaly': 'mangals',
+    'tab-gates': 'gates',
+    'tab-navesy': 'navesy',
+    'tab-stairs': 'stairs',
+    'tab-workshop': 'workshop',
+    'tab-lowrise': 'lowrise',
+    'tab-other': 'other'
+  };
+
+  function switchTab(tabId) {
+    // Update desktop tabs
+    desktopBtns.forEach(function(dt) {
+      dt.classList.remove('tabs__btn--active');
+      if (dt.dataset.tab === tabId) {
+        dt.classList.add('tabs__btn--active');
+      }
+    });
+
+    // Update panels
+    var panels = document.querySelectorAll('.tabs__panel');
+    panels.forEach(function(p) { p.classList.remove('tabs__panel--active'); });
+    var targetPanel = document.getElementById('tab-' + tabId);
+    if (targetPanel) targetPanel.classList.add('tabs__panel--active');
+
+    // Update mobile buttons
+    mobileBtns.forEach(function(mb) {
+      mb.classList.remove('mobile-tabs__btn--active');
+      var mappedId = tabMap[mb.dataset.tab] || mb.dataset.tab;
+      if (mappedId === tabId) {
+        mb.classList.add('mobile-tabs__btn--active');
+        mb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    });
+  }
+
+  // Mobile click -> switch tab
   mobileBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var tabId = this.getAttribute('data-tab');
-
-      // Update mobile active state
-      mobileBtns.forEach(function(b) { b.classList.remove('mobile-tabs__btn--active'); });
-      this.classList.add('mobile-tabs__btn--active');
-
-      // Click corresponding desktop tab
-      desktopBtns.forEach(function(dt) {
-        var onclickAttr = dt.getAttribute('onclick');
-        if (onclickAttr && onclickAttr.indexOf(tabId) !== -1) {
-          dt.click();
-        }
-      });
+      var tabId = tabMap[this.dataset.tab] || this.dataset.tab;
+      switchTab(tabId);
     });
   });
 
-  // Desktop click -> update mobile active state
+  // Desktop click -> update mobile
   desktopBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var onclickAttr = this.getAttribute('onclick');
-      if (!onclickAttr) return;
-
-      // Extract tab id from onclick
-      var match = onclickAttr.match(/showTab\('([^']+)'/);
-      if (!match) return;
-      var tabId = match[1];
-
-      // Update mobile buttons
-      mobileBtns.forEach(function(mb) {
-        mb.classList.remove('mobile-tabs__btn--active');
-        if (mb.getAttribute('data-tab') === tabId) {
-          mb.classList.add('mobile-tabs__btn--active');
-          // Scroll mobile tabs to show active button
-          mb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }
-      });
+      switchTab(this.dataset.tab);
     });
   });
 
-  // Set initial active state
+  // Set initial active
   var activeDesktop = document.querySelector('.tabs__btn--active');
   if (activeDesktop) {
-    var onclickAttr = activeDesktop.getAttribute('onclick');
-    if (onclickAttr) {
-      var match = onclickAttr.match(/showTab\('([^']+)'/);
-      if (match) {
-        mobileBtns.forEach(function(mb) {
-          if (mb.getAttribute('data-tab') === match[1]) {
-            mb.classList.add('mobile-tabs__btn--active');
-          }
-        });
-      }
-    }
+    switchTab(activeDesktop.dataset.tab);
   }
 })();
 </script>
