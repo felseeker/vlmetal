@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -1016,6 +1017,10 @@ body {
   background: rgba(255, 106, 0, 0.02);
 }
 
+.social-proof .container {
+  overflow: hidden;
+}
+
 .social-proof__track {
   display: flex;
   width: max-content;
@@ -1116,6 +1121,9 @@ body {
   border-radius: 8px;
   padding: 4px;
   width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tabs__btn {
@@ -1696,6 +1704,29 @@ body {
 
   .hero__image {
     order: -1;
+  }
+
+  .hero__glow {
+    display: none;
+  }
+
+  .hero__sparks {
+    display: none;
+  }
+
+  .hero__title {
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  .hero__title--big {
+    font-size: 36px;
+    letter-spacing: 1px;
+  }
+
+  .hero__subtitle {
+    max-width: 100%;
+    font-size: 14px;
   }
 
   .hero__carousel {
