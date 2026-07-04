@@ -129,7 +129,19 @@ body {
   position: relative;
   overflow-x: hidden;
   max-width: 100%;
-  background: radial-gradient(ellipse at 70% 50%, rgba(255, 106, 0, 0.12) 0%, rgba(255, 106, 0, 0.04) 35%, transparent 60%);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: calc(100% + 200px);
+  background: radial-gradient(ellipse at center, rgba(255, 106, 0, 0.15) 0%, rgba(255, 106, 0, 0.05) 40%, transparent 65%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .hero::before {
