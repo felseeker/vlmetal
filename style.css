@@ -1206,6 +1206,19 @@ body {
   min-height: clamp(160px, 20vw, 280px);
   padding: clamp(20px, 3vw, 40px) clamp(16px, 3vw, 24px);
 }
+
+/* Центрирование последних 2 карточек в сетке 3 колонки (ровно 5 элементов) */
+@media (min-width: 641px) {
+  .grid--center-last > *:nth-child(4) {
+    grid-column: 1 / 2;
+    justify-self: end;
+  }
+
+  .grid--center-last > *:nth-child(5) {
+    grid-column: 2 / 3;
+    justify-self: start;
+  }
+}
 .card--placeholder .card__placeholder-icon {
   margin-bottom: 16px;
   opacity: 0.5;
