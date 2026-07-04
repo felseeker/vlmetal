@@ -1207,16 +1207,30 @@ body {
   padding: clamp(20px, 3vw, 40px) clamp(16px, 3vw, 24px);
 }
 
-/* Центрирование последних 2 карточек в сетке 3 колонки (ровно 5 элементов) */
-@media (min-width: 641px) {
-  .grid--center-last > *:nth-child(4) {
-    grid-column: 1 / 2;
-    justify-self: end;
-  }
+/* Центрирование последних карточек во второй строке */
+.grid--center-last {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
 
-  .grid--center-last > *:nth-child(5) {
-    grid-column: 2 / 3;
-    justify-self: start;
+.grid--center-last > * {
+  flex: 0 0 calc((100% - 48px) / 3);
+  max-width: calc((100% - 48px) / 3);
+}
+
+@media (max-width: 1024px) {
+  .grid--center-last > * {
+    flex: 0 0 calc((100% - 24px) / 2);
+    max-width: calc((100% - 24px) / 2);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid--center-last > * {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 .card--placeholder .card__placeholder-icon {
