@@ -134,12 +134,12 @@ body {
 .hero::after {
   content: '';
   position: absolute;
-  top: -100px;
+  top: -200px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: calc(100% + 200px);
-  background: radial-gradient(ellipse at center, rgba(255, 106, 0, 0.15) 0%, rgba(255, 106, 0, 0.05) 40%, transparent 65%);
+  width: 900px;
+  height: calc(100% + 400px);
+  background: radial-gradient(ellipse at center, rgba(255, 106, 0, 0.18) 0%, rgba(255, 106, 0, 0.06) 40%, transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
