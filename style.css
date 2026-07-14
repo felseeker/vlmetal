@@ -923,21 +923,21 @@ body {
   justify-content: center;
   width: 56px;
   height: 56px;
-  background: #E31E24;
+  background: #1a1a2e;
   color: #fff;
   border-radius: 50%;
-  box-shadow: 0 4px 20px rgba(227, 30, 36, 0.4);
+  box-shadow: 0 4px 20px rgba(26, 26, 46, 0.4);
   transition: box-shadow 0.3s, transform 0.3s;
 }
 
 .max-btn:hover {
-  box-shadow: 0 6px 30px rgba(227, 30, 36, 0.6);
+  box-shadow: 0 6px 30px rgba(26, 26, 46, 0.6);
   transform: translateY(-2px);
 }
 
 .max-btn svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 /* Mobile bottom tabs - same style as desktop tabs */
