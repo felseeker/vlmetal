@@ -912,6 +912,34 @@ body {
   height: 26px;
 }
 
+/* MAX button */
+.max-btn {
+  position: fixed;
+  bottom: 266px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: #E31E24;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(227, 30, 36, 0.4);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.max-btn:hover {
+  box-shadow: 0 6px 30px rgba(227, 30, 36, 0.6);
+  transform: translateY(-2px);
+}
+
+.max-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
 /* Mobile bottom tabs - same style as desktop tabs */
 .mobile-tabs {
   display: none;
@@ -981,7 +1009,8 @@ body {
 
 @media (max-width: 480px) {
   .whatsapp-btn,
-  .telegram-btn {
+  .telegram-btn,
+  .max-btn {
     width: 48px;
     height: 48px;
   }
@@ -1004,6 +1033,16 @@ body {
   .telegram-btn svg {
     width: 22px;
     height: 22px;
+  }
+
+  .max-btn {
+    bottom: 192px;
+    right: 16px;
+  }
+
+  .max-btn svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
