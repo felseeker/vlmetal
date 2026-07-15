@@ -18,7 +18,7 @@
 **Хостинг:** GitHub Pages + Vercel (backend)
 **Компания:** ООО «Концепция Строительства», Владивосток, ул. Татарская 11
 **Телефон:** +7 (924) 231-04-78
-**Email:** felseeker@gmail.com
+**Email:** conceptstroydv@mail.ru
 
 ---
 
