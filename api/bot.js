@@ -148,6 +148,19 @@ export default async function handler(req, res) {
     const command = parts[0].toLowerCase();
     const arg = (parts[1] || '').toLowerCase();
 
+    if (command === '/id') {
+      const threadInfo = threadId
+        ? 'ID топика: *' + threadId + '*'
+        : 'Это не топик (или ID не передан)';
+      await sendMessage(chatId,
+        '\uD83D\uDCCB *Информация о чате:*\n\n' +
+        'Chat ID: *' + chatId + '*\n' +
+        threadInfo,
+        threadId
+      );
+      return res.status(200).json({ ok: true });
+    }
+
     if (command !== '/stats') {
       return res.status(200).json({ ok: true });
     }
