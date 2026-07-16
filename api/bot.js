@@ -138,6 +138,7 @@ export default async function handler(req, res) {
     const msg = update.message;
     const text = (msg.text || '').trim();
     const chatId = msg.chat.id;
+    const threadId = msg.message_thread_id || null;
 
     if (!text.startsWith('/')) {
       return res.status(200).json({ ok: true });
@@ -158,7 +159,8 @@ export default async function handler(req, res) {
         '\u26A0\uFE0F Яндекс.Метрика ещё не подключена.\n\n' +
         'Установи переменную YM_OAUTH_TOKEN в Vercel.\n\n' +
         'Инструкция: https://oauth.yandex.ru/ \u2014 создать приложение, ' +
-        'запросить доступ к Metrika, получить токен.'
+        'запросить доступ к Metrika, получить токен.',
+        threadId
       );
       return res.status(200).json({ ok: true });
     }
@@ -172,9 +174,9 @@ export default async function handler(req, res) {
       ]);
 
       const message = buildStatsMessage(period, totals, sources, regions);
-      await sendMessage(chatId, message);
+      await sendMessage(chatId, message, threadId);
     } catch (err) {
-      await sendMessage(chatId, '\u274C Ошибка: ' + err.message);
+      await sendMessage(chatId, '\u274C Ошибка: ' + err.message, threadId);
     }
 
     return res.status(200).json({ ok: true });
@@ -218,10 +220,14 @@ export default async function handler(req, res) {
   return res.status(405).json({ error: 'Method not allowed' });
 }
 
-async function sendMessage(chatId, text) {
+async function sendMessage(chatId, text, threadId) {
+  const payload = { chat_id: chatId, text, parse_mode: 'Markdown' };
+  if (threadId) {
+    payload.message_thread_id = threadId;
+  }
   await fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' })
+    body: JSON.stringify(payload)
   });
 }
