@@ -1,0 +1,7 @@
+{
+  "name": "vlmetal-submit",
+  "version": "1.0.0",
+  "description": "Yandex Cloud Function для обработки заявок vlmetal.ru",
+  "main": "index.js",
+  "dependencies": {}
+}
