@@ -1,7 +1,8 @@
 const BOT_TOKEN = process.env.TG_BOT_TOKEN;
 const YM_TOKEN = process.env.YM_OAUTH_TOKEN;
 const YM_COUNTER = '109981508';
-const CHAT_ID = -5408984431;
+const CHAT_ID = -1003946656029;
+const STATS_THREAD_ID = 25;
 
 function dateRange(period) {
   const now = new Date();
@@ -187,9 +188,9 @@ export default async function handler(req, res) {
       ]);
 
       const message = buildStatsMessage(period, totals, sources, regions);
-      await sendMessage(chatId, message, threadId);
+      await sendMessage(chatId, message, STATS_THREAD_ID);
     } catch (err) {
-      await sendMessage(chatId, '\u274C Ошибка: ' + err.message, threadId);
+      await sendMessage(chatId, '\u274C Ошибка: ' + err.message, STATS_THREAD_ID);
     }
 
     return res.status(200).json({ ok: true });
