@@ -1041,7 +1041,16 @@
       var btn = document.getElementById('submitBtn');
       btn.textContent = 'ОТПРАВЛЯЕМ...';
       btn.disabled = true;
-      var data = { name: form.name.value, phone: form.phone.value, message: form.message.value, consent: form.consent.checked };
+      var nameField = form.elements.namedItem('name');
+      var phoneField = form.elements.namedItem('phone');
+      var messageField = form.elements.namedItem('message');
+      var consentField = form.elements.namedItem('consent');
+      var data = {
+        name: nameField ? nameField.value.trim() : '',
+        phone: phoneField ? phoneField.value.trim() : '',
+        message: messageField ? messageField.value.trim() : '',
+        consent: Boolean(consentField && consentField.checked)
+      };
       var submitUrl = 'https://d5d01eb689qn07cv0ocu.sax5b7yq.apigw.yandexcloud.net/api/website-lead';
       fetch(submitUrl, {
         method: 'POST',
