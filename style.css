@@ -699,6 +699,49 @@ body {
   letter-spacing: 0.5px;
 }
 
+.contacts__communities {
+  margin: 22px 0 16px;
+}
+
+.contacts__communities-title {
+  display: block;
+  margin-bottom: 9px;
+  color: #888;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.contacts__community-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contacts__community-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 106, 0, 0.35);
+  border-radius: 6px;
+  color: #ccc;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.3s, border-color 0.3s, background 0.3s, transform 0.3s;
+}
+
+.contacts__community-links a:hover {
+  background: rgba(255, 106, 0, 0.12);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 .contacts__social {
   display: flex;
   gap: 12px;
