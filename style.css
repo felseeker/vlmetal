@@ -699,15 +699,44 @@ body {
   letter-spacing: 0.5px;
 }
 
+.contacts__details-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.contacts__main-details {
+  min-width: 0;
+}
+
+.contacts__messengers,
+.contacts__hours {
+  color: #aaa;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.contacts__messengers a {
+  color: #bbb;
+  text-decoration: none;
+  border-bottom: 1px dashed #888;
+}
+
+.contacts__messengers a:hover {
+  color: #fff;
+  border-color: var(--accent);
+}
+
 .contacts__communities {
-  margin: 22px 0 16px;
+  margin: 0;
 }
 
 .contacts__communities-title {
   display: block;
   margin-bottom: 9px;
   color: #888;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.5px;
 }
@@ -722,13 +751,13 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px;
-  height: 34px;
-  padding: 0 12px;
+  min-width: 56px;
+  height: 40px;
+  padding: 0 14px;
   border: 1px solid rgba(255, 106, 0, 0.35);
   border-radius: 6px;
   color: #ccc;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
   text-decoration: none;
@@ -2313,6 +2342,20 @@ body {
 
   .contacts__details::before {
     font-size: 14px;
+  }
+
+  .contacts__details-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contacts__communities {
+    margin-top: 2px;
+  }
+
+  .contacts__messengers,
+  .contacts__hours {
+    font-size: 13px;
   }
 
   .contacts__address,
