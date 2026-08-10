@@ -6,58 +6,38 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, phone, message } = req.body || {};
+  const { name, phone, message, consent } = req.body || {};
   if (!name || !phone) {
     return res.status(400).json({ error: 'Name and phone required' });
   }
+  if (consent !== true) return res.status(422).json({ error: 'Consent required' });
 
-  const botToken = process.env.TG_BOT_TOKEN;
-  const chatId = -1003946656029;
-  const threadId = 32;
-
-  if (!botToken) {
-    return res.status(500).json({ error: 'Bot not configured' });
-  }
-
-  const mentions = '@felseeker @KGLOVEPUSSY';
-
-  const text = [
-    '**\u2705 Новая заявка — Концепция строительства**',
-    '',
-    '**\uD83D\uDC64 Имя:** ' + name,
-    '**\uD83D\uDCDE Телефон:** ' + phone,
-    message ? '**\uD83D\uDCDD Сообщение:** ' + message : '',
-    '',
-    '\u2014',
-    'Отправлено с сайта',
-    '',
-    mentions
-  ].filter(Boolean).join('\n');
-
-  const payload = {
-    chat_id: chatId,
-    text: text,
-    parse_mode: 'Markdown'
-  };
-
-  if (threadId) {
-    payload.message_thread_id = Number(threadId);
-  }
+  const crmUrl = (process.env.CRM_WEBSITE_LEAD_URL || '').trim();
+  const crmToken = (process.env.CRM_WEBSITE_LEAD_TOKEN || '').trim();
+  if (!crmUrl || !crmToken) return res.status(503).json({ error: 'CRM lead endpoint is not configured' });
 
   try {
-    const tgRes = await fetch(
-      'https://api.telegram.org/bot' + botToken + '/sendMessage',
+    const crmRes = await fetch(
+      crmUrl,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${crmToken}` },
+        body: JSON.stringify({
+          id: `web_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+          title: `Заявка с сайта: ${name}`,
+          text: `Телефон: ${phone}\n${message || ''}`.trim(),
+          managerName: 'Администратор',
+          managerEmail: '',
+          source: 'website',
+          contact: { name, phone },
+          status: 'new',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        })
       }
     );
 
-    if (!tgRes.ok) {
-      const err = await tgRes.text();
-      return res.status(500).json({ error: 'Telegram error', detail: err });
-    }
+    if (!crmRes.ok) return res.status(502).json({ error: 'CRM unavailable' });
 
     return res.status(200).json({ ok: true });
   } catch (err) {

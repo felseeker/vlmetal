@@ -8,10 +8,12 @@
  * - YANDEX_SPREADSHEET_ID — ID Google таблицы для хранения заявок
  * - YANDEX_SPREADSHEET_TOKEN — OAuth токен Яндекс
  * - VK_TOKEN — Токен VK бота ( сообщества)
- * - VK_CHAT_ID — ID беседы VK для уведомлений
+ * - VK_PEER_IDS — ID получателей VK через запятую
  * - TG_BOT_TOKEN — Токен Telegram бота
  * - TG_CHAT_ID — ID чата Telegram для уведомлений
  * - TG_THREAD_ID — ID топика Telegram (опционально)
+ * - CRM_WEBSITE_LEAD_URL — URL POST /api/requests в CRM Gateway
+ * - CRM_WEBSITE_LEAD_TOKEN — серверный JWT с ролью super_admin
  */
 
 module.exports.handler = async (event, context) => {
@@ -52,11 +54,12 @@ module.exports.handler = async (event, context) => {
     // Продолжаем даже если таблица не сохранилась — уведомления всё равно отправим
   }
 
-  // 2. Отправляем уведомление в VK (с данными)
+  // 2. Создаём заявку в CRM. Персональные данные не отправляются в Telegram.
   try {
-    await sendVKNotification(name, phone, message, timestamp);
+    await sendCRMRequest(name, phone, message, timestamp);
   } catch (err) {
-    console.error('VK error:', err);
+    console.error('CRM error:', err);
+    return { statusCode: 502, headers, body: JSON.stringify({ error: 'CRM unavailable' }) };
   }
 
   // 3. Отправляем короткое уведомление в Telegram (БЕЗ персональных данных)
@@ -88,7 +91,7 @@ async function saveToYandexSheet(name, phone, message, timestamp) {
   // Добавляем строку в таблицу
   const url = `https://api-sheets.yandex.ru/v2/spreadsheets/${spreadsheetId}/values/Лист1!A:E`;
 
-  await fetch(url, {
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -98,16 +101,46 @@ async function saveToYandexSheet(name, phone, message, timestamp) {
       values: [[timestamp, name, phone, message || '', 'Новая']]
     })
   });
+  if (!response.ok) throw new Error(`Yandex Sheets returned ${response.status}`);
+}
+
+async function sendCRMRequest(name, phone, message, timestamp) {
+  const url = (process.env.CRM_WEBSITE_LEAD_URL || '').trim();
+  const token = (process.env.CRM_WEBSITE_LEAD_TOKEN || '').trim();
+  if (!url || !token) throw new Error('CRM lead endpoint is not configured');
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: `web_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      title: `Заявка с сайта: ${name}`,
+      text: `Телефон: ${phone}\n${message || ''}`.trim(),
+      managerName: 'Администратор',
+      managerEmail: '',
+      source: 'website',
+      contact: { name, phone },
+      status: 'new',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      websiteTimestamp: timestamp
+    })
+  });
+
+  if (!response.ok) throw new Error(`CRM returned ${response.status}`);
 }
 
 /**
- * Уведомление в VK беседу
+ * Уведомление в VK (обоим пользователям)
  */
 async function sendVKNotification(name, phone, message, timestamp) {
   const vkToken = process.env.VK_TOKEN;
-  const chatId = process.env.VK_CHAT_ID;
+  const vkPeerIds = process.env.VK_PEER_IDS;
 
-  if (!vkToken || !chatId) {
+  if (!vkToken || !vkPeerIds) {
     console.log('VK not configured, skipping');
     return;
   }
@@ -124,16 +157,22 @@ async function sendVKNotification(name, phone, message, timestamp) {
     'Отправлено с сайта'
   ].filter(Boolean).join('\n');
 
-  await fetch('https://api.vk.com/method/messages.send', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      access_token: vkToken,
-      chat_id: chatId,
-      message: text,
-      v: '5.199'
-    })
-  });
+  // Отправляем каждому пользователю
+  const peerIds = vkPeerIds.split(',').map(id => id.trim()).filter(id => id);
+  for (const peerId of peerIds) {
+    const randomId = Math.floor(Math.random() * 1000000);
+    await fetch('https://api.vk.com/method/messages.send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        access_token: vkToken,
+        peer_id: peerId,
+        message: text,
+        random_id: randomId,
+        v: '5.199'
+      })
+    });
+  }
 }
 
 /**
@@ -149,7 +188,7 @@ async function sendTGNotification() {
     return;
   }
 
-  const text = '🔔 Новая заявка на сайте!\n\nПроверьте VK — там подробности.';
+  const text = '🔔 Новая заявка на сайте!\n\nПроверьте VK — там подробности.\n\n@felseeker @KGLOVEPUSSY';
 
   const payload = {
     chat_id: chatId,

@@ -2,10 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/</loc>
-    <lastmod>2026-08-02</lastmod>
+    <lastmod>2026-08-10</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/metallokonstrukcii.html</loc>
+    <lastmod>2026-08-10</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/otdelka.html</loc>
+    <lastmod>2026-08-10</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/privacy/</loc>
     <lastmod>2026-08-02</lastmod>
+    <priority>0.3</priority>
   </url>
 </urlset>
