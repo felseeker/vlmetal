@@ -17,7 +17,115 @@
   --text-secondary: #888888;
   --font-family: 'Rajdhani', 'Montserrat', sans-serif;
   --border-radius: 4px;
+  --header-bg: rgba(10, 10, 10, 0.95);
+  --btn-text-on-accent: #ffffff;
+  --input-bg: #111111;
+  --input-placeholder: #555555;
+  --muted-1: #aaaaaa;
+  --muted-2: #bbbbbb;
+  --muted-3: #cccccc;
+  --muted-4: #999999;
+  --muted-5: #dddddd;
+  --footer-bg: #0a0a0a;
+  --footer-company-1: #555555;
+  --footer-company-2: #444444;
+  --card-border-soft: rgba(var(--accent-rgb), 0.15);
+  /* Text-safe accent: identical to --accent in dark theme, but overridden
+     to a darker, higher-contrast gold in the light theme so accent-colored
+     text/icons stay readable on a light background (see WCAG note below) */
+  --accent-text: var(--accent);
+  --hover-tint: rgba(255, 255, 255, 0.04);
+  color-scheme: dark;
 }
+
+
+/* ============================================================
+   LIGHT THEME — toggled via [data-theme="light"] on <html>
+   Same layout/design system, warm-white background + yellow accent
+   ============================================================ */
+html[data-theme="light"] {
+  --bg-primary: #f7f3ea;
+  --bg-card: #ffffff;
+  --accent: #F5C518;
+  --accent-rgb: 230, 178, 0;
+  --text-primary: #262421;
+  --text-secondary: #6b6558;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --btn-text-on-accent: #262421;
+  --input-bg: #ffffff;
+  --input-placeholder: #8a8478;
+  --muted-1: #6b6558;
+  --muted-2: #55503f;
+  --muted-3: #4a4638;
+  --muted-4: #6b6558;
+  --muted-5: #57534a;
+  --footer-bg: #edE7d8;
+  --footer-company-1: #857f70;
+  --footer-company-2: #9a9585;
+  --card-border-soft: rgba(var(--accent-rgb), 0.25);
+  /* Neutral graphite tokens — used instead of accent-tinted borders/shadows
+     so structural UI (cards, dividers, inputs) stays crisp and readable on
+     a light background, while --accent stays reserved for real highlights */
+  --graphite: #262421;
+  --graphite-rgb: 38, 36, 33;
+  --line-1: rgba(var(--graphite-rgb), 0.07);
+  --line-2: rgba(var(--graphite-rgb), 0.13);
+  --line-3: rgba(var(--graphite-rgb), 0.22);
+  --line-4: rgba(var(--graphite-rgb), 0.32);
+  --card-shadow: 0 2px 14px rgba(var(--graphite-rgb), 0.06);
+  --card-shadow-hover: 0 10px 32px rgba(var(--graphite-rgb), 0.12);
+  --sep-color: #c9c3b4;
+  --badge-text: #4a4638;
+  --hero-trust-text: #4a4638;
+  color-scheme: light;
+}
+
+html[data-theme="light"] body {
+  background-image:
+    linear-gradient(var(--line-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-1) 1px, transparent 1px);
+}
+
+/* Smooth transition when switching themes */
+.theme-animated,
+.theme-animated * {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease !important;
+}
+/* Theme toggle button */
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); transform: translateY(-1px); }
+.theme-toggle svg {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+.theme-toggle__sun { opacity: 0; transform: scale(0.4) rotate(60deg); color: var(--accent); }
+.theme-toggle__moon { opacity: 1; transform: scale(1) rotate(0deg); color: var(--accent); }
+html[data-theme="light"] .theme-toggle__sun { opacity: 1; transform: scale(1) rotate(0deg); }
+html[data-theme="light"] .theme-toggle__moon { opacity: 0; transform: scale(0.4) rotate(-60deg); }
+/* In light theme the raw bright-yellow --accent is too low-contrast for a
+   small icon on a near-white button — use graphite so it's clearly visible */
+html[data-theme="light"] .theme-toggle { background: rgba(var(--graphite-rgb), 0.06); border-color: var(--line-3); }
+html[data-theme="light"] .theme-toggle:hover { border-color: var(--graphite); }
+html[data-theme="light"] .theme-toggle__sun,
+html[data-theme="light"] .theme-toggle__moon { color: var(--graphite); }
+
+
 
 html {
   scroll-behavior: smooth;
@@ -39,22 +147,30 @@ body {
 }
 
 .container {
-  max-width: 100%;
+  /* Was unbounded (max-width: 100%), so on very wide screens (1600px+)
+     grid--3 product/service cards stretched to huge, disproportionate
+     widths with oversized images and awkward whitespace. Cap the reading
+     width like a normal layout container; padding rules below still grow
+     on very large screens for breathing room at the edges. */
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 @media (min-width: 1600px) {
   .container {
+    max-width: 1600px;
     padding: 0 48px;
   }
 }
 
 @media (min-width: 2200px) {
   .container {
+    max-width: 1800px;
     padding: 0 80px;
   }
 }
+
 
 /* Header */
 .header {
@@ -63,10 +179,11 @@ body {
   left: 0;
   width: 100%;
   z-index: 100;
-  background: rgba(10, 10, 10, 0.95);
+  background: var(--header-bg);
   border-bottom: 1px solid rgba(var(--accent-rgb), 0.15);
   backdrop-filter: blur(12px);
 }
+
 
 .header__inner {
   display: flex;
@@ -135,11 +252,19 @@ body {
 
 .hero__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* Plain `1fr 1fr` tracks don't actually cap column width at 50% — grid's
+     default automatic minimum size for a track is its content's max-content
+     size, so a long unbreakable word (e.g. "МЕТАЛЛООБРАБОТКИ" at this large
+     hero font) forces the left column wider than intended, overflowing
+     visibly under the photo in the right column. minmax(0, 1fr) overrides
+     that automatic minimum to 0, so the column actually shrinks to its
+     fr-share and text is forced to wrap/break within it as expected. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 60px;
   align-items: center;
   width: 100%;
 }
+
 
 .hero__content {
   display: flex;
@@ -147,8 +272,16 @@ body {
   gap: 16px;
   align-items: flex-start;
   max-width: 100%;
-  overflow: hidden;
+  /* Was overflow:hidden — on narrow screens this CLIPPED long uppercase
+     words (e.g. "МЕТАЛЛООБРАБОТКИ") instead of letting them wrap, because
+     overflow:hidden hides the portion of an unbreakable inline word that
+     doesn't fit, rather than allowing overflow-wrap to break it visibly.
+     The container never actually needs to clip anything here — remove it
+     so overflow-wrap/word-wrap on the headings can do their job. */
+  overflow: visible;
+  min-width: 0;
 }
+
 
 .hero__title {
   font-family: 'Montserrat', sans-serif;
@@ -158,6 +291,16 @@ body {
   line-height: 1.3;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  /* .hero__title is a flex item inside .hero__content (flex-direction:column).
+     Flex items default to min-width:auto, which resolves to the content's
+     min-content size — i.e. the width of the longest unbreakable word
+     (e.g. "МЕТАЛЛООБРАБОТКИ" in the big span below). That prevented the
+     heading from shrinking to the column's actual width and made it
+     overflow visibly under the hero photo on the right. Forcing min-width:0
+     lets overflow-wrap/word-wrap above do their job, and width:100% keeps
+     it filling the available column instead of shrinking to fit-content. */
+  min-width: 0;
+  width: 100%;
 }
 
 .hero__title--big {
@@ -170,12 +313,13 @@ body {
 }
 
 .hero__subtitle {
-  color: #aaa;
+  color: var(--text-secondary);
   font-size: clamp(14px, 1.4vw, 20px);
   font-weight: 400;
   max-width: clamp(280px, 30vw, 500px);
   margin-top: 4px;
 }
+
 
 .hero__trust {
   display: flex;
@@ -189,7 +333,7 @@ body {
   align-items: center;
   gap: 7px;
   font-size: 12px;
-  color: #ddd;
+  color: var(--hero-trust-text, #ddd);
   letter-spacing: 0.5px;
   background: rgba(var(--accent-rgb), 0.08);
   border: 1px solid rgba(var(--accent-rgb), 0.25);
@@ -197,6 +341,7 @@ body {
   border-radius: 30px;
   font-weight: 500;
 }
+
 
 
 .hero__trust-item svg {
@@ -388,8 +533,9 @@ body {
 
 .btn--primary {
   background: var(--accent);
-  color: #fff;
+  color: var(--btn-text-on-accent);
 }
+
 
 .btn--primary:hover {
   box-shadow: 0 0 30px var(--accent-glow);
@@ -590,7 +736,7 @@ body {
 }
 
 .form__input {
-  background: #111;
+  background: var(--input-bg);
   border: 1px solid rgba(var(--accent-rgb), 0.3);
   border-radius: var(--border-radius);
   padding: 14px 16px;
@@ -607,8 +753,9 @@ body {
 }
 
 .form__input::placeholder {
-  color: #555;
+  color: var(--input-placeholder);
 }
+
 
 .form__checkbox {
   display: flex;
@@ -696,15 +843,16 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-bottom: 12px;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .contacts__address,
 .contacts__phone {
   font-size: clamp(13px, 1.2vw, 17px);
-  color: #ccc;
+  color: var(--muted-3);
   letter-spacing: 0.5px;
 }
+
 
 .contacts__details-grid {
   display: grid;
@@ -719,15 +867,15 @@ body {
 
 .contacts__messengers,
 .contacts__hours {
-  color: #aaa;
+  color: var(--muted-1);
   font-size: 15px;
   line-height: 1.6;
 }
 
 .contacts__messengers a {
-  color: #bbb;
+  color: var(--muted-2);
   text-decoration: none;
-  border-bottom: 1px dashed #888;
+  border-bottom: 1px dashed var(--text-secondary);
 }
 
 .contacts__messengers a:hover {
@@ -821,7 +969,7 @@ body {
 }
 
 .footer__text {
-  color: #999;
+  color: var(--muted-4);
   font-size: 13px;
   margin-top: 8px;
   max-width: 480px;
@@ -1344,10 +1492,12 @@ body {
 /* About section */
 .about__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* Same grid overflow fix as .hero__grid — see comment there. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 60px;
   align-items: center;
 }
+
 
 .about__text {
   color: var(--text-secondary);
@@ -1418,7 +1568,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
@@ -1521,7 +1671,7 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-bottom: 8px;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .bento-card__text {
@@ -1693,7 +1843,17 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  /* Rounded + "floating" card look (was a hard 4px radius with no resting
+     shadow, which read as flat/plain, especially on the light theme's
+     white background where the card had almost no visual separation
+     from the page). overflow:hidden above means this radius also clips
+     the product image (which uses negative margins to bleed to the
+     card edges), so the photo's top corners round off correctly too. */
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
+
 
 .card--product-img .card__image {
   width: calc(100% + 48px);
@@ -1788,7 +1948,7 @@ body {
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
@@ -1907,20 +2067,36 @@ body {
   margin-bottom: 12px;
 }
 
+/* Was rendering random product photos (a canopy, gates, stairs — not
+   actual people) inside circular avatars, each with a different hardcoded
+   inline gradient color. That looked inconsistent/mismatched card to card
+   and was misleading (photos of metal structures standing in for people).
+   Now a uniform initials-based avatar: a letter on a single consistent
+   accent-colored circle, styled purely in CSS (no more inline gradients
+   or unrelated <img> per card). */
 .testimonial-card__avatar {
   width: 56px;
   height: 56px;
   border-radius: 50%;
   flex-shrink: 0;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
   border: 2px solid rgba(var(--accent-rgb), 0.3);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--btn-text-on-accent);
 }
 
 .testimonial-card__avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
+
 
 .testimonial-card__info {
   display: flex;
@@ -1935,7 +2111,7 @@ body {
 }
 
 .testimonial-card__text {
-  color: #ccc;
+  color: var(--muted-3);
   font-size: 13px;
   line-height: 1.6;
   font-style: italic;
@@ -1945,7 +2121,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .testimonial-card__role {
@@ -2663,7 +2839,7 @@ body {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
@@ -2890,4 +3066,336 @@ body {
   background: rgba(217, 113, 78, 0.15);
   border-radius: 50%;
 }
+
+/* ============================================================
+   LIGHT THEME — READABILITY OVERRIDES
+   Consolidated fixes so the light theme reads as a crisp, professional
+   light UI: graphite grid/borders instead of accent-tinted ones, a
+   darker "ink gold" for small accent text (WCAG-friendlier than the
+   raw #F5C518 button-yellow on white), and graphite-based shadows.
+   ============================================================ */
+html[data-theme="light"] {
+  /* Darker, higher-contrast gold reserved for small accent TEXT only.
+     Buttons/icons/backgrounds keep the bright --accent. */
+  --accent-text: #8a6a00;
+}
+
+/* --- Grid lines & structural borders: graphite instead of gold --- */
+html[data-theme="light"] .header,
+html[data-theme="light"] .faq__item,
+html[data-theme="light"] .card--advantage,
+html[data-theme="light"] .card--portfolio,
+html[data-theme="light"] .card--product,
+html[data-theme="light"] .card--product-img,
+html[data-theme="light"] .bento-card,
+html[data-theme="light"] .about__feature,
+html[data-theme="light"] .pricing-card,
+html[data-theme="light"] .testimonial-card,
+html[data-theme="light"] .direction-card,
+html[data-theme="light"] .process-step,
+html[data-theme="light"] .form__input,
+html[data-theme="light"] .social__link,
+html[data-theme="light"] .hamburger,
+html[data-theme="light"] .hero__trust-item,
+html[data-theme="light"] .price-disclaimer {
+  border-color: var(--line-3);
+}
+
+html[data-theme="light"] .card--advantage:hover,
+html[data-theme="light"] .card--portfolio:hover,
+html[data-theme="light"] .card--product:hover,
+html[data-theme="light"] .bento-card:hover,
+html[data-theme="light"] .about__feature:hover,
+html[data-theme="light"] .pricing-card:hover,
+html[data-theme="light"] .testimonial-card:hover,
+html[data-theme="light"] .process-step:hover,
+html[data-theme="light"] .faq__item:hover,
+html[data-theme="light"] .form__input:focus,
+html[data-theme="light"] .social__link:hover {
+  border-color: var(--accent);
+}
+
+html[data-theme="light"] .header,
+html[data-theme="light"] .faq__question:hover {
+  border-bottom-color: var(--line-3);
+}
+
+html[data-theme="light"] .footer__company,
+html[data-theme="light"] .contacts__community-links a {
+  border-color: var(--line-3);
+}
+
+/* Card / block shadows: neutral graphite instead of accent-tinted glow */
+html[data-theme="light"] .card--advantage:hover,
+html[data-theme="light"] .card--product:hover,
+html[data-theme="light"] .card--product-img:hover,
+html[data-theme="light"] .bento-card:hover,
+html[data-theme="light"] .pricing-card--featured,
+html[data-theme="light"] .card--service,
+html[data-theme="light"] .card--service:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+html[data-theme="light"] .bento-card,
+html[data-theme="light"] .about__feature,
+html[data-theme="light"] .testimonial-card,
+html[data-theme="light"] .pricing-card,
+html[data-theme="light"] .process-step,
+html[data-theme="light"] .faq__item,
+html[data-theme="light"] .direction-card,
+html[data-theme="light"] .card--product,
+html[data-theme="light"] .card--product-img {
+  /* Product cards previously had no resting shadow in light theme at all
+     (only .bento-card/.testimonial-card/etc were in this list), so they
+     looked flat/plain against the white page — add the same "floating"
+     shadow used by every other card type for visual consistency. */
+  box-shadow: var(--card-shadow);
+}
+
+
+/* Section divider line under each section — graphite, not gold */
+html[data-theme="light"] .section::after,
+html[data-theme="light"] .footer__line {
+  background: linear-gradient(to right, transparent, var(--sep-color), transparent);
+  opacity: 0.9;
+}
+
+/* Grid dot/line background on the body — already graphite via --line-1,
+   but hero radial glow and sparks keep a soft warm tint for character */
+html[data-theme="light"] .hero {
+  background: radial-gradient(ellipse at 65% 50%, rgba(var(--accent-rgb), 0.16) 0%, rgba(var(--accent-rgb), 0.05) 35%, transparent 55%);
+}
+
+/* --- Small accent-colored TEXT: use darker --accent-text for AA contrast --- */
+html[data-theme="light"] .nav__link:hover,
+html[data-theme="light"] .nav__link--active,
+html[data-theme="light"] .footer__link,
+html[data-theme="light"] .footer__col-title,
+html[data-theme="light"] .footer__social-link:hover,
+html[data-theme="light"] .footer__phone:hover,
+html[data-theme="light"] .card__price,
+html[data-theme="light"] .card__meta,
+html[data-theme="light"] .pricing-card__price,
+html[data-theme="light"] .about__stat-number,
+html[data-theme="light"] .contacts__communities-title,
+html[data-theme="light"] .contacts__phone-link:hover,
+html[data-theme="light"] .contacts__messengers a:hover,
+html[data-theme="light"] .direction-card__cta,
+html[data-theme="light"] .direction-card--metal .direction-card__label,
+html[data-theme="light"] .breadcrumbs__list a:hover,
+html[data-theme="light"] .form__checkbox a,
+html[data-theme="light"] .social-proof__item {
+  color: var(--accent-text);
+}
+html[data-theme="light"] .contacts__communities-title {
+  text-shadow: none;
+}
+html[data-theme="light"] .social-proof__item {
+  opacity: 0.55;
+}
+
+/* Trust-strip / feature icons: graphite outline reads cleaner than gold on white */
+html[data-theme="light"] .trust-strip__item svg,
+html[data-theme="light"] .card__icon {
+  color: var(--graphite);
+}
+/* .process-step cards live inside .section--dark, which stays a dark
+   graphite background even in the light theme (see rule below) — so the
+   big decorative number must stay light/translucent-white here, not dark
+   graphite, or it becomes invisible against its own dark card background. */
+html[data-theme="light"] .process-step__number {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+
+/* Dark sections in light theme.
+   Previously this forced the ENTIRE section to a solid graphite block,
+   which produced a harsh hard-edged seam against the light sections
+   above/below it, and made light-on-dark cards inside (e.g. product
+   cards, process steps) — an inversion of what actually reads well:
+   a light page background with a handful of dark "spotlight" cards.
+   Now the section itself stays on the normal light page background
+   (no seam), and only the CARDS inside it get a graphite dark treatment
+   for visual rhythm/contrast — the opposite of a jarring full-bleed
+   dark block. */
+html[data-theme="light"] .section--dark {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+/* Graphite "spotlight" cards sitting on the light section background */
+html[data-theme="light"] .section--dark .process-step,
+html[data-theme="light"] .section--dark .testimonial-card,
+html[data-theme="light"] .section--dark .bento-card,
+html[data-theme="light"] .section--dark .card--product,
+html[data-theme="light"] .section--dark .card--product-img {
+  background: var(--graphite);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: var(--card-shadow);
+}
+html[data-theme="light"] .section--dark .process-step:hover,
+html[data-theme="light"] .section--dark .testimonial-card:hover,
+html[data-theme="light"] .section--dark .bento-card:hover,
+html[data-theme="light"] .section--dark .card--product:hover,
+html[data-theme="light"] .section--dark .card--product-img:hover {
+  border-color: var(--accent);
+  box-shadow: var(--card-shadow-hover);
+}
+html[data-theme="light"] .section--dark .process-step__title,
+html[data-theme="light"] .section--dark .testimonial-card__name,
+html[data-theme="light"] .section--dark .bento-card__title,
+html[data-theme="light"] .section--dark .card--product .card__title,
+html[data-theme="light"] .section--dark .card--product-img .card__title {
+  color: #f2efe9;
+}
+html[data-theme="light"] .section--dark .process-step__text,
+html[data-theme="light"] .section--dark .testimonial-card__text,
+html[data-theme="light"] .section--dark .testimonial-card__role,
+html[data-theme="light"] .section--dark .bento-card__text,
+html[data-theme="light"] .section--dark .card--product .card__text,
+html[data-theme="light"] .section--dark .card--product-img .card__text {
+  color: rgba(242, 239, 233, 0.65);
+}
+html[data-theme="light"] .section--dark .card--product .card__price,
+html[data-theme="light"] .section--dark .card--product-img .card__price {
+  color: var(--accent);
+}
+/* Decorative big number on process-step: light/translucent so it reads
+   against its own now-graphite card background */
+html[data-theme="light"] .section--dark .process-step__number {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+/* The CONTACTS section (#contacts) is a different case from the other
+   dark sections above: it's a form + info panel, not a cards grid, and
+   the "light bg with dark spotlight cards" treatment looked bad here
+   (per feedback) — the otdelka page's contacts section, by comparison,
+   stays permanently graphite-dark regardless of the light/dark toggle,
+   which reads much better for a contact form. Replicate that here: pin
+   #contacts to always-dark, overriding the general `.section--dark`
+   transparent rule above via higher specificity (ID + class beats class
+   alone). Text/inputs get the same light-on-dark treatment as before. */
+html[data-theme="light"] #contacts.section--dark {
+  background: var(--graphite);
+  color: #f2efe9;
+}
+html[data-theme="light"] #contacts .section__label,
+html[data-theme="light"] #contacts .contacts__messengers,
+html[data-theme="light"] #contacts .contacts__hours,
+html[data-theme="light"] #contacts .contacts__address {
+  color: rgba(242, 239, 233, 0.65);
+}
+html[data-theme="light"] #contacts .section__title,
+html[data-theme="light"] #contacts .contacts__details::before,
+html[data-theme="light"] #contacts .contacts__phone {
+  color: #f2efe9;
+}
+html[data-theme="light"] #contacts .contacts__community-links a {
+  color: #f2efe9;
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+}
+html[data-theme="light"] #contacts .contacts__community-links a:hover {
+  background: rgba(var(--accent-rgb), 0.2);
+  border-color: var(--accent);
+}
+/* Form sits as a slightly-lighter card on top of the section's own
+   graphite background (mirrors otdelka's semi-transparent-white form
+   card), rather than the same solid graphite which would give it no
+   visible separation from the section behind it. */
+html[data-theme="light"] #contacts .contacts__form {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 24px;
+}
+html[data-theme="light"] #contacts .form__input {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.16);
+  color: #f2efe9;
+}
+html[data-theme="light"] #contacts .form__input::placeholder {
+  color: rgba(242, 239, 233, 0.4);
+}
+
+
+
+/* Footer stays graphite-dark to anchor the page in both themes */
+html[data-theme="light"] .footer {
+  background: var(--graphite);
+  color: rgba(242, 239, 233, 0.65);
+}
+html[data-theme="light"] .footer .footer__contact,
+html[data-theme="light"] .footer .footer__contact--small,
+html[data-theme="light"] .footer .footer__social-link,
+html[data-theme="light"] .footer .footer__link,
+html[data-theme="light"] .footer .footer__text {
+  color: rgba(242, 239, 233, 0.6);
+}
+
+html[data-theme="light"] .footer .footer__phone {
+  color: rgba(242, 239, 233, 0.8);
+}
+html[data-theme="light"] .footer .footer__col-title,
+html[data-theme="light"] .footer .footer__link:hover,
+html[data-theme="light"] .footer .footer__social-link:hover,
+html[data-theme="light"] .footer .footer__phone:hover {
+  color: var(--accent);
+}
+html[data-theme="light"] .footer .logo__text {
+  color: #f2efe9;
+}
+html[data-theme="light"] .footer__company {
+  border-top-color: rgba(255,255,255,0.1);
+}
+html[data-theme="light"] .footer__company p {
+  color: rgba(242, 239, 233, 0.35);
+}
+html[data-theme="light"] .footer__company p:first-child {
+  color: rgba(242, 239, 233, 0.5);
+}
+
+/* --- Buttons/badges with hardcoded white text on top of --accent bg:
+   in light theme --accent is a bright yellow, so white text is unreadable.
+   Use dark graphite text instead, matching --btn-text-on-accent logic --- */
+html[data-theme="light"] .btn--header,
+html[data-theme="light"] .skip-link,
+html[data-theme="light"] .float-btn,
+html[data-theme="light"] .card__badge,
+html[data-theme="light"] .pricing-card__badge,
+html[data-theme="light"] .mobile-tabs__btn--active,
+html[data-theme="light"] .tabs__btn--active {
+  color: var(--btn-text-on-accent);
+}
+
+/* --- Outline "secondary" button: bright yellow text/border on white is
+   unreadable — use the darker accent-text tone for both --- */
+html[data-theme="light"] .btn--secondary {
+  color: var(--accent-text);
+  border-color: var(--accent-text);
+}
+html[data-theme="light"] .btn--secondary:hover {
+  background: rgba(var(--graphite-rgb), 0.06);
+}
+
+/* --- Misc low-contrast light-grey text hardcoded for the dark theme --- */
+html[data-theme="light"] .breadcrumbs__list li[aria-current="page"] {
+  color: var(--text-primary);
+}
+html[data-theme="light"] .breadcrumbs__sep {
+  color: var(--line-4);
+}
+html[data-theme="light"] .trust-strip__item {
+  color: var(--text-secondary);
+}
+html[data-theme="light"] .price-disclaimer {
+  color: var(--text-primary);
+}
+html[data-theme="light"] .card__caption {
+  color: var(--text-secondary);
+}
+html[data-theme="light"] .pricing-card__list li {
+  color: var(--text-primary);
+}
+
+
 

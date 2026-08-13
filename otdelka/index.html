@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Apply saved theme before first paint to avoid flash of wrong theme (FOUC)
+    // Uses the same 'site-theme' key as the rest of the site so the choice
+    // persists when navigating between pages.
+    (function() {
+      try {
+        var saved = localStorage.getItem('site-theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <title>Внутренняя отделка квартир и домов во Владивостоке под ключ | Концепция строительства</title>
+
   <meta name="description" content="Внутренняя отделка квартир и домов во Владивостоке под ключ: черновая и чистовая отделка, потолки, полы, электрика, сантехника, дизайн-проект. Договор с ООО, гарантия на работы.">
   <meta name="keywords" content="внутренняя отделка владивосток, ремонт квартир под ключ владивосток, чистовая отделка, черновая отделка, натяжные потолки владивосток, укладка полов, электромонтаж, сантехника, ремонт домов, дизайн-проект квартиры">
   <link rel="canonical" href="https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/otdelka/">
@@ -27,6 +41,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="../style.css?v=32">
+  <link rel="stylesheet" href="otdelka.css?v=2">
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
   <link rel="apple-touch-icon" sizes="48x48" href="/favicon.png">
@@ -53,7 +69,7 @@
       { "@type": "City", "name": "Владивосток" },
       { "@type": "State", "name": "Приморский край" }
     ],
-    "priceRange": "OT 800₽/м²",
+    "priceRange": "OT 100₽/м²",
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "16:00" }
@@ -63,19 +79,7 @@
       "https://t.me/KCTROOO",
       "https://wa.me/message/VJAZDFZV5M5SF1",
       "https://max.ru/u/f9LHodD0cOIhWz1pJrinOgTwp9A1PMQgZc584VIY2YQQNypJtIwFR183NDM"
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Услуги внутренней отделки",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Черновая отделка", "description": "Стяжка пола, штукатурка стен, разводка электрики и сантехники под чистовую отделку" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Чистовая отделка", "description": "Финишная отделка стен, поклейка обоев, покраска, укладка плитки" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Потолки", "description": "Натяжные, гипсокартонные и многоуровневые потолки" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Полы", "description": "Стяжка, укладка ламината, паркета, плитки, линолеума" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Электрика и сантехника", "description": "Разводка электропроводки, монтаж розеток и щитков, сантехнические работы под ключ" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Дизайн-проект", "description": "Разработка дизайн-проекта квартиры или дома с визуализацией" } }
-      ]
-    }
+    ]
   }
   </script>
   <script type="application/ld+json">
@@ -85,62 +89,6 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/" },
       { "@type": "ListItem", "position": 2, "name": "Внутренняя отделка", "item": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/otdelka/" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Сколько длится ремонт квартиры под ключ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Черновая отделка однокомнатной квартиры — от 2 до 4 недель. Чистовая отделка — от 3 до 6 недель. Полный ремонт под ключ — от 1,5 до 3 месяцев в зависимости от площади и сложности."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Выезжаете ли на замер бесплатно?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Да, замер и предварительный расчёт стоимости — бесплатно по Владивостоку."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Работаете ли со своими материалами или закупаете сами?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Возможны оба варианта: закупаем материалы по согласованному списку и смете, либо работаем с материалами заказчика."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Даёте ли гарантию на отделочные работы?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Да, гарантия на выполненные работы фиксируется в договоре подряда. Работаем официально, по договору с ООО «Концепция Строительства»."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Можно ли заказать только часть работ, например, только потолки или полы?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Да, можно заказать как ремонт под ключ, так и отдельные виды работ: только потолки, только полы, только электрику и т.д."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Делаете дизайн-проект перед началом ремонта?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Да, разрабатываем дизайн-проект с визуализацией по желанию заказчика — это помогает точнее рассчитать смету и избежать переделок."
-        }
-      }
     ]
   }
   </script>
@@ -154,8 +102,6 @@
     ym(109981508, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/109981508" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
-  <!-- VK / Top.Mail.Ru counter -->
   <script type="text/javascript">
     var _tmr = window._tmr || (window._tmr = []);
     _tmr.push({id: "3782740", type: "pageView", start: (new Date()).getTime()});
@@ -168,59 +114,73 @@
     })(document, window, "tmr-code");
   </script>
   <noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782740;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
-  <!-- /VK / Top.Mail.Ru counter -->
 </head>
-<body class="theme-otdelka">
+<body class="ot-page">
 <a href="#hero" class="skip-link">Перейти к содержимому</a>
 
-<header class="header" itemscope itemtype="https://schema.org/WPHeader" role="banner">
-  <div class="container header__inner">
-    <a href="/" class="logo" style="text-decoration:none;color:inherit;">
-      <img src="../img/logo_big.png" alt="Концепция строительства" class="logo__img">
-      <span class="logo__text">КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА</span>
+<!-- HEADER — светлая тема -->
+<header class="ot-header" itemscope itemtype="https://schema.org/WPHeader" role="banner">
+  <div class="container ot-header__inner">
+    <a href="/" class="ot-logo" style="text-decoration:none;color:inherit;">
+      <img src="../img/logo_big.png" alt="Концепция строительства" class="ot-logo__img">
+      <span class="ot-logo__text">КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА</span>
     </a>
-    <nav class="nav" aria-label="Основное меню">
-      <a href="/" class="nav__link">ГЛАВНАЯ</a>
-      <a href="/metallokonstrukcii/" class="nav__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
-      <a href="/otdelka/" class="nav__link nav__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
-      <a href="#testimonials" class="nav__link">ОТЗЫВЫ</a>
-      <a href="#faq" class="nav__link">ВОПРОСЫ</a>
-      <a href="#contacts" class="nav__link">КОНТАКТЫ</a>
+    <nav class="ot-nav" aria-label="Основное меню">
+      <a href="/" class="ot-nav__link">ГЛАВНАЯ</a>
+      <a href="/metallokonstrukcii/" class="ot-nav__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
+      <a href="/otdelka/" class="ot-nav__link ot-nav__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
+      <a href="#testimonials" class="ot-nav__link">ОТЗЫВЫ</a>
+      <a href="#faq" class="ot-nav__link">ВОПРОСЫ</a>
+      <a href="#contacts" class="ot-nav__link">КОНТАКТЫ</a>
     </nav>
-    <a href="#contacts" class="btn btn--header">СВЯЗАТЬСЯ</a>
-    <button class="hamburger" id="hamburger" aria-label="Меню">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="ot-theme-toggle" id="themeToggle" aria-label="Переключить тему">
+      <svg class="ot-theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+      <svg class="ot-theme-toggle__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.7A8.5 8.5 0 0 1 9.3 3.5a.7.7 0 0 0-.9-.9 10 10 0 1 0 13 13 .7.7 0 0 0-.9-.9z"/></svg>
     </button>
+    <a href="#contacts" class="ot-btn ot-btn--header">СВЯЗАТЬСЯ</a>
+    <button class="ot-hamburger" id="hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div class="ot-mobile-menu" id="mobileMenu">
+    <a href="/" class="ot-mobile-menu__link">ГЛАВНАЯ</a>
+    <a href="/metallokonstrukcii/" class="ot-mobile-menu__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
+    <a href="/otdelka/" class="ot-mobile-menu__link ot-mobile-menu__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
+    <a href="#testimonials" class="ot-mobile-menu__link">ОТЗЫВЫ</a>
+    <a href="#faq" class="ot-mobile-menu__link">ВОПРОСЫ</a>
+    <a href="#contacts" class="ot-mobile-menu__link">КОНТАКТЫ</a>
+    <div class="ot-mobile-menu__theme">
+      <span class="ot-mobile-menu__theme-label">ТЁМНАЯ ТЕМА</span>
+      <button class="ot-theme-toggle" id="themeToggleMobile" aria-label="Переключить тему">
+        <svg class="ot-theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+        <svg class="ot-theme-toggle__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.7A8.5 8.5 0 0 1 9.3 3.5a.7.7 0 0 0-.9-.9 10 10 0 1 0 13 13 .7.7 0 0 0-.9-.9z"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<a href="#contacts" class="float-btn">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+
+<!-- Floating CTA -->
+<a href="#contacts" class="ot-float-btn">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
     <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   ЗАКАЗАТЬ
 </a>
 
-<!-- Unified messenger FAB -->
+<!-- Messenger FAB -->
 <div class="messenger-fab" id="messengerFab">
   <div class="messenger-fab__menu">
     <a href="https://wa.me/message/VJAZDFZV5M5SF1" class="messenger-fab__link messenger-fab__link--whatsapp" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
     <a href="https://t.me/KCTROOO" class="messenger-fab__link messenger-fab__link--telegram" target="_blank" rel="noopener" aria-label="Написать в Telegram">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
     </a>
     <a href="https://max.ru/u/f9LHodD0cOIhWz1pJrinOgTwp9A1PMQgZc584VIY2YQQNypJtIwFR183NDM" class="messenger-fab__link messenger-fab__link--max" target="_blank" rel="noopener" aria-label="Написать в MAX">
-      <svg viewBox="0 0 100 100" fill="currentColor" width="22" height="22">
-        <path d="M50.76 0c27.53 0 49.12 22.34 49.12 49.89S77.61 99.23 51.02 99.23c-9.43 0-14.01-1.33-21.37-6.54-.5-.36-1.2-.26-1.63.19-5.66 6.04-20.17 10.28-20.83 2.03C7.19 80.53 0 71.18 0 49.61 0 21.3 23.22 0 50.76 0m.77 24.55c-13.07-.68-23.26 8.39-25.51 22.58-1.86 11.75 1.44 26.07 4.26 26.8 1.2.3 4.08-1.9 6.18-3.88.4-.37.99-.44 1.45-.15 3.27 2 6.97 3.5 11.05 3.71 13.42.7 25.3-9.8 26-23.21.71-13.42-10.01-25.14-23.43-25.85"/>
-      </svg>
+      <svg viewBox="0 0 100 100" fill="currentColor" width="22" height="22"><path d="M50.76 0c27.53 0 49.12 22.34 49.12 49.89S77.61 99.23 51.02 99.23c-9.43 0-14.01-1.33-21.37-6.54-.5-.36-1.2-.26-1.63.19-5.66 6.04-20.17 10.28-20.83 2.03C7.19 80.53 0 71.18 0 49.61 0 21.3 23.22 0 50.76 0m.77 24.55c-13.07-.68-23.26 8.39-25.51 22.58-1.86 11.75 1.44 26.07 4.26 26.8 1.2.3 4.08-1.9 6.18-3.88.4-.37.99-.44 1.45-.15 3.27 2 6.97 3.5 11.05 3.71 13.42.7 25.3-9.8 26-23.21.71-13.42-10.01-25.14-23.43-25.85"/></svg>
     </a>
   </div>
   <button class="messenger-fab__toggle" id="messengerFabToggle" aria-label="Открыть мессенджеры">
@@ -229,710 +189,823 @@
 </div>
 
 <!-- BREADCRUMBS -->
-<nav class="breadcrumbs" aria-label="Хлебные крошки" style="padding-top:76px;">
+<nav class="ot-breadcrumbs" aria-label="Хлебные крошки">
   <div class="container">
-    <ol class="breadcrumbs__list">
+    <ol class="ot-breadcrumbs__list">
       <li><a href="/">Главная</a></li>
-      <li class="breadcrumbs__sep">→</li>
+      <li class="ot-breadcrumbs__sep">→</li>
       <li aria-current="page">Внутренняя отделка</li>
     </ol>
   </div>
 </nav>
 
-
 <main>
-<!-- 1. HERO -->
-<section class="hero" id="hero" style="padding-top:24px;">
 
-  <div class="container hero__grid">
-    <div class="hero__content fade-in">
-      <p class="section__label" style="margin-bottom:0;">ВНУТРЕННЯЯ ОТДЕЛКА</p>
-      <h1 class="hero__title">
-        КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА —<br>
-        <span class="hero__title--big">РЕМОНТ КВАРТИР И ДОМОВ</span><br>
-        ПОД КЛЮЧ ВО ВЛАДИВОСТОКЕ
+<!-- ===== HERO ===== -->
+<section class="ot-hero" id="hero">
+  <div class="container ot-hero__grid">
+    <div class="ot-hero__content ot-fade-in">
+      <p class="ot-label">ВНУТРЕННЯЯ ОТДЕЛКА</p>
+      <h1 class="ot-hero__title">
+        РЕМОНТ КВАРТИР<br>
+        <span class="ot-hero__title--accent">И ДОМОВ ПОД КЛЮЧ</span><br>
+        ВО ВЛАДИВОСТОКЕ
       </h1>
-      <p class="hero__subtitle">Черновая и чистовая отделка, потолки, полы, электрика, сантехника, дизайн-проект. Работаем по договору с ООО, фиксируем сроки и смету.</p>
-      <a href="#services" class="btn btn--primary">СМОТРЕТЬ УСЛУГИ</a>
-      <a href="#contacts" class="btn btn--secondary">БЕСПЛАТНЫЙ ЗАМЕР</a>
-      <div class="hero__trust">
-        <div class="hero__trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9714E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <span>Договор с ООО</span>
+      <p class="ot-hero__subtitle">Черновая и чистовая отделка, потолки, полы, электрика, сантехника. Работаем по договору с ООО, фиксируем сроки и смету.</p>
+      <div class="ot-hero__actions">
+        <a href="#pricelist" class="ot-btn ot-btn--primary">ПРАЙС-ЛИСТ</a>
+        <a href="#contacts" class="ot-btn ot-btn--outline">БЕСПЛАТНЫЙ ЗАМЕР</a>
+      </div>
+      <div class="ot-trust-bar">
+        <div class="ot-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Договор с ООО
         </div>
-        <div class="hero__trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9714E" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          <span>Замер бесплатно</span>
+        <div class="ot-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Замер бесплатно
         </div>
-        <div class="hero__trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9714E" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Гарантия по договору</span>
+        <div class="ot-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Гарантия по договору
         </div>
       </div>
     </div>
-    <div class="hero__image fade-in">
-      <div class="hero__sparks" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
+    <div class="ot-hero__image ot-fade-in">
+      <div class="ot-hero__carousel">
+        <img class="ot-slide ot-slide--active" src="../img/lowrise-tambur-1.jpg" alt="Внутренняя отделка — тамбур" width="1280" height="960" fetchpriority="high">
+        <img class="ot-slide" src="../img/lowrise-vhod.jpg" alt="Отделка входной зоны" width="1280" height="960" loading="lazy">
+        <img class="ot-slide" src="../img/lowrise-2etazh.jpg" alt="Отделка второго этажа" width="1280" height="960" loading="lazy">
+        <img class="ot-slide" src="../img/other-oblitsovka.jpg" alt="Облицовка помещения" width="1280" height="960" loading="lazy">
       </div>
-      <div class="hero__carousel">
-        <img class="hero__img-photo hero__slide hero__slide--active" src="../img/lowrise-tambur-1.jpg" alt="Отделка тамбура — внутренняя отделка во Владивостоке" width="1280" height="960" data-index="0" fetchpriority="high">
-        <img class="hero__img-photo hero__slide" src="../img/lowrise-vhod.jpg" alt="Отделка входной зоны" width="1280" height="960" data-index="1" loading="lazy">
-        <img class="hero__img-photo hero__slide" src="../img/lowrise-2etazh.jpg" alt="Отделка второго этажа" width="1280" height="960" data-index="2" loading="lazy">
-        <img class="hero__img-photo hero__slide" src="../img/other-oblitsovka.jpg" alt="Облицовка помещения" width="1280" height="960" data-index="3" loading="lazy">
+      <div class="ot-hero__stats">
+        <div class="ot-hero__stat">
+          <span class="ot-hero__stat-num">50+</span>
+          <span class="ot-hero__stat-label">объектов</span>
+        </div>
+        <div class="ot-hero__stat">
+          <span class="ot-hero__stat-num">0₽</span>
+          <span class="ot-hero__stat-label">за замер</span>
+        </div>
+        <div class="ot-hero__stat">
+          <span class="ot-hero__stat-num">ООО</span>
+          <span class="ot-hero__stat-label">договор</span>
+        </div>
       </div>
     </div>
+  </div>
+  <!-- Wave transition to next section -->
+  <div class="ot-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f2ede2"/>
+
+
+    </svg>
   </div>
 </section>
 
 <!-- CROSS-LINK BANNER -->
-<section class="section" style="padding:32px 0;">
+<section class="ot-section ot-section--light" style="padding:24px 0 32px;">
   <div class="container">
-    <a href="/metallokonstrukcii/" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px 32px;border:2px solid rgba(217,113,78,0.4);border-radius:10px;background:linear-gradient(135deg, var(--bg-card), rgba(217,113,78,0.06));text-decoration:none;color:inherit;transition:border-color .3s, transform .3s;box-shadow:0 4px 20px rgba(217,113,78,0.1);">
-      <div style="display:flex;align-items:center;gap:16px;">
-        <span style="flex-shrink:0;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#D9714E;background:rgba(217,113,78,0.15);padding:6px 12px;border-radius:20px;">ВТОРОЕ НАПРАВЛЕНИЕ</span>
-        <span style="font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:clamp(13px,1.4vw,18px);">Нужны ворота, навес или лестница для дома? Мы также делаем металлоконструкции →</span>
+    <a href="/metallokonstrukcii/" class="ot-crosslink">
+      <div class="ot-crosslink__content">
+        <span class="ot-crosslink__tag">ВТОРОЕ НАПРАВЛЕНИЕ</span>
+        <span class="ot-crosslink__text">Нужны ворота, навес или лестница? Мы также делаем металлоконструкции →</span>
       </div>
-      <span class="btn btn--secondary" style="pointer-events:none;">ПОДРОБНЕЕ</span>
+      <span class="ot-btn ot-btn--sm ot-btn--outline" style="pointer-events:none; flex-shrink:0;">ПОДРОБНЕЕ</span>
     </a>
   </div>
 </section>
 
 <!-- HOW WE WORK -->
-<section class="section section--dark" id="how-we-work">
+<section class="ot-section ot-section--grey" id="how-we-work">
   <div class="container">
-    <p class="section__label fade-in">КАК МЫ РАБОТАЕМ</p>
-    <h2 class="section__title fade-in">4 ШАГА ДО РЕЗУЛЬТАТА</h2>
-    <div class="process-steps fade-in">
-      <div class="process-step">
-        <div class="process-step__number">01</div>
-        <h3 class="process-step__title">ЗАЯВКА И ЗАМЕР</h3>
-        <p class="process-step__text">Оставляете заявку. Выезжаем на объект, замеряем и обсуждаем задачу — бесплатно.</p>
+    <p class="ot-label ot-fade-in">КАК МЫ РАБОТАЕМ</p>
+    <h2 class="ot-section__title ot-fade-in">4 ШАГА ДО РЕЗУЛЬТАТА</h2>
+    <div class="ot-steps ot-fade-in">
+      <div class="ot-step">
+        <div class="ot-step__num">01</div>
+        <h3 class="ot-step__title">ЗАЯВКА И ЗАМЕР</h3>
+        <p class="ot-step__text">Оставляете заявку. Выезжаем на объект, замеряем и обсуждаем задачу — бесплатно.</p>
       </div>
-      <div class="process-step">
-        <div class="process-step__number">02</div>
-        <h3 class="process-step__title">СМЕТА И ДОГОВОР</h3>
-        <p class="process-step__text">Готовим точную смету. Заключаем официальный договор подряда с фиксированными сроками.</p>
+      <div class="ot-step">
+        <div class="ot-step__num">02</div>
+        <h3 class="ot-step__title">СМЕТА И ДОГОВОР</h3>
+        <p class="ot-step__text">Готовим точную смету. Заключаем официальный договор подряда с фиксированными сроками.</p>
       </div>
-      <div class="process-step">
-        <div class="process-step__number">03</div>
-        <h3 class="process-step__title">ВЫПОЛНЕНИЕ РАБОТ</h3>
-        <p class="process-step__text">Выполняем черновой и чистовой этапы. Информируем о ходе работ на каждом шаге.</p>
+      <div class="ot-step">
+        <div class="ot-step__num">03</div>
+        <h3 class="ot-step__title">ВЫПОЛНЕНИЕ РАБОТ</h3>
+        <p class="ot-step__text">Выполняем черновой и чистовой этапы. Информируем о ходе работ на каждом шаге.</p>
       </div>
-      <div class="process-step">
-        <div class="process-step__number">04</div>
-        <h3 class="process-step__title">СДАЧА И ГАРАНТИЯ</h3>
-        <p class="process-step__text">Принимаете результат по акту. Гарантия на выполненные работы фиксируется в договоре.</p>
+      <div class="ot-step">
+        <div class="ot-step__num">04</div>
+        <h3 class="ot-step__title">СДАЧА И ГАРАНТИЯ</h3>
+        <p class="ot-step__text">Принимаете результат по акту. Гарантия на выполненные работы фиксируется в договоре.</p>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- 1.5 ABOUT -->
-<section class="section section--sparks" id="about">
-  <div class="sparks" aria-hidden="true">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-  </div>
+<!-- ПРЕИМУЩЕСТВА -->
+<section class="ot-section ot-section--white" id="features">
   <div class="container">
-    <div class="about__grid fade-in">
-      <div class="about__content">
-        <p class="section__label">О НАПРАВЛЕНИИ</p>
-        <h2 class="section__title">ОТДЕЛКА ПОД КЛЮЧ</h2>
-        <p class="about__text">Направление внутренней отделки ООО «Концепция Строительства» — ремонт квартир и домов во Владивостоке: от чернового этапа до финишной отделки и меблировки. Работаем по смете, фиксируем сроки в договоре.</p>
-        <div class="about__stats">
-          <div class="about__stat">
-            <span class="about__stat-number">50+</span>
-            <span class="about__stat-label">объектов отделано</span>
-          </div>
-          <div class="about__stat">
-            <span class="about__stat-number">6</span>
-            <span class="about__stat-label">видов работ</span>
-          </div>
-          <div class="about__stat">
-            <span class="about__stat-number">0₽</span>
-            <span class="about__stat-label">за замер и смету</span>
-          </div>
+    <p class="ot-label ot-fade-in">ПРЕИМУЩЕСТВА</p>
+    <h2 class="ot-section__title ot-fade-in">ПОЧЕМУ ВЫБИРАЮТ НАС</h2>
+    <div class="ot-features ot-fade-in">
+      <div class="ot-feature-card">
+        <div class="ot-feature-card__icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M16 24L22 30L34 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
         </div>
+        <h3>ДОГОВОР С ООО</h3>
+        <p>Работаем официально, с закреплённой сметой и сроками. ИНН 2543151912.</p>
       </div>
-      <div class="about__features">
-        <div class="about__feature">
-          <div class="about__feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9714E" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="about__feature-title">Официальный договор</p>
-            <p class="about__feature-text">Работаем по договору подряда с ООО. Смета фиксируется заранее.</p>
-          </div>
+      <div class="ot-feature-card">
+        <div class="ot-feature-card__icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="18" cy="14" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="30" cy="14" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="26" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="14" y1="32" x2="10" y2="40" stroke="currentColor" stroke-width="1.5"/><line x1="34" y1="32" x2="38" y2="40" stroke="currentColor" stroke-width="1.5"/><line x1="24" y1="31" x2="24" y2="40" stroke="currentColor" stroke-width="1.5"/></svg>
         </div>
-        <div class="about__feature">
-          <div class="about__feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9714E" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-            </svg>
-          </div>
-          <div>
-            <p class="about__feature-title">Поэтапная сдача</p>
-            <p class="about__feature-text">Черновой этап, чистовой этап — принимаете работу на каждом шаге.</p>
-          </div>
+        <h3>СВОИ БРИГАДЫ</h3>
+        <p>Отделочники, электрики, сантехники — опыт от 5 лет, без субподряда.</p>
+      </div>
+      <div class="ot-feature-card">
+        <div class="ot-feature-card__icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="24" y1="24" x2="24" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="24" y1="24" x2="32" y2="24" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg>
         </div>
-        <div class="about__feature">
-          <div class="about__feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9714E" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-          </div>
-          <div>
-            <p class="about__feature-title">Гарантия на работы</p>
-            <p class="about__feature-text">Гарантийные обязательства фиксируются в договоре подряда.</p>
-          </div>
+        <h3>ФИКСИРОВАННЫЕ СРОКИ</h3>
+        <p>Указываем сроки этапов в договоре и предупреждаем о задержках заранее.</p>
+      </div>
+      <div class="ot-feature-card">
+        <div class="ot-feature-card__icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="20" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M6 20H42" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="28" r="2" fill="currentColor" opacity="0.5"/></svg>
         </div>
+        <h3>ЗАКУПКА МАТЕРИАЛОВ</h3>
+        <p>Закупим все материалы по смете сами или работаем с материалами заказчика.</p>
+      </div>
+      <div class="ot-feature-card">
+        <div class="ot-feature-card__icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M8 38V14L24 6L40 14V38L24 44L8 38Z" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="24" y1="6" x2="24" y2="44" stroke="currentColor" stroke-width="1"/></svg>
+        </div>
+        <h3>ДИЗАЙН-ПРОЕКТ</h3>
+        <p>Разработаем проект с визуализацией до начала ремонта — меньше переделок.</p>
+      </div>
+      <div class="ot-feature-card">
+        <div class="ot-feature-card__icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M24 14V24L32 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>БЕСПЛАТНЫЙ ЗАМЕР</h3>
+        <p>Выезжаем на объект, замеряем и считаем предварительную смету — бесплатно.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 2. SOCIAL PROOF -->
-<section class="social-proof" id="social-proof">
+<!-- ===== ПРАЙС-ЛИСТ ===== -->
+<section class="ot-section ot-section--grey" id="pricelist">
   <div class="container">
-    <div class="social-proof__track">
-      <div class="social-proof__slide">
-        <span class="social-proof__item">ЧЕРНОВАЯ ОТДЕЛКА</span>
-        <span class="social-proof__item">ЧИСТОВАЯ ОТДЕЛКА</span>
-        <span class="social-proof__item">НАТЯЖНЫЕ ПОТОЛКИ</span>
-        <span class="social-proof__item">ГИПСОКАРТОННЫЕ ПОТОЛКИ</span>
-        <span class="social-proof__item">УКЛАДКА ЛАМИНАТА</span>
-        <span class="social-proof__item">УКЛАДКА ПЛИТКИ</span>
-        <span class="social-proof__item">ПОКЛЕЙКА ОБОЕВ</span>
-        <span class="social-proof__item">ЭЛЕКТРОМОНТАЖ</span>
-        <span class="social-proof__item">САНТЕХНИЧЕСКИЕ РАБОТЫ</span>
-        <span class="social-proof__item">СТЯЖКА ПОЛА</span>
-        <span class="social-proof__item">ШТУКАТУРКА СТЕН</span>
-        <span class="social-proof__item">ДИЗАЙН-ПРОЕКТ</span>
-      </div>
-      <div class="social-proof__slide" aria-hidden="true">
-        <span class="social-proof__item">ЧЕРНОВАЯ ОТДЕЛКА</span>
-        <span class="social-proof__item">ЧИСТОВАЯ ОТДЕЛКА</span>
-        <span class="social-proof__item">НАТЯЖНЫЕ ПОТОЛКИ</span>
-        <span class="social-proof__item">ГИПСОКАРТОННЫЕ ПОТОЛКИ</span>
-        <span class="social-proof__item">УКЛАДКА ЛАМИНАТА</span>
-        <span class="social-proof__item">УКЛАДКА ПЛИТКИ</span>
-        <span class="social-proof__item">ПОКЛЕЙКА ОБОЕВ</span>
-        <span class="social-proof__item">ЭЛЕКТРОМОНТАЖ</span>
-        <span class="social-proof__item">САНТЕХНИЧЕСКИЕ РАБОТЫ</span>
-        <span class="social-proof__item">СТЯЖКА ПОЛА</span>
-        <span class="social-proof__item">ШТУКАТУРКА СТЕН</span>
-        <span class="social-proof__item">ДИЗАЙН-ПРОЕКТ</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. FEATURES -->
-<section class="section" id="features">
-  <div class="container">
-    <p class="section__label fade-in">ПРЕИМУЩЕСТВА</p>
-    <h2 class="section__title fade-in">ПОЧЕМУ ВЫБИРАЮТ НАС</h2>
-    <div class="bento-grid fade-in">
-      <div class="bento-card">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="4" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M16 24L22 30L34 18" stroke="#D9714E" stroke-width="2" fill="none"/></svg>
-        </div>
-        <h3 class="bento-card__title">ДОГОВОР С ООО</h3>
-        <p class="bento-card__text">Работаем официально, с закреплённой сметой и сроками. ИНН 2543151912.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><circle cx="18" cy="14" r="5" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="30" cy="14" r="5" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="24" cy="26" r="5" stroke="#D9714E" stroke-width="1.5" fill="none"/><line x1="18" y1="19" x2="14" y2="28" stroke="#D9714E" stroke-width="1"/><line x1="30" y1="19" x2="34" y2="28" stroke="#D9714E" stroke-width="1"/><line x1="14" y1="32" x2="10" y2="40" stroke="#D9714E" stroke-width="1.5"/><line x1="34" y1="32" x2="38" y2="40" stroke="#D9714E" stroke-width="1.5"/><line x1="24" y1="31" x2="24" y2="40" stroke="#D9714E" stroke-width="1.5"/></svg>
-        </div>
-        <h3 class="bento-card__title">СВОИ БРИГАДЫ</h3>
-        <p class="bento-card__text">Отделочники, электрики, сантехники — опыт от 5 лет, без субподряда.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="#D9714E" stroke-width="1.5" fill="none"/><line x1="24" y1="24" x2="24" y2="12" stroke="#D9714E" stroke-width="1.5"/><line x1="24" y1="24" x2="32" y2="24" stroke="#D9714E" stroke-width="1.5"/><circle cx="24" cy="24" r="2" fill="#D9714E"/></svg>
-        </div>
-        <h3 class="bento-card__title">ФИКСИРОВАННЫЕ СРОКИ</h3>
-        <p class="bento-card__text">Указываем сроки этапов в договоре и предупреждаем о задержках заранее.</p>
-      </div>
-      <div class="bento-card bento-card--wide">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="20" rx="3" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M6 20H42" stroke="#D9714E" stroke-width="1"/><circle cx="12" cy="28" r="2" fill="#D9714E" opacity="0.5"/><path d="M18 28H36" stroke="#D9714E" stroke-width="1"/></svg>
-        </div>
-        <h3 class="bento-card__title">ЗАКУПКА МАТЕРИАЛОВ ПОД КЛЮЧ</h3>
-        <p class="bento-card__text">Можем закупить все материалы по смете сами, либо работать с материалами заказчика — как удобнее вам.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><path d="M8 38V14L24 6L40 14V38L24 44L8 38Z" stroke="#D9714E" stroke-width="1.5" fill="none"/><line x1="24" y1="6" x2="24" y2="44" stroke="#D9714E" stroke-width="1"/><line x1="8" y1="14" x2="40" y2="14" stroke="#D9714E" stroke-width="1" opacity="0.4"/></svg>
-        </div>
-        <h3 class="bento-card__title">ДИЗАЙН-ПРОЕКТ</h3>
-        <p class="bento-card__text">Разработаем проект с визуализацией до начала ремонта — меньше переделок.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="6" width="28" height="36" rx="3" stroke="#D9714E" stroke-width="1.5" fill="none"/><line x1="16" y1="14" x2="32" y2="14" stroke="#D9714E" stroke-width="1"/><line x1="16" y1="20" x2="28" y2="20" stroke="#D9714E" stroke-width="1"/><line x1="16" y1="26" x2="32" y2="26" stroke="#D9714E" stroke-width="1"/><line x1="16" y1="32" x2="24" y2="32" stroke="#D9714E" stroke-width="1"/></svg>
-        </div>
-        <h3 class="bento-card__title">ЛЮБОЙ ЭТАП ОТДЕЛЬНО</h3>
-        <p class="bento-card__text">Ремонт под ключ или отдельные виды работ: только потолки, только полы, только электрика.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-card__icon">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M24 14V24L32 28" stroke="#D9714E" stroke-width="1.5" stroke-linecap="round"/><circle cx="24" cy="24" r="2" fill="#D9714E"/></svg>
-        </div>
-        <h3 class="bento-card__title">БЕСПЛАТНЫЙ ЗАМЕР</h3>
-        <p class="bento-card__text">Выезжаем на объект, замеряем и считаем предварительную смету — бесплатно.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. SERVICES TABS -->
-<section class="section section--dark section--sparks" id="services">
-  <div class="sparks" aria-hidden="true">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-  </div>
-  <div class="container">
-    <p class="section__label fade-in">УСЛУГИ</p>
-    <h2 class="section__title fade-in">УСЛУГИ ВНУТРЕННЕЙ ОТДЕЛКИ</h2>
-    <div class="price-disclaimer" style="margin-top:-30px;">
+    <p class="ot-label ot-fade-in">ПРАЙС-ЛИСТ</p>
+    <h2 class="ot-section__title ot-fade-in">СТОИМОСТЬ РАБОТ</h2>
+    <div class="ot-price-note ot-fade-in">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <span>Цены ориентировочные — точная стоимость уточняется на бесплатном замере</span>
+      Цены ориентировочные — точная стоимость уточняется на бесплатном замере
     </div>
 
-    <div class="tabs fade-in">
-      <div class="tabs__nav">
-        <button class="tabs__btn tabs__btn--active" data-tab="rough">ЧЕРНОВАЯ ОТДЕЛКА</button>
-        <button class="tabs__btn" data-tab="finish">ЧИСТОВАЯ ОТДЕЛКА</button>
-        <button class="tabs__btn" data-tab="ceilings">ПОТОЛКИ</button>
-        <button class="tabs__btn" data-tab="floors">ПОЛЫ</button>
-        <button class="tabs__btn" data-tab="engineering">ЭЛЕКТРИКА И САНТЕХНИКА</button>
-        <button class="tabs__btn" data-tab="design">ДИЗАЙН-ПРОЕКТ</button>
+    <!-- Tabs -->
+    <div class="ot-price-tabs ot-fade-in">
+      <div class="ot-ptabs__nav" id="priceTabs">
+        <button class="ot-ptab ot-ptab--active" data-target="pt-grunting">ГРУНТОВКА И ШТУКАТУРКА</button>
+        <button class="ot-ptab" data-target="pt-gkl">ГКЛ И ОТКОСЫ</button>
+        <button class="ot-ptab" data-target="pt-walls">СТЕНЫ ЧИСТОВЫЕ</button>
+        <button class="ot-ptab" data-target="pt-ceiling">ПОТОЛОК</button>
+        <button class="ot-ptab" data-target="pt-floor">ПОЛЫ</button>
+        <button class="ot-ptab" data-target="pt-tile">ПЛИТОЧНЫЕ РАБОТЫ</button>
+        <button class="ot-ptab" data-target="pt-electro">ЭЛЕКТРОМОНТАЖ</button>
+        <button class="ot-ptab" data-target="pt-santech">САНТЕХНИКА</button>
+        <button class="ot-ptab" data-target="pt-demo">ДЕМОНТАЖ И ПЕРЕГОРОДКИ</button>
       </div>
-      <div class="tabs__content">
-        <!-- Черновая отделка -->
-        <div class="tabs__panel tabs__panel--active" id="tab-rough">
-          <p class="tabs__desc">Черновая отделка — подготовительный этап перед чистовой отделкой: выравнивание поверхностей, разводка коммуникаций.</p>
-          <div class="grid grid--3">
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="30" width="36" height="8" fill="none" stroke="#D9714E" stroke-width="1.5"/><path d="M6 30L42 30" stroke="#D9714E" stroke-width="1"/><path d="M10 30V22M18 30V22M26 30V22M34 30V22" stroke="#D9714E" stroke-width="1"/></svg></div>
-              <h3 class="card__title">СТЯЖКА ПОЛА</h3>
-              <p class="card__text">Выравнивание основания пола цементно-песчаной или полусухой стяжкой под финишное покрытие.</p>
-              <p class="card__price">от 450 ₽/м²</p>
+
+      <!-- ГРУНТОВКА И ШТУКАТУРКА -->
+      <div class="ot-ptab-panel ot-ptab-panel--active" id="pt-grunting">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">🖌</span>
+            <div>
+              <h3 class="ot-price-card__title">Грунтовка и штукатурка</h3>
+              <p class="ot-price-card__desc">Подготовительные работы для поверхностей стен, потолков и полов</p>
             </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M8 16H40M8 24H40M8 32H40" stroke="#D9714E" stroke-width="1"/></svg></div>
-              <h3 class="card__title">ШТУКАТУРКА СТЕН</h3>
-              <p class="card__text">Механизированная или ручная штукатурка стен по маякам. Подготовка под обои, покраску, плитку.</p>
-              <p class="card__price">от 500 ₽/м²</p>
+          </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Грунтовка стен и пола (1 слой)</td><td>м²</td><td class="ot-price-table__price">100 ₽</td></tr>
+              <tr><td>Грунтовка потолка (1 слой)</td><td>м²</td><td class="ot-price-table__price">130 ₽</td></tr>
+              <tr><td>Штукатурка стен</td><td>м²</td><td class="ot-price-table__price">700 ₽</td></tr>
+              <tr><td>Штукатурка потолка</td><td>м²</td><td class="ot-price-table__price">800 ₽</td></tr>
+              <tr><td>Декоративная штукатурка</td><td>м²</td><td class="ot-price-table__price">2 900 ₽</td></tr>
+              <tr><td>Цементно-песчаная штукатурка стен под сетке из стекловолокна с устройством маяков</td><td>м²</td><td class="ot-price-table__price">1 800 ₽</td></tr>
+              <tr><td>Ошкуривание штукатурки (выравнивание)</td><td>м²</td><td class="ot-price-table__price">150 ₽</td></tr>
+              <tr><td>Заливка пола (стяжка)</td><td>м²</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Шпатлёвка под покраску стен</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Шпатлёвка под покраску потолка</td><td>м²</td><td class="ot-price-table__price">1 200 ₽</td></tr>
+              <tr><td>Покраска стен (2 слоя)</td><td>м²</td><td class="ot-price-table__price">600 ₽</td></tr>
+              <tr><td>Покраска потолка (2 слоя)</td><td>м²</td><td class="ot-price-table__price">650 ₽</td></tr>
+              <tr><td>Подготовка поверхности перед цементной штукатуркой</td><td>м²</td><td class="ot-price-table__price">130 ₽</td></tr>
+              <tr><td>Монтаж штукатурной сетки</td><td>м²</td><td class="ot-price-table__price">180 ₽</td></tr>
+              <tr><td>Монтаж ПВХ уголков в штукатурку</td><td>м.п.</td><td class="ot-price-table__price">190 ₽</td></tr>
+              <tr><td>Гипсовая штукатурка стен (включая грунтование)</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Гипсовая штукатурка стен на узких участках (менее 500 мм)</td><td>м.п.</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Монтаж утепления ЭППС</td><td>м²</td><td class="ot-price-table__price">300 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ГКЛ И ОТКОСЫ -->
+      <div class="ot-ptab-panel" id="pt-gkl">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">📐</span>
+            <div>
+              <h3 class="ot-price-card__title">ГКЛ и откосы</h3>
+              <p class="ot-price-card__desc">Обшивка гипсокартоном, устройство откосов, коробов и грильято</p>
             </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><path d="M24 6V42M12 14L36 34M36 14L12 34" stroke="#D9714E" stroke-width="1.5"/><circle cx="24" cy="24" r="18" stroke="#D9714E" stroke-width="1" fill="none"/></svg></div>
-              <h3 class="card__title">РАЗВОДКА ЭЛЕКТРИКИ</h3>
-              <p class="card__text">Прокладка кабеля под чистовую отделку, монтаж подрозетников, разводка по проекту.</p>
-              <p class="card__price">от 350 ₽/точка</p>
+          </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Обшивка ГКЛ (1 слой)</td><td>м²</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Устройство дверных откосов из ГКЛ перед покраской</td><td>м.п.</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Устройство оконных откосов из ГКЛ перед покраской</td><td>м.п.</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Устройство коробов из ГКЛ перед покраской</td><td>м.п.</td><td class="ot-price-table__price">2 300 ₽</td></tr>
+              <tr><td>Устройство грильято</td><td>м²</td><td class="ot-price-table__price">2 000 ₽</td></tr>
+              <tr><td>Установка лючков 400×400</td><td>шт.</td><td class="ot-price-table__price">1 200 ₽</td></tr>
+              <tr><td>Установка лючков 200×200</td><td>шт.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Укладка керамогранита на пол 60×60 на МОПЫ</td><td>м²</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Укладка керамогранита на стену (средний формат)</td><td>м²</td><td class="ot-price-table__price">2 800 ₽</td></tr>
+              <tr><td>Укладка керамогранита на стену (большой формат)</td><td>м²</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Устройство откосов из керамогранита</td><td>м.п.</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Подрезка керамогранита под 45°</td><td>м.п.</td><td class="ot-price-table__price">700 ₽</td></tr>
+              <tr><td>Монтаж сапожка</td><td>м.п.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Затирка плитки</td><td>м²</td><td class="ot-price-table__price">200 ₽</td></tr>
+              <tr><td>Возведение каркаса ГКЛ</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Монтаж звукоизоляции Knauf Акустик</td><td>м²</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ каркаса в 1 слой</td><td>м²</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ каркаса в 2 слоя</td><td>м²</td><td class="ot-price-table__price">650 ₽</td></tr>
+              <tr><td>Монтаж малярных уголков в гипсокартон (откосы и перегородки)</td><td>м.п.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Монтаж откосов</td><td>м.п.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Монтаж пластиковых подоконников</td><td>м.п.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Закладная в каркас ГКЛ под мебель/телевизор</td><td>шт.</td><td class="ot-price-table__price">850 ₽</td></tr>
+              <tr><td>Вывод кабеля из ГКЛ</td><td>шт.</td><td class="ot-price-table__price">150 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- СТЕНЫ ЧИСТОВЫЕ -->
+      <div class="ot-ptab-panel" id="pt-walls">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">🎨</span>
+            <div>
+              <h3 class="ot-price-card__title">Стены чистовые</h3>
+              <p class="ot-price-card__desc">Финишная отделка стен: шпаклевание, покраска, обои, декоративная штукатурка</p>
             </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><path d="M14 8V40M34 8V40M14 24H34" stroke="#D9714E" stroke-width="1.5"/><circle cx="14" cy="8" r="3" stroke="#D9714E" stroke-width="1" fill="none"/><circle cx="34" cy="8" r="3" stroke="#D9714E" stroke-width="1" fill="none"/></svg></div>
-              <h3 class="card__title">РАЗВОДКА САНТЕХНИКИ</h3>
-              <p class="card__text">Прокладка труб водоснабжения и канализации, установка стояков, разводка по санузлам и кухне.</p>
-              <p class="card__price">от 3 500 ₽/точка</p>
+          </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Грубое шпаклевание по цементной штукатурке</td><td>м²</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Грубое шпаклевание по цементной штукатурке на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Заделка стыков армирующей лентой</td><td>м.п.</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Ошкуривание и грунтование стен</td><td>м²</td><td class="ot-price-table__price">180 ₽</td></tr>
+              <tr><td>Монтаж углоформирующей ленты с формированием угла</td><td>м.п.</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr><td>Шпаклевание черновое</td><td>м²</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Шпаклевание черновое на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr><td>Монтаж стеклохолста под покраску</td><td>м²</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Монтаж стеклохолста на узких поверхностях (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr><td>Шпаклевание чистовое</td><td>м²</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Шпаклевание чистовое на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr><td>Нанесение грунта под окраску (включая дефектовку)</td><td>м²</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Нанесение грунта под окраску на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">120 ₽</td></tr>
+              <tr><td>Покраска</td><td>м²</td><td class="ot-price-table__price">720 ₽</td></tr>
+              <tr><td>Покраска узких участков (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">300 ₽</td></tr>
+              <tr><td>Покраска карниза (включая шпаклевание, грунтовку)</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Малярная отделка видимого торца плитки/керамогранита</td><td>м.п.</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Грунтовка стен перед поклейкой обоев</td><td>м²</td><td class="ot-price-table__price">85 ₽</td></tr>
+              <tr><td>Нанесение декоративной штукатурки</td><td>м²</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Поклейка обоев на бумажной основе</td><td>м²</td><td class="ot-price-table__price">600 ₽</td></tr>
+              <tr><td>Поклейка обоев на флизелиновой основе</td><td>м²</td><td class="ot-price-table__price">420 ₽</td></tr>
+              <tr><td>Поклейка панно</td><td>м²</td><td class="ot-price-table__price">1 800 ₽</td></tr>
+              <tr><td>Покраска плинтуса</td><td>м²</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Формирование примыканий встраиваемых элементов</td><td>м.п.</td><td class="ot-price-table__price">650 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ПОТОЛОК -->
+      <div class="ot-ptab-panel" id="pt-ceiling">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">⬆</span>
+            <div>
+              <h3 class="ot-price-card__title">Потолок</h3>
+              <p class="ot-price-card__desc">Каркасные системы, ГКЛ, шпаклевание и покраска потолков</p>
             </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M10 20H38M20 10V38" stroke="#D9714E" stroke-width="1"/></svg></div>
-              <h3 class="card__title">МОНТАЖ ПЕРЕГОРОДОК</h3>
-              <p class="card__text">Гипсокартонные или пазогребневые перегородки для зонирования пространства.</p>
-              <p class="card__price">от 1 200 ₽/м²</p>
+          </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Грунтование бетонного потолка</td><td>м²</td><td class="ot-price-table__price">120 ₽</td></tr>
+              <tr><td>Монтаж каркаса (Knauf П113, одноуровневый)</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Монтаж каркаса (одноуровневый) на узких поверхностях (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">800 ₽</td></tr>
+              <tr><td>Монтаж каркаса (Knauf П112, двухуровневый)</td><td>м²</td><td class="ot-price-table__price">1 800 ₽</td></tr>
+              <tr><td>Монтаж закладных в каркас под светильники</td><td>шт.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Монтаж закладных в каркас под подшторники</td><td>шт.</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Установка трекового шинопровода в подсистему ГКЛ потолка</td><td>м.п.</td><td class="ot-price-table__price">3 400 ₽</td></tr>
+              <tr><td>Заполнение каркаса потолка минеральной ватой</td><td>м²</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ каркаса в 1 слой</td><td>м²</td><td class="ot-price-table__price">300 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ каркаса в 1 слой на узких поверхностях</td><td>м.п.</td><td class="ot-price-table__price">180 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ каркаса в 2 слоя</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ каркаса в 2 слоя на узких поверхностях</td><td>м.п.</td><td class="ot-price-table__price">360 ₽</td></tr>
+              <tr><td>Заделка стыков армирующей лентой</td><td>м.п.</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Шпаклевание черновое (включая грунтовку, шлифовку)</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Шпаклевание черновое на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Поклейка стеклохолста под покраску</td><td>м²</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr><td>Поклейка стеклохолста на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">200 ₽</td></tr>
+              <tr><td>Шпаклевание чистовое (включая грунтовку, шлифовку)</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Шпаклевание чистовое на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Грунтование потолка перед покраской</td><td>м²</td><td class="ot-price-table__price">300 ₽</td></tr>
+              <tr><td>Грунтование потолка перед покраской на узких участках</td><td>м.п.</td><td class="ot-price-table__price">150 ₽</td></tr>
+              <tr><td>Покраска потолка</td><td>м²</td><td class="ot-price-table__price">700 ₽</td></tr>
+              <tr><td>Покраска потолка на узких участках (&lt;500 мм)</td><td>м.п.</td><td class="ot-price-table__price">330 ₽</td></tr>
+              <tr><td>Оклейка профиля лентой уплотнительной</td><td>м.п.</td><td class="ot-price-table__price">50 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ПОЛЫ -->
+      <div class="ot-ptab-panel" id="pt-floor">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">⬇</span>
+            <div>
+              <h3 class="ot-price-card__title">Полы</h3>
+              <p class="ot-price-card__desc">Черновые и чистовые полы: стяжка, тёплый пол, финишные покрытия</p>
             </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="4" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M16 24L22 30L34 18" stroke="#D9714E" stroke-width="2" fill="none"/></svg></div>
-              <h3 class="card__title">ДЕМОНТАЖНЫЕ РАБОТЫ</h3>
-              <p class="card__text">Демонтаж старой отделки, перегородок, сантехники. Вывоз строительного мусора.</p>
-              <p class="card__price">от 250 ₽/м²</p>
+          </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr class="ot-price-table__group"><td colspan="3">Черновые полы</td></tr>
+              <tr><td>Подготовка полов к укладке шумоизоляционных материалов (зачистка, обеспыливание, грунтование)</td><td>м²</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr><td>Монтаж звукоизоляции Акуфлор</td><td>м²</td><td class="ot-price-table__price">300 ₽</td></tr>
+              <tr><td>Монтаж утепление ЭППС</td><td>м²</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Монтаж звукоизоляции Акуфлекс</td><td>м²</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr><td>Монтаж пароизоляции</td><td>м²</td><td class="ot-price-table__price">50 ₽</td></tr>
+              <tr><td>Укладка армирующей сетки</td><td>м²</td><td class="ot-price-table__price">120 ₽</td></tr>
+              <tr><td>Устройство бетонной стяжки</td><td>м²</td><td class="ot-price-table__price">1 100 ₽</td></tr>
+              <tr><td>Устройство полусухой стяжки (с материалом)</td><td>м²</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Чистовые полы</td></tr>
+              <tr><td>Укладка тёплых полов до 2 м²</td><td>шт.</td><td class="ot-price-table__price">3 500 ₽</td></tr>
+              <tr><td>Укладка тёплых полов свыше 4 м²</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Устройство выравнивающей стяжки до 20 мм</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Грунтование пола перед укладкой ПВХ</td><td>м²</td><td class="ot-price-table__price">90 ₽</td></tr>
+              <tr><td>Укладка ПВХ плитки</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Подготовка поверхности перед укладкой паркетной / инженерной доски</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Укладка паркета / инженерной доски (прямая укладка)</td><td>м²</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Устройство примыканий силиконом</td><td>м.п.</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Монтаж плинтусов</td><td>м.п.</td><td class="ot-price-table__price">700 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ПЛИТОЧНЫЕ РАБОТЫ -->
+      <div class="ot-ptab-panel" id="pt-tile">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">🔲</span>
+            <div>
+              <h3 class="ot-price-card__title">Плиточные работы</h3>
+              <p class="ot-price-card__desc">Укладка плитки и керамогранита различных форматов, гидроизоляция, затирка</p>
             </div>
+          </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Подготовка поддона без бортика к укладке плиткой (разуклонка)</td><td>шт.</td><td class="ot-price-table__price">4 250 ₽</td></tr>
+              <tr><td>Подготовка поддона с бортиком разной формы (разуклонка)</td><td>шт.</td><td class="ot-price-table__price">6 000 ₽</td></tr>
+              <tr><td>Устройство полимерной гидроизоляции в 2 слоя</td><td>м²</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Проклейка углов и примыканий гидроизоляционной лентой</td><td>м.п.</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr><td>Рез плитки (чистый)</td><td>м.п.</td><td class="ot-price-table__price">850 ₽</td></tr>
+              <tr><td>Рез плитки (скрытый)</td><td>м.п.</td><td class="ot-price-table__price">450 ₽</td></tr>
+              <tr><td>Рез плитки под углом вручную или механически</td><td>м.п.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Изготовление отверстий в плитке диаметром до 50 мм</td><td>шт.</td><td class="ot-price-table__price">600 ₽</td></tr>
+              <tr><td>Изготовление отверстий в плитке диаметром 50–70 мм</td><td>шт.</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Изготовление отверстий в плитке диаметром 70–110 мм</td><td>шт.</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Подготовка отверстия для кнопки инсталляции</td><td>шт.</td><td class="ot-price-table__price">1 200 ₽</td></tr>
+              <tr><td>Устройство скрытого люка под плитку</td><td>шт.</td><td class="ot-price-table__price">5 000 ₽</td></tr>
+              <tr><td>Монтаж стыковочного элемента к плитке</td><td>м.п.</td><td class="ot-price-table__price">850 ₽</td></tr>
+              <tr><td>Монтаж встроенных световых профилей (с устройством штроб)</td><td>м.п.</td><td class="ot-price-table__price">680 ₽</td></tr>
+              <tr><td>Укладка декоративного кирпича</td><td>м²</td><td class="ot-price-table__price">3 000 ₽</td></tr>
+              <tr><td>Облицовка плиткой диагональю 300–650 мм</td><td>м²</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Облицовка штучной мозайкой диагональю 10–70 мм</td><td>м²</td><td class="ot-price-table__price">4 100 ₽</td></tr>
+              <tr><td>Облицовка штучной плиткой диагональю 70–200 мм</td><td>м²</td><td class="ot-price-table__price">3 400 ₽</td></tr>
+              <tr><td>Облицовка плиткой диагональю 650–1300 мм</td><td>м²</td><td class="ot-price-table__price">3 000 ₽</td></tr>
+              <tr><td>Облицовка плиткой диагональю 1300–1650 мм</td><td>м²</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Облицовка плиткой диагональю 1650–2650 мм</td><td>м²</td><td class="ot-price-table__price">5 500 ₽</td></tr>
+              <tr><td>Облицовка плитки «ёлочкой»</td><td>м²</td><td class="ot-price-table__price">3 400 ₽</td></tr>
+              <tr><td>Формирование угла затирками</td><td>м.п.</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Затирка плитки/мозаики цементной затиркой</td><td>м²</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Затирка плитки/мозаики двухкомпонентной эпоксидной затиркой</td><td>м²</td><td class="ot-price-table__price">850 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ЭЛЕКТРОМОНТАЖ -->
+      <div class="ot-ptab-panel" id="pt-electro">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">⚡</span>
+            <div>
+              <h3 class="ot-price-card__title">Электромонтажные работы</h3>
+              <p class="ot-price-card__desc">Монтаж розеток, освещения, щитов, кабельных систем, видеонаблюдения</p>
+            </div>
+          </div>
+          <div class="ot-price-table-wrap">
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr class="ot-price-table__group"><td colspan="3">Розетки, выключатели, светильники</td></tr>
+              <tr><td>Подготовка к монтажу розеток и выключателей (зачистка проводов)</td><td>шт.</td><td class="ot-price-table__price">300 ₽</td></tr>
+              <tr><td>Монтаж розеток/выключателей в подрозетник (провода зачищены)</td><td>шт.</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Монтаж розеток/выключателей (накладной монтаж)</td><td>шт.</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Розеток накладных 1 пост.</td><td>шт.</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Розеток и выключателей на подготовленные места</td><td>шт.</td><td class="ot-price-table__price">550 ₽</td></tr>
+              <tr><td>Розеток сетевых 1 выход</td><td>шт.</td><td class="ot-price-table__price">550 ₽</td></tr>
+              <tr><td>Розеток сетевых 2 выхода</td><td>шт.</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Розеток RJ45 + TV</td><td>шт.</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Монтаж встроенного светильника с подключением</td><td>шт.</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Монтаж накладного светильника с подключением</td><td>шт.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Монтаж настенного светильника/бра с подключением</td><td>шт.</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Монтаж патронов с лампой</td><td>шт.</td><td class="ot-price-table__price">120 ₽</td></tr>
+              <tr><td>Монтаж светодиодной ленты с подключением</td><td>м.п.</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr><td>LED лента одноцветная (от/до)</td><td>шт.</td><td class="ot-price-table__price">400–550 ₽</td></tr>
+              <tr><td>LED лента RGB/RGBW (от/до)</td><td>шт.</td><td class="ot-price-table__price">550–800 ₽</td></tr>
+              <tr><td>Профиля для LED ленты</td><td>шт.</td><td class="ot-price-table__price">от 650 ₽</td></tr>
+              <tr><td>Блок питания 12/24В</td><td>шт.</td><td class="ot-price-table__price">800 ₽</td></tr>
+              <tr><td>Установка трансформаторов для диодных подсветок</td><td>шт.</td><td class="ot-price-table__price">420 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Кабель и кабельные системы</td></tr>
+              <tr><td>Монтаж кабеля (до 5 жил, сеч. до 4 мм²): открытой на скобах</td><td>м.п.</td><td class="ot-price-table__price">180 ₽</td></tr>
+              <tr><td>Монтаж кабеля (до 5 жил, сеч. до 4 мм²): на скобах при высоте >4 м</td><td>м.п.</td><td class="ot-price-table__price">210 ₽</td></tr>
+              <tr><td>Монтаж кабеля (до 5 жил, сеч. 6–10 мм²): открытой на скобах</td><td>м.п.</td><td class="ot-price-table__price">240 ₽</td></tr>
+              <tr><td>Монтаж кабеля (SATA, UTP, FTP) открытым способом</td><td>м.п.</td><td class="ot-price-table__price">140 ₽</td></tr>
+              <tr><td>Монтаж кабеля (до 5 жил, сеч. до 4 мм²): в трубах/каналах</td><td>м.п.</td><td class="ot-price-table__price">200 ₽</td></tr>
+              <tr><td>Монтаж кабеля (до 5 жил, сеч. 6–10 мм²): в трубах/каналах</td><td>м.п.</td><td class="ot-price-table__price">330 ₽</td></tr>
+              <tr><td>Затяжка провода в трубы до 32 мм</td><td>м.п.</td><td class="ot-price-table__price">80 ₽</td></tr>
+              <tr><td>Затяжка провода в трубы до 100 мм</td><td>м.п.</td><td class="ot-price-table__price">165 ₽</td></tr>
+              <tr><td>Монтаж коробов из ПВХ до 40×40</td><td>м.п.</td><td class="ot-price-table__price">240 ₽</td></tr>
+              <tr><td>Монтаж коробов из ПВХ до 100×60</td><td>м.п.</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Распределительные щиты и автоматы</td></tr>
+              <tr><td>Монтаж щита навесного до 72 мод.</td><td>шт.</td><td class="ot-price-table__price">1 600 ₽</td></tr>
+              <tr><td>Монтаж щита навесного до 144 мод.</td><td>шт.</td><td class="ot-price-table__price">4 100 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 12 мод. в гипсокартоне</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 12 мод. в пеноблоке</td><td>шт.</td><td class="ot-price-table__price">3 300 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 12 мод. в кирпиче</td><td>шт.</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 24 мод. в гипсокартоне</td><td>шт.</td><td class="ot-price-table__price">3 000 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 36 мод. в гипсокартоне</td><td>шт.</td><td class="ot-price-table__price">3 500 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 48 мод. в гипсокартоне</td><td>шт.</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 60 мод. в гипсокартоне</td><td>шт.</td><td class="ot-price-table__price">5 000 ₽</td></tr>
+              <tr><td>Монтаж встраиваемого щита до 72 мод. в гипсокартоне</td><td>шт.</td><td class="ot-price-table__price">6 500 ₽</td></tr>
+              <tr><td>Установка автомата в РЩ 1п (с подготовкой и подключением)</td><td>шт.</td><td class="ot-price-table__price">650 ₽</td></tr>
+              <tr><td>Установка автомата в РЩ 2п</td><td>шт.</td><td class="ot-price-table__price">800 ₽</td></tr>
+              <tr><td>Установка автомата в РЩ 3п</td><td>шт.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>УЗО (диф-автомат) двухполюсного с подключением</td><td>шт.</td><td class="ot-price-table__price">800 ₽</td></tr>
+              <tr><td>УЗО (диф-автомат) четырёхполюсного с подключением</td><td>шт.</td><td class="ot-price-table__price">1 300 ₽</td></tr>
+              <tr><td>Реле напряжения</td><td>шт.</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Монтаж счётчика 1ф</td><td>шт.</td><td class="ot-price-table__price">1 500 ₽</td></tr>
+              <tr><td>Монтаж счётчика 3ф</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Монтаж контура заземления</td><td>ед.</td><td class="ot-price-table__price">от 40 000 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Штробление и пробивка</td></tr>
+              <tr><td>Пробивка гнезда под розетку: бетон</td><td>шт.</td><td class="ot-price-table__price">650 ₽</td></tr>
+              <tr><td>Пробивка гнезда под розетку: кирпич</td><td>шт.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Пробивка гнезда под розетку: ГВЛ/ДСП</td><td>шт.</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr><td>Установка подрозетника на «Ротбонд»</td><td>шт.</td><td class="ot-price-table__price">120 ₽</td></tr>
+              <tr><td>Резка/пробивка борозды под кабель по бетону (2–3 см)</td><td>м.п.</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr><td>Резка/пробивка борозды под кабель по кирпичу (2–3 см)</td><td>м.п.</td><td class="ot-price-table__price">300 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Слаботочные системы</td></tr>
+              <tr><td>Монтаж видеокамеры с настройкой</td><td>шт.</td><td class="ot-price-table__price">6 800 ₽</td></tr>
+              <tr><td>Монтаж IP камер видеонаблюдения внутренних</td><td>шт.</td><td class="ot-price-table__price">3 500 ₽</td></tr>
+              <tr><td>Монтаж IP камер видеонаблюдения внешних (высота до 3 м)</td><td>шт.</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Монтаж IP камер видеонаблюдения внешних (высота до 5 м)</td><td>шт.</td><td class="ot-price-table__price">5 500 ₽</td></tr>
+              <tr><td>Монтаж и настройка видеорегистратора до 8 камер</td><td>шт.</td><td class="ot-price-table__price">8 000 ₽</td></tr>
+              <tr><td>Монтаж видеодомофона (режим подъезд–квартира)</td><td>шт.</td><td class="ot-price-table__price">4 250 ₽</td></tr>
+              <tr><td>Монтаж IP домофона с настройкой</td><td>шт.</td><td class="ot-price-table__price">5 500 ₽</td></tr>
+              <tr><td>Монтаж и настройка точки доступа Wi-Fi</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Подключение и настройка роутера</td><td>шт.</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Монтаж датчика движения с подключением</td><td>шт.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Монтаж электрического полотенцесушителя</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Монтаж телевизора на кронштейн (до 48")</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Монтаж телевизора на кронштейн (от 48")</td><td>шт.</td><td class="ot-price-table__price">6 000 ₽</td></tr>
+            </tbody>
+          </table>
           </div>
         </div>
-        <!-- Чистовая отделка -->
-        <div class="tabs__panel" id="tab-finish">
-          <p class="tabs__desc">Чистовая отделка — финишное оформление помещения: стены, полы, декоративные элементы.</p>
-          <div class="grid grid--3">
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M8 8L40 40M40 8L8 40" stroke="#D9714E" stroke-width="0.5" opacity="0.5"/></svg></div>
-              <h3 class="card__title">ПОКЛЕЙКА ОБОЕВ</h3>
-              <p class="card__text">Флизелиновые, виниловые, бумажные обои. Подготовка стен, поклейка встык, подгонка рисунка.</p>
-              <p class="card__price">от 300 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" rx="14" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="24" cy="24" r="6" fill="#D9714E" opacity="0.3"/></svg></div>
-              <h3 class="card__title">ПОКРАСКА СТЕН И ПОТОЛКОВ</h3>
-              <p class="card__text">Покраска водоэмульсионной, акриловой краской в 2-3 слоя. Любой цвет по каталогу.</p>
-              <p class="card__price">от 250 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="14" height="14" stroke="#D9714E" stroke-width="1.5" fill="none"/><rect x="26" y="8" width="14" height="14" stroke="#D9714E" stroke-width="1.5" fill="none"/><rect x="8" y="26" width="14" height="14" stroke="#D9714E" stroke-width="1.5" fill="none"/><rect x="26" y="26" width="14" height="14" stroke="#D9714E" stroke-width="1.5" fill="none"/></svg></div>
-              <h3 class="card__title">УКЛАДКА ПЛИТКИ</h3>
-              <p class="card__text">Керамическая плитка и керамогранит на пол и стены. Санузлы, кухни, коридоры.</p>
-              <p class="card__price">от 900 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="18" width="32" height="12" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M8 24H40" stroke="#D9714E" stroke-width="0.5"/></svg></div>
-              <h3 class="card__title">УСТАНОВКА ПЛИНТУСОВ И НАЛИЧНИКОВ</h3>
-              <p class="card__text">Монтаж напольных плинтусов, дверных наличников, декоративных молдингов.</p>
-              <p class="card__price">от 150 ₽/п.м.</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="12" y="6" width="24" height="36" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="30" cy="24" r="1.5" fill="#D9714E"/></svg></div>
-              <h3 class="card__title">УСТАНОВКА ДВЕРЕЙ</h3>
-              <p class="card__text">Монтаж межкомнатных и входных дверей, регулировка, установка фурнитуры.</p>
-              <p class="card__price">от 2 500 ₽/шт.</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="3" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M14 20H34M14 28H26" stroke="#D9714E" stroke-width="1.5"/></svg></div>
-              <h3 class="card__title">УСТАНОВКА САНТЕХНИКИ</h3>
-              <p class="card__text">Монтаж унитазов, раковин, ванн, душевых кабин, смесителей под ключ.</p>
-              <p class="card__price">от 2 000 ₽/точка</p>
+      </div>
+
+      <!-- САНТЕХНИКА -->
+      <div class="ot-ptab-panel" id="pt-santech">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">🚿</span>
+            <div>
+              <h3 class="ot-price-card__title">Сантехника</h3>
+              <p class="ot-price-card__desc">Инженерная и чистовая сантехника: разводка, тёплый пол, установка приборов</p>
             </div>
           </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr class="ot-price-table__group"><td colspan="3">Инженерная сантехника</td></tr>
+              <tr><td>Монтаж и сборка коллектора тёплого пола (до 10 контуров, со штраблением)</td><td>шт.</td><td class="ot-price-table__price">8 500 ₽</td></tr>
+              <tr><td>Монтаж и сборка коллектора тёплого пола (более 10 контуров)</td><td>шт.</td><td class="ot-price-table__price">14 000 ₽</td></tr>
+              <tr><td>Монтаж труб тёплого пола с укладкой ЭППС и демпферной ленты</td><td>м.п.</td><td class="ot-price-table__price">1 200 ₽</td></tr>
+              <tr><td>Монтаж выводов под дополнительный сантехприбор (вода и канализация)</td><td>шт.</td><td class="ot-price-table__price">5 000 ₽</td></tr>
+              <tr><td>Монтаж дополнительной инсталляции</td><td>шт.</td><td class="ot-price-table__price">6 000 ₽</td></tr>
+              <tr><td>Монтаж радиатора отопления (коллекторная разводка, с переделкой выводов)</td><td>шт.</td><td class="ot-price-table__price">8 500 ₽</td></tr>
+              <tr><td>Монтаж радиатора отопления (стояковая разводка)</td><td>шт.</td><td class="ot-price-table__price">15 000 ₽</td></tr>
+              <tr><td>Монтаж радиатора отопления после отделочных работ</td><td>шт.</td><td class="ot-price-table__price">850 ₽</td></tr>
+              <tr><td>Установка встроенного смесителя</td><td>шт.</td><td class="ot-price-table__price">8 500 ₽</td></tr>
+              <tr><td>Монтаж коллекторного отопления (коллекторный шкаф + разводка, без штрабления)</td><td>шт.</td><td class="ot-price-table__price">35 000 ₽</td></tr>
+              <tr><td>Монтаж душевого трапа</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Шумоизоляция дополнительного стояка канализации (до 3 м)</td><td>шт.</td><td class="ot-price-table__price">5 000 ₽</td></tr>
+              <tr><td>Монтаж вентиляционных коробов пластиковых (до 7 м)</td><td>компл.</td><td class="ot-price-table__price">5 500 ₽</td></tr>
+              <tr><td>Монтаж вентиляционных коробов пластиковых (более 7 м, за доп. м)</td><td>шт.</td><td class="ot-price-table__price">750 ₽</td></tr>
+              <tr><td>Монтаж коллекторной разводки ХГВС до 7 приборов (1 ввод)</td><td>компл.</td><td class="ot-price-table__price">162 000 ₽</td></tr>
+              <tr><td>Монтаж коллекторной разводки ХГВС до 7 приборов (2 ввода)</td><td>компл.</td><td class="ot-price-table__price">180 000 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Чистовая сантехника</td></tr>
+              <tr><td>Установка ванны со сливом-переливом</td><td>шт.</td><td class="ot-price-table__price">5 000 ₽</td></tr>
+              <tr><td>Установка унитаза / биде</td><td>шт.</td><td class="ot-price-table__price">3 000 ₽</td></tr>
+              <tr><td>Установка декоративной части слива-перелива ванны</td><td>шт.</td><td class="ot-price-table__price">400 ₽</td></tr>
+              <tr><td>Установка чистовой части встроенного смесителя на раковину</td><td>шт.</td><td class="ot-price-table__price">2 000 ₽</td></tr>
+              <tr><td>Установка чистовой части встроенного смесителя на душ/ванну</td><td>шт.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Подключение стиральной/сушильной/посудомоечной машин</td><td>шт.</td><td class="ot-price-table__price">3 000 ₽</td></tr>
+              <tr><td>Монтаж накопительного водонагревателя до 100 л с подключением</td><td>шт.</td><td class="ot-price-table__price">5 000 ₽</td></tr>
+              <tr><td>Подключение сервопривода тёплого пола</td><td>шт.</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Подключение системы фильтрации питьевой воды</td><td>шт.</td><td class="ot-price-table__price">от 2 500 ₽</td></tr>
+              <tr><td>Установка гигиенического душа</td><td>шт.</td><td class="ot-price-table__price">1 300 ₽</td></tr>
+              <tr><td>Установка раковины с тумбой</td><td>шт.</td><td class="ot-price-table__price">от 5 000 ₽</td></tr>
+              <tr><td>Установка раковины подвесной</td><td>шт.</td><td class="ot-price-table__price">от 3 400 ₽</td></tr>
+              <tr><td>Установка сифона для раковины</td><td>шт.</td><td class="ot-price-table__price">1 200 ₽</td></tr>
+              <tr><td>Установка смесителя на раковину</td><td>шт.</td><td class="ot-price-table__price">1 700 ₽</td></tr>
+              <tr><td>Монтаж и подключение полотенцесушителя</td><td>ед.</td><td class="ot-price-table__price">от 5 000 ₽</td></tr>
+              <tr><td>Монтаж и подключение вытяжки отдельностоящей</td><td>ед.</td><td class="ot-price-table__price">от 5 500 ₽</td></tr>
+              <tr><td>Монтаж и подключение зеркала с подсветкой</td><td>ед.</td><td class="ot-price-table__price">от 3 300 ₽</td></tr>
+              <tr><td>Установка сухого сифона и решётки для волос в трап</td><td>шт.</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr><td>Подключение системы защиты от протечек</td><td>шт.</td><td class="ot-price-table__price">3 500 ₽</td></tr>
+            </tbody>
+          </table>
         </div>
-        <!-- Потолки -->
-        <div class="tabs__panel" id="tab-ceilings">
-          <p class="tabs__desc">Потолки любой сложности: от классических натяжных до многоуровневых конструкций с подсветкой.</p>
-          <div class="grid grid--3">
-            <div class="card card--product fade-in">
-              <div class="card__badge">ХИТ</div>
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="12" width="36" height="6" rx="2" fill="none" stroke="#D9714E" stroke-width="1.5"/><path d="M10 18V38M38 18V38" stroke="#D9714E" stroke-width="1" opacity="0.5"/></svg></div>
-              <h3 class="card__title">НАТЯЖНОЙ ПОТОЛОК (ГЛЯНЕЦ/МАТ)</h3>
-              <p class="card__text">Одноуровневый натяжной потолок. Более 100 цветов, гарантия на полотно.</p>
-              <p class="card__price">от 450 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="6" fill="none" stroke="#D9714E" stroke-width="1.5"/><rect x="12" y="18" width="24" height="6" fill="none" stroke="#D9714E" stroke-width="1.5"/></svg></div>
-              <h3 class="card__title">МНОГОУРОВНЕВЫЙ ПОТОЛОК</h3>
-              <p class="card__text">Комбинация гипсокартона и натяжного полотна, скрытая или контурная подсветка.</p>
-              <p class="card__price">от 1 200 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="14" width="32" height="8" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="16" cy="18" r="1.5" fill="#D9714E"/><circle cx="24" cy="18" r="1.5" fill="#D9714E"/><circle cx="32" cy="18" r="1.5" fill="#D9714E"/></svg></div>
-              <h3 class="card__title">ГИПСОКАРТОННЫЙ ПОТОЛОК</h3>
-              <p class="card__text">Одноуровневый потолок из ГКЛ под покраску. Ровная поверхность, скрытые коммуникации.</p>
-              <p class="card__price">от 700 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="24" cy="24" r="4" fill="#D9714E"/></svg></div>
-              <h3 class="card__title">ТОЧЕЧНОЕ ОСВЕЩЕНИЕ</h3>
-              <p class="card__text">Монтаж встроенных светильников, LED-лент, подсветки периметра.</p>
-              <p class="card__price">от 350 ₽/точка</p>
+      </div>
+
+      <!-- ДЕМОНТАЖ И ПЕРЕГОРОДКИ -->
+      <div class="ot-ptab-panel" id="pt-demo">
+        <div class="ot-price-card ot-fade-in">
+          <div class="ot-price-card__header">
+            <span class="ot-price-card__icon">🔨</span>
+            <div>
+              <h3 class="ot-price-card__title">Демонтаж и перегородки</h3>
+              <p class="ot-price-card__desc">Снос и демонтаж старых конструкций, возведение перегородок, общестроительные работы</p>
             </div>
           </div>
+          <table class="ot-price-table">
+            <thead>
+              <tr><th>Наименование работ</th><th>Ед.</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr class="ot-price-table__group"><td colspan="3">Демонтажные работы</td></tr>
+              <tr><td>Демонтаж стены из блока</td><td>м³</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Демонтаж стен из блока толщ. 200 мм</td><td>м²</td><td class="ot-price-table__price">1 300 ₽</td></tr>
+              <tr><td>Демонтаж перегородок из блока толщ. 100 мм</td><td>м²</td><td class="ot-price-table__price">900 ₽</td></tr>
+              <tr><td>Демонтаж стены из кирпича</td><td>м³</td><td class="ot-price-table__price">4 000 ₽</td></tr>
+              <tr><td>Демонтаж старых половых покрытий (бетонных)</td><td>м²</td><td class="ot-price-table__price">600 ₽</td></tr>
+              <tr><td>Демонтаж бетонной стены</td><td>м³</td><td class="ot-price-table__price">17 000 ₽</td></tr>
+              <tr><td>Демонтаж старого отделочного слоя</td><td>м²</td><td class="ot-price-table__price">600 ₽</td></tr>
+              <tr><td>Демонтаж утепления</td><td>м²</td><td class="ot-price-table__price">425 ₽</td></tr>
+              <tr><td>Демонтаж радиаторов отопления</td><td>шт.</td><td class="ot-price-table__price">700 ₽</td></tr>
+              <tr><td>Демонтаж старых половых покрытий (деревянных)</td><td>м²</td><td class="ot-price-table__price">500 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Общестроительные работы</td></tr>
+              <tr><td>Подготовка и защита полов к малярным работам (настил ДВП, уборка, грунтование)</td><td>м²</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Увеличение высоты дверного проёма (в мягких материалах)</td><td>шт.</td><td class="ot-price-table__price">850 ₽</td></tr>
+              <tr><td>Заполнение штроб гипсовыми составами</td><td>м.п.</td><td class="ot-price-table__price">150 ₽</td></tr>
+              <tr><td>Разнорабочий</td><td>чел./час</td><td class="ot-price-table__price">550 ₽</td></tr>
+              <tr><td>Подготовка полов к строительным работам (зачистка, уборка)</td><td>м²</td><td class="ot-price-table__price">170 ₽</td></tr>
+              <tr class="ot-price-table__group"><td colspan="3">Устройство перегородок</td></tr>
+              <tr><td>Возведение перегородок толщиной 100 мм</td><td>м²</td><td class="ot-price-table__price">1 800 ₽</td></tr>
+              <tr><td>Возведение перегородок из кирпича</td><td>м²</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Возведение перегородок из андезитобазальтовых блоков 190 мм</td><td>м²</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+              <tr><td>Сборка каркаса из TECE профиля</td><td>м²</td><td class="ot-price-table__price">2 200 ₽</td></tr>
+              <tr><td>Возведение каркаса перегородок</td><td>м²</td><td class="ot-price-table__price">1 000 ₽</td></tr>
+              <tr><td>Монтаж бескаркасной звукоизоляции</td><td>м²</td><td class="ot-price-table__price">850 ₽</td></tr>
+              <tr><td>Монтаж звукоизоляции Knauf Акустик в перегородку</td><td>м²</td><td class="ot-price-table__price">250 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ перегородки в 1 слой</td><td>м²</td><td class="ot-price-table__price">350 ₽</td></tr>
+              <tr><td>Обшивка листами ГКЛ перегородки в 2 слоя</td><td>м²</td><td class="ot-price-table__price">650 ₽</td></tr>
+              <tr><td>Бурение стен: толщ. 140–300 мм, диам. до 30 мм</td><td>ед.</td><td class="ot-price-table__price">от 500 ₽</td></tr>
+              <tr><td>Сверление отверстий в перекрытиях до 200 мм диам. 52–68 мм</td><td>ед.</td><td class="ot-price-table__price">2 500 ₽</td></tr>
+            </tbody>
+          </table>
         </div>
-        <!-- Полы -->
-        <div class="tabs__panel" id="tab-floors">
-          <p class="tabs__desc">Финишные напольные покрытия для любых помещений: от ламината до паркетной доски.</p>
-          <div class="grid grid--3">
-            <div class="card card--product fade-in">
-              <div class="card__badge">ПОПУЛЯРНЫЙ</div>
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="18" width="36" height="10" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M6 23H42" stroke="#D9714E" stroke-width="0.5"/><path d="M15 18V28M24 18V28M33 18V28" stroke="#D9714E" stroke-width="0.5"/></svg></div>
-              <h3 class="card__title">УКЛАДКА ЛАМИНАТА</h3>
-              <p class="card__text">Ламинат 32-33 класса, подложка, плинтус в комплекте. Быстрый монтаж.</p>
-              <p class="card__price">от 400 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="16" width="36" height="14" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M6 23H42" stroke="#D9714E" stroke-width="0.5"/></svg></div>
-              <h3 class="card__title">УКЛАДКА ПАРКЕТНОЙ ДОСКИ</h3>
-              <p class="card__text">Массивная или инженерная паркетная доска, шлифовка и лакировка при необходимости.</p>
-              <p class="card__price">от 900 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="14" width="32" height="20" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/></svg></div>
-              <h3 class="card__title">УКЛАДКА ЛИНОЛЕУМА</h3>
-              <p class="card__text">Бытовой и коммерческий линолеум, сварка швов, монтаж плинтуса.</p>
-              <p class="card__price">от 300 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M10 24H38M24 10V38" stroke="#D9714E" stroke-width="0.5"/></svg></div>
-              <h3 class="card__title">ТЁПЛЫЙ ПОЛ</h3>
-              <p class="card__text">Электрический или водяной тёплый пол под финишное покрытие. Терморегулятор в комплекте.</p>
-              <p class="card__price">от 1 800 ₽/м²</p>
-            </div>
-          </div>
+      </div>
+    </div><!-- /ot-price-tabs -->
+
+    <div class="ot-price-cta ot-fade-in">
+      <p>Нужна точная смета? Оставьте заявку — мы выедем на замер бесплатно</p>
+      <a href="#contacts" class="ot-btn ot-btn--primary">ЗАКАЗАТЬ ЗАМЕР</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="ot-section ot-section--dark" id="testimonials">
+  <div class="container">
+    <p class="ot-label ot-label--light ot-fade-in">ОТЗЫВЫ</p>
+    <h2 class="ot-section__title ot-section__title--light ot-fade-in">ЧТО ГОВОРЯТ КЛИЕНТЫ</h2>
+    <div class="ot-testimonials ot-fade-in">
+      <div class="ot-review">
+        <div class="ot-review__stars">★★★★★</div>
+        <p class="ot-review__text">«Делали ремонт под ключ в новой квартире. Все этапы согласовывали заранее, уложились в смету. Результатом довольны.»</p>
+        <div class="ot-review__author">
+          <strong>Ольга С.</strong>
+          <span>Владивосток</span>
         </div>
-        <!-- Электрика и сантехника -->
-        <div class="tabs__panel" id="tab-engineering">
-          <p class="tabs__desc">Полный комплекс инженерных работ: от щитка до финальной установки приборов.</p>
-          <div class="grid grid--3">
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="14" y="6" width="20" height="36" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M20 14H28M20 22H28M20 30H28" stroke="#D9714E" stroke-width="1"/></svg></div>
-              <h3 class="card__title">МОНТАЖ ЭЛЕКТРОЩИТКА</h3>
-              <p class="card__text">Сборка и монтаж распределительного щитка, автоматы, УЗО, разводка групп.</p>
-              <p class="card__price">от 8 000 ₽</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="16" y="16" width="16" height="16" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="21" cy="24" r="1.5" fill="#D9714E"/><circle cx="27" cy="24" r="1.5" fill="#D9714E"/></svg></div>
-              <h3 class="card__title">УСТАНОВКА РОЗЕТОК И ВЫКЛЮЧАТЕЛЕЙ</h3>
-              <p class="card__text">Монтаж и подключение розеток, выключателей, диммеров любого типа.</p>
-              <p class="card__price">от 250 ₽/точка</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><path d="M24 6C24 6 12 20 12 28C12 34.6 17.4 40 24 40C30.6 40 36 34.6 36 28C36 20 24 6 24 6Z" stroke="#D9714E" stroke-width="1.5" fill="none"/></svg></div>
-              <h3 class="card__title">ПОДКЛЮЧЕНИЕ ВОДОСНАБЖЕНИЯ</h3>
-              <p class="card__text">Разводка труб холодной и горячей воды, установка фильтров, счётчиков.</p>
-              <p class="card__price">от 2 800 ₽/точка</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="20" width="28" height="14" rx="3" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="18" cy="27" r="2" fill="#D9714E"/></svg></div>
-              <h3 class="card__title">УСТАНОВКА БОЙЛЕРА / КОТЛА</h3>
-              <p class="card__text">Монтаж водонагревателя или отопительного котла с подключением к сетям.</p>
-              <p class="card__price">от 4 500 ₽</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="16" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M24 16V24L30 28" stroke="#D9714E" stroke-width="1.5"/></svg></div>
-              <h3 class="card__title">УСТАНОВКА КОНДИЦИОНЕРА</h3>
-              <p class="card__text">Монтаж внутреннего и наружного блоков, прокладка трассы, заправка фреоном.</p>
-              <p class="card__price">от 9 000 ₽</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" rx="4" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M18 24H30M24 18V30" stroke="#D9714E" stroke-width="1.5"/></svg></div>
-              <h3 class="card__title">ВЕНТИЛЯЦИЯ</h3>
-              <p class="card__text">Монтаж приточно-вытяжной вентиляции для кухни, санузла, всей квартиры.</p>
-              <p class="card__price">от 6 000 ₽</p>
-            </div>
-          </div>
+      </div>
+      <div class="ot-review">
+        <div class="ot-review__stars">★★★★★</div>
+        <p class="ot-review__text">«Заказывали натяжные потолки и укладку ламината. Сделали быстро и аккуратно, без грязи в квартире.»</p>
+        <div class="ot-review__author">
+          <strong>Дмитрий К.</strong>
+          <span>Владивосток</span>
         </div>
-        <!-- Дизайн-проект -->
-        <div class="tabs__panel" id="tab-design">
-          <p class="tabs__desc">Дизайн-проект помогает точно рассчитать смету, избежать переделок и увидеть результат заранее.</p>
-          <div class="grid grid--3 grid--center-last">
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="24" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/><path d="M8 32L18 22L26 28L40 16" stroke="#D9714E" stroke-width="1.5" fill="none"/></svg></div>
-              <h3 class="card__title">ПЛАНИРОВОЧНОЕ РЕШЕНИЕ</h3>
-              <p class="card__text">Разработка планировки с расстановкой мебели и зонированием пространства.</p>
-              <p class="card__price">от 350 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__badge">ХИТ</div>
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="28" rx="2" stroke="#D9714E" stroke-width="1.5" fill="none"/><circle cx="16" cy="20" r="3" stroke="#D9714E" stroke-width="1" fill="none"/><path d="M6 32L18 24L26 30L42 18" stroke="#D9714E" stroke-width="1"/></svg></div>
-              <h3 class="card__title">3D-ВИЗУАЛИЗАЦИЯ</h3>
-              <p class="card__text">Фотореалистичная 3D-визуализация интерьера в нескольких ракурсах.</p>
-              <p class="card__price">от 600 ₽/м²</p>
-            </div>
-            <div class="card card--product fade-in">
-              <div class="card__icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="10" y="6" width="28" height="36" rx="3" stroke="#D9714E" stroke-width="1.5" fill="none"/><line x1="16" y1="14" x2="32" y2="14" stroke="#D9714E" stroke-width="1"/><line x1="16" y1="20" x2="28" y2="20" stroke="#D9714E" stroke-width="1"/><line x1="16" y1="26" x2="32" y2="26" stroke="#D9714E" stroke-width="1"/></svg></div>
-              <h3 class="card__title">РАБОЧАЯ ДОКУМЕНТАЦИЯ</h3>
-              <p class="card__text">Чертежи для строителей: план электрики, сантехники, потолков, полов, раскладки плитки.</p>
-              <p class="card__price">от 250 ₽/м²</p>
-            </div>
-          </div>
+      </div>
+      <div class="ot-review">
+        <div class="ot-review__stars">★★★★★</div>
+        <p class="ot-review__text">«Понравился подход: сначала бесплатный замер и смета, потом уже договор. Никаких доплат в процессе не было.»</p>
+        <div class="ot-review__author">
+          <strong>Анна В.</strong>
+          <span>Владивосток</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Mobile tabs (under products) -->
-<nav class="mobile-tabs" id="mobileTabs">
-  <div class="mobile-tabs__inner">
-    <button class="mobile-tabs__btn" data-tab="tab-rough">ЧЕРНОВАЯ</button>
-    <button class="mobile-tabs__btn" data-tab="tab-finish">ЧИСТОВАЯ</button>
-    <button class="mobile-tabs__btn" data-tab="tab-ceilings">ПОТОЛКИ</button>
-    <button class="mobile-tabs__btn" data-tab="tab-floors">ПОЛЫ</button>
-    <button class="mobile-tabs__btn" data-tab="tab-engineering">ЭЛЕКТРИКА/САНТЕХНИКА</button>
-    <button class="mobile-tabs__btn" data-tab="tab-design">ДИЗАЙН</button>
-  </div>
-</nav>
-
-<!-- 5. TESTIMONIALS (placeholder — заменить на реальные отзывы по отделке) -->
-<section class="section section--dark section--sparks" id="testimonials">
-  <div class="sparks" aria-hidden="true">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-  </div>
+<!-- FAQ -->
+<section class="ot-section ot-section--white" id="faq">
   <div class="container">
-    <p class="section__label fade-in">ОТЗЫВЫ</p>
-    <h2 class="section__title fade-in">ЧТО ГОВОРЯТ КЛИЕНТЫ</h2>
-    <!-- TODO: заменить плейсхолдер-отзывы на реальные, когда появятся -->
-    <div class="testimonials-scroll fade-in">
-      <div class="testimonial-card">
-        <div class="testimonial-card__header">
-          <div class="testimonial-card__avatar" style="background: linear-gradient(135deg, #D9714E, #e8a891);">
-            <img src="../img/lowrise-tambur-1.jpg" alt="Отделка" loading="lazy">
-          </div>
-          <div class="testimonial-card__info">
-            <div class="testimonial-card__stars">★★★★★</div>
-            <p class="testimonial-card__name">Ольга С.</p>
-            <p class="testimonial-card__role">Владивосток</p>
-          </div>
-        </div>
-        <p class="testimonial-card__text">«Делали ремонт под ключ в новой квартире. Все этапы согласовывали заранее, уложились в смету. Результатом довольны.»</p>
+    <p class="ot-label ot-fade-in">FAQ</p>
+    <h2 class="ot-section__title ot-fade-in">ЧАСТЫЕ ВОПРОСЫ</h2>
+    <div class="ot-faq ot-fade-in">
+      <div class="ot-faq__item">
+        <button class="ot-faq__q">СКОЛЬКО ДЛИТСЯ РЕМОНТ КВАРТИРЫ ПОД КЛЮЧ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a"><p>Черновая отделка однокомнатной квартиры — от 2 до 4 недель. Чистовая — от 3 до 6 недель. Полный ремонт под ключ — от 1,5 до 3 месяцев в зависимости от площади и сложности.</p></div>
       </div>
-      <div class="testimonial-card">
-        <div class="testimonial-card__header">
-          <div class="testimonial-card__avatar" style="background: linear-gradient(135deg, #D9714E, #a85436);">
-            <img src="../img/lowrise-vhod.jpg" alt="Отделка" loading="lazy">
-          </div>
-          <div class="testimonial-card__info">
-            <div class="testimonial-card__stars">★★★★★</div>
-            <p class="testimonial-card__name">Дмитрий К.</p>
-            <p class="testimonial-card__role">Владивосток</p>
-          </div>
-        </div>
-        <p class="testimonial-card__text">«Заказывали натяжные потолки и укладку ламината. Сделали быстро и аккуратно, без грязи в квартире.»</p>
+      <div class="ot-faq__item">
+        <button class="ot-faq__q">ВЫЕЗЖАЕТЕ НА ЗАМЕР БЕСПЛАТНО?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a"><p>Да, замер и предварительный расчёт стоимости — бесплатно по Владивостоку.</p></div>
       </div>
-      <div class="testimonial-card">
-        <div class="testimonial-card__header">
-          <div class="testimonial-card__avatar" style="background: linear-gradient(135deg, #D9714E, #c98867);">
-            <img src="../img/lowrise-2etazh.jpg" alt="Отделка" loading="lazy">
-          </div>
-          <div class="testimonial-card__info">
-            <div class="testimonial-card__stars">★★★★★</div>
-            <p class="testimonial-card__name">Анна В.</p>
-            <p class="testimonial-card__role">Владивосток</p>
-          </div>
-        </div>
-        <p class="testimonial-card__text">«Понравился подход: сначала бесплатный замер и смета, потом уже договор. Никаких доплат в процессе не было.»</p>
+      <div class="ot-faq__item">
+        <button class="ot-faq__q">РАБОТАЕТЕ СО СВОИМИ МАТЕРИАЛАМИ ИЛИ ЗАКУПАЕТЕ САМИ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a"><p>Возможны оба варианта: закупаем материалы по согласованному списку и смете, либо работаем с материалами заказчика.</p></div>
+      </div>
+      <div class="ot-faq__item">
+        <button class="ot-faq__q">ДАЁТЕ ЛИ ГАРАНТИЮ НА ОТДЕЛОЧНЫЕ РАБОТЫ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a"><p>Да, гарантия на выполненные работы фиксируется в договоре подряда. Работаем официально, по договору с ООО «Концепция Строительства».</p></div>
+      </div>
+      <div class="ot-faq__item">
+        <button class="ot-faq__q">МОЖНО ЛИ ЗАКАЗАТЬ ТОЛЬКО ЧАСТЬ РАБОТ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a"><p>Да, можно заказать как ремонт под ключ, так и отдельные виды работ: только потолки, только полы, только электрику и т.д.</p></div>
+      </div>
+      <div class="ot-faq__item">
+        <button class="ot-faq__q">ДЕЛАЕТЕ ДИЗАЙН-ПРОЕКТ ПЕРЕД НАЧАЛОМ РЕМОНТА?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a"><p>Да, разрабатываем дизайн-проект с визуализацией по желанию заказчика — это помогает точнее рассчитать смету и избежать переделок.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 7. FAQ -->
-<section class="section" id="faq">
+<!-- CONTACTS -->
+<section class="ot-section ot-section--dark" id="contacts">
   <div class="container">
-    <p class="section__label fade-in">FAQ</p>
-    <h2 class="section__title fade-in">ЧАСТЫЕ ВОПРОСЫ</h2>
-    <div class="faq__list">
-      <div class="faq__item fade-in">
-        <button class="faq__question">СКОЛЬКО ДЛИТСЯ РЕМОНТ КВАРТИРЫ ПОД КЛЮЧ?<span class="faq__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D9714E" stroke-width="2" fill="none"/></svg></span></button>
-        <div class="faq__answer"><p>Черновая отделка однокомнатной квартиры — от 2 до 4 недель. Чистовая отделка — от 3 до 6 недель. Полный ремонт под ключ — от 1,5 до 3 месяцев в зависимости от площади и сложности.</p></div>
-      </div>
-      <div class="faq__item fade-in">
-        <button class="faq__question">ВЫЕЗЖАЕТЕ НА ЗАМЕР БЕСПЛАТНО?<span class="faq__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D9714E" stroke-width="2" fill="none"/></svg></span></button>
-        <div class="faq__answer"><p>Да, замер и предварительный расчёт стоимости — бесплатно по Владивостоку.</p></div>
-      </div>
-      <div class="faq__item fade-in">
-        <button class="faq__question">РАБОТАЕТЕ СО СВОИМИ МАТЕРИАЛАМИ ИЛИ ЗАКУПАЕТЕ САМИ?<span class="faq__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D9714E" stroke-width="2" fill="none"/></svg></span></button>
-        <div class="faq__answer"><p>Возможны оба варианта: закупаем материалы по согласованному списку и смете, либо работаем с материалами заказчика.</p></div>
-      </div>
-      <div class="faq__item fade-in">
-        <button class="faq__question">ДАЁТЕ ЛИ ГАРАНТИЮ НА ОТДЕЛОЧНЫЕ РАБОТЫ?<span class="faq__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D9714E" stroke-width="2" fill="none"/></svg></span></button>
-        <div class="faq__answer"><p>Да, гарантия на выполненные работы фиксируется в договоре подряда. Работаем официально, по договору с ООО «Концепция Строительства».</p></div>
-      </div>
-      <div class="faq__item fade-in">
-        <button class="faq__question">МОЖНО ЛИ ЗАКАЗАТЬ ТОЛЬКО ЧАСТЬ РАБОТ?<span class="faq__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D9714E" stroke-width="2" fill="none"/></svg></span></button>
-        <div class="faq__answer"><p>Да, можно заказать как ремонт под ключ, так и отдельные виды работ: только потолки, только полы, только электрику и т.д.</p></div>
-      </div>
-      <div class="faq__item fade-in">
-        <button class="faq__question">ДЕЛАЕТЕ ДИЗАЙН-ПРОЕКТ ПЕРЕД НАЧАЛОМ РЕМОНТА?<span class="faq__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D9714E" stroke-width="2" fill="none"/></svg></span></button>
-        <div class="faq__answer"><p>Да, разрабатываем дизайн-проект с визуализацией по желанию заказчика — это помогает точнее рассчитать смету и избежать переделок.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 8. CONTACTS -->
-<section class="section section--dark" id="contacts">
-  <div class="container">
-    <p class="section__label fade-in">КОНТАКТЫ</p>
-    <h2 class="section__title fade-in">СВЯЖИТЕСЬ С НАМИ</h2>
-    <div class="contacts__grid">
-      <form class="contacts__form fade-in" id="contactForm">
-        <div id="formSuccess" style="display:none; text-align:center; padding:40px 0; width:100%;">
+    <p class="ot-label ot-label--light ot-fade-in">КОНТАКТЫ</p>
+    <h2 class="ot-section__title ot-section__title--light ot-fade-in">СВЯЖИТЕСЬ С НАМИ</h2>
+    <div class="ot-contacts">
+      <form class="ot-form ot-fade-in" id="contactForm">
+        <div id="formSuccess" style="display:none; text-align:center; padding:40px 0;">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="display:block;margin:0 auto;">
-            <circle cx="12" cy="12" r="10" stroke="#D9714E" stroke-width="1.5"/>
-            <path d="M8 12L11 15L16 9" stroke="#D9714E" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="10" stroke="#F5C518" stroke-width="1.5"/>
+            <path d="M8 12L11 15L16 9" stroke="#F5C518" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <p style="margin-top:16px;font-size:clamp(16px,1.6vw,22px);font-weight:700;letter-spacing:1px;">ЗАЯВКА ОТПРАВЛЕНА</p>
-          <p style="color:#888;margin-top:6px;">Мы свяжемся с вами в ближайшее время</p>
+          <p style="margin-top:16px;font-size:clamp(16px,1.6vw,22px);font-weight:700;letter-spacing:1px;color:#fff;">ЗАЯВКА ОТПРАВЛЕНА</p>
+          <p style="color:#aaa;margin-top:6px;">Мы свяжемся с вами в ближайшее время</p>
         </div>
-        <input type="text" class="form__input" name="name" placeholder="Имя" required>
-        <input type="tel" class="form__input" name="phone" placeholder="Телефон" required>
+        <input type="text" class="ot-form__input" name="name" placeholder="Имя" required>
+        <input type="tel" class="ot-form__input" name="phone" placeholder="Телефон" required>
         <input type="hidden" name="direction" value="Внутренняя отделка">
-        <textarea class="form__input form__textarea" name="message" placeholder="Сообщение (площадь, адрес, какие работы нужны)" rows="4"></textarea>
-        <label class="form__checkbox">
+        <textarea class="ot-form__input ot-form__textarea" name="message" placeholder="Сообщение (площадь, адрес, какие работы нужны)" rows="4"></textarea>
+        <label class="ot-form__checkbox">
           <input type="checkbox" name="consent" required>
-          <span class="form__checkmark"></span>
+          <span class="ot-form__checkmark"></span>
           <span>Согласен(на) на <a href="/privacy/" target="_blank">обработку персональных данных</a></span>
         </label>
-        <button type="submit" class="btn btn--primary" id="submitBtn">ЗАКАЗАТЬ ЗАМЕР</button>
+        <button type="submit" class="ot-btn ot-btn--primary" id="submitBtn">ЗАКАЗАТЬ ЗАМЕР</button>
       </form>
-      <div class="contacts__info fade-in">
-        <div class="contacts__map">
-          <iframe src="https://yandex.ru/map-widget/v1/?ll=131.8994%2C43.1735&z=17&l=map&pt=131.8994%2C43.1735%2Cpm2rdl" width="100%" height="280" style="border: 1px solid rgba(217, 113, 78, 0.3); border-radius: 8px;" allowfullscreen title="Карта проезда — ул. Татарская, 11" loading="lazy"></iframe>
+      <div class="ot-contacts__info ot-fade-in">
+        <div class="ot-contacts__map">
+          <iframe src="https://yandex.ru/map-widget/v1/?ll=131.8994%2C43.1735&z=17&l=map&pt=131.8994%2C43.1735%2Cpm2rdl" width="100%" height="280" style="border: 1px solid rgba(245,197,24,0.3); border-radius: 8px;" allowfullscreen title="Карта проезда" loading="lazy"></iframe>
+        </div>
+        <div class="ot-contacts__details">
+          <p class="ot-contacts__address">г. Владивосток, ул. Татарская, 11<br><span>Офис и производство</span></p>
+          <p class="ot-contacts__phone"><a href="tel:+79242310478">+7 (924) 231-04-78</a></p>
+          <p class="ot-contacts__messengers"><a href="https://wa.me/message/VJAZDFZV5M5SF1" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/KCTROOO" target="_blank" rel="noopener">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOIhWz1pJrinOgTwp9A1PMQgZc584VIY2YQQNypJtIwFR183NDM" target="_blank" rel="noopener">MAX</a></p>
+          <p class="ot-contacts__hours">Пн–Пт: 09:00–19:00 · Сб: 10:00–16:00</p>
+          <div class="ot-contacts__communities" aria-label="Наши сообщества и канал">
+            <span class="ot-contacts__communities-title">НАШИ СООБЩЕСТВА</span>
+            <div class="ot-contacts__community-links">
+              <a href="https://vk.ru/club240539639" target="_blank" rel="noopener" aria-label="Группа Концепции строительства во ВКонтакте">VK</a>
+              <a href="https://ok.ru/group/70000055352529" target="_blank" rel="noopener" aria-label="Группа Концепции строительства в Одноклассниках">OK</a>
+              <a href="https://t.me/+Bzm1S_3zijowOWNi" target="_blank" rel="noopener" aria-label="Канал Концепции строительства в Telegram">TG</a>
+            </div>
+          </div>
+        </div>
 
-         </div>
-         <div class="contacts__details">
-           <div class="contacts__details-grid">
-             <div class="contacts__main-details">
-               <p class="contacts__address">г. Владивосток, ул. Татарская, 11<br><span style="font-size:0.85em;color:#888;">Офис и производство</span></p>
-               <p class="contacts__phone"><a href="tel:+79242310478" class="contacts__phone-link">+7 (924) 231-04-78</a></p>
-             </div>
-             <div class="contacts__communities" aria-label="Наши сообщества и канал">
-               <span class="contacts__communities-title">НАШИ СООБЩЕСТВА</span>
-               <div class="contacts__community-links">
-                 <a href="https://vk.ru/club240539639" target="_blank" rel="noopener" aria-label="Группа Концепции строительства во ВКонтакте">VK</a>
-                 <a href="https://ok.ru/group/70000055352529" target="_blank" rel="noopener" aria-label="Группа Концепции строительства в Одноклассниках">OK</a>
-                 <a href="https://t.me/+Bzm1S_3zijowOWNi" target="_blank" rel="noopener" aria-label="Канал Концепции строительства в Telegram">TG</a>
-               </div>
-             </div>
-           </div>
-           <p class="contacts__messengers"><a href="https://wa.me/message/VJAZDFZV5M5SF1" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/KCTROOO" target="_blank" rel="noopener">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOIhWz1pJrinOgTwp9A1PMQgZc584VIY2YQQNypJtIwFR183NDM" target="_blank" rel="noopener">MAX</a></p>
-           <p class="contacts__hours">Пн–Пт: 09:00–19:00 · Сб: 10:00–16:00</p>
-         </div>
       </div>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="footer" itemscope itemtype="https://schema.org/WPFooter">
+<footer class="ot-footer">
   <div class="container">
-    <div class="footer__line"></div>
-    <div class="footer__grid footer__grid--4">
-      <div class="footer__col">
-        <div class="logo">
-          <svg class="logo__icon" width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <path d="M16 4L28 10V22L16 28L4 22V10L16 4Z" stroke="#D9714E" stroke-width="1.5" fill="none"/>
-            <path d="M16 10L22 13V19L16 22L10 19V13L16 10Z" stroke="#D9714E" stroke-width="1" fill="none"/>
-            <circle cx="16" cy="16" r="1.5" fill="#D9714E"/>
+    <div class="ot-footer__line"></div>
+    <div class="ot-footer__grid">
+      <div class="ot-footer__col">
+        <div class="ot-logo" style="margin-bottom:8px;">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 4L28 10V22L16 28L4 22V10L16 4Z" stroke="#F5C518" stroke-width="1.5" fill="none"/>
+            <path d="M16 10L22 13V19L16 22L10 19V13L16 10Z" stroke="#F5C518" stroke-width="1" fill="none"/>
+            <circle cx="16" cy="16" r="1.5" fill="#F5C518"/>
           </svg>
-          <span class="logo__text">КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА</span>
+          <span class="ot-logo__text">КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА</span>
         </div>
-        <p class="footer__text">Внутренняя отделка квартир и домов под ключ во Владивостоке.</p>
-        <div class="footer__social">
-          <a href="https://t.me/KCTROOO" class="footer__social-link" target="_blank" rel="noopener">Telegram</a>
-          <a href="https://wa.me/message/VJAZDFZV5M5SF1" class="footer__social-link" target="_blank" rel="noopener">WhatsApp</a>
-          <a href="https://max.ru/u/f9LHodD0cOIhWz1pJrinOgTwp9A1PMQgZc584VIY2YQQNypJtIwFR183NDM" class="footer__social-link" target="_blank" rel="noopener">MAX</a>
+        <p class="ot-footer__text">Внутренняя отделка квартир и домов под ключ во Владивостоке.</p>
+        <div class="ot-footer__social">
+          <a href="https://t.me/KCTROOO" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://wa.me/message/VJAZDFZV5M5SF1" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://max.ru/u/f9LHodD0cOIhWz1pJrinOgTwp9A1PMQgZc584VIY2YQQNypJtIwFR183NDM" target="_blank" rel="noopener">MAX</a>
         </div>
       </div>
-      <div class="footer__col">
-        <h4 class="footer__col-title">УСЛУГИ</h4>
-        <a href="#services" class="footer__link">Черновая отделка</a>
-        <a href="#services" class="footer__link">Чистовая отделка</a>
-        <a href="#services" class="footer__link">Потолки и полы</a>
-        <a href="#services" class="footer__link">Электрика и сантехника</a>
-        <a href="/metallokonstrukcii/" class="footer__link">Металлоконструкции →</a>
+      <div class="ot-footer__col">
+        <h4>УСЛУГИ</h4>
+        <a href="#pricelist">Черновая отделка</a>
+        <a href="#pricelist">Чистовая отделка</a>
+        <a href="#pricelist">Потолки и полы</a>
+        <a href="#pricelist">Электрика и сантехника</a>
+        <a href="/metallokonstrukcii/">Металлоконструкции →</a>
       </div>
-      <div class="footer__col">
-        <h4 class="footer__col-title">РЕСУРСЫ</h4>
-        <a href="/" class="footer__link">Главная</a>
-        <a href="#about" class="footer__link">О направлении</a>
-        <a href="#faq" class="footer__link">FAQ</a>
-        <a href="#contacts" class="footer__link">Контакты</a>
+      <div class="ot-footer__col">
+        <h4>РЕСУРСЫ</h4>
+        <a href="/">Главная</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contacts">Контакты</a>
+        <a href="/privacy/">Конфиденциальность</a>
       </div>
-      <div class="footer__col">
-        <h4 class="footer__col-title">КОНТАКТЫ</h4>
-        <p class="footer__contact">г. Владивосток, ул. Татарская, 11</p>
-        <p class="footer__contact"><a href="tel:+79242310478" class="footer__phone">+7 (924) 231-04-78</a></p>
-        <p class="footer__contact footer__contact--small">Пн–Пт: 09:00–19:00<br>Сб: 10:00–16:00</p>
+      <div class="ot-footer__col">
+        <h4>КОНТАКТЫ</h4>
+        <p>г. Владивосток, ул. Татарская, 11</p>
+        <p><a href="tel:+79242310478">+7 (924) 231-04-78</a></p>
+        <p>Пн–Пт: 09:00–19:00<br>Сб: 10:00–16:00</p>
       </div>
     </div>
-    <div class="footer__company">
-      <p>ООО «Концепция Строительства»</p>
-      <p>ИНН 2543151912 / КПП 254301001 · ОГРН 1202500020568</p>
-      <p><a href="/privacy/" style="color:#888;font-size:12px;">Политика конфиденциальности</a></p>
+    <div class="ot-footer__company">
+      <p>ООО «Концепция Строительства» · ИНН 2543151912 / КПП 254301001 · ОГРН 1202500020568</p>
       <p>Юридический адрес: 690068, г. Владивосток, ул. Кирова, д. 42, кв. 7</p>
       <p>Генеральный директор: Вязовая Екатерина Александровна</p>
     </div>
@@ -940,244 +1013,144 @@
 </footer>
 
 <script>
+// Theme toggle (light/dark) with localStorage persistence
+// Shares the 'site-theme' key with the rest of the site so switching
+// theme on one page keeps it consistent when navigating to another.
 (function() {
-  var slides = document.querySelectorAll('.hero__slide');
-  var current = 0;
-  var interval;
+  var root = document.documentElement;
+  var STORAGE_KEY = 'site-theme';
+  var btns = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')].filter(Boolean);
+  if (!btns.length) return;
 
-  function goTo(index) {
-    slides.forEach(function(s) { s.classList.remove('hero__slide--active'); });
-    slides[index].classList.add('hero__slide--active');
-    current = index;
+  function getTheme() {
+    return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   }
 
-  function next() { goTo((current + 1) % slides.length); }
 
-  function startAuto() {
-    stopAuto();
-    interval = setInterval(next, 4500);
+  function setTheme(theme, animate) {
+    if (animate) {
+      document.body.classList.add('ot-theme-animated');
+      window.setTimeout(function() {
+        document.body.classList.remove('ot-theme-animated');
+      }, 400);
+    }
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+    btns.forEach(function(b) { b.setAttribute('aria-pressed', theme === 'dark'); });
   }
 
-  function stopAuto() { clearInterval(interval); }
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var next = getTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(next, true);
+    });
+  });
 
-  startAuto();
+  // Sync initial aria state
+  btns.forEach(function(b) { b.setAttribute('aria-pressed', getTheme() === 'dark'); });
 })();
 
+// Carousel
 (function() {
-  var form = document.getElementById('contactForm');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn = document.getElementById('submitBtn');
-      btn.textContent = 'ОТПРАВЛЯЕМ...';
-      btn.disabled = true;
-      var nameField = form.elements.namedItem('name');
-      var phoneField = form.elements.namedItem('phone');
-      var messageField = form.elements.namedItem('message');
-      var consentField = form.elements.namedItem('consent');
-      var directionField = form.elements.namedItem('direction');
-      var data = {
-        name: nameField ? nameField.value.trim() : '',
-        phone: phoneField ? phoneField.value.trim() : '',
-        message: (directionField ? '[' + directionField.value + '] ' : '') + (messageField ? messageField.value.trim() : ''),
-        consent: Boolean(consentField && consentField.checked)
-      };
-      var submitUrl = 'https://d5d01eb689qn07cv0ocu.sax5b7yq.apigw.yandexcloud.net/api/website-lead';
-      fetch(submitUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }).then(function(response) {
-        if (!response.ok) throw new Error('submit failed');
-        return response.json();
-      }).then(function() {
-        form.querySelectorAll('.form__input, .btn--primary').forEach(function(el) { el.style.display = 'none'; });
-        document.getElementById('formSuccess').style.display = 'block';
-      }).catch(function() {
-        btn.textContent = 'ОШИБКА, ПОПРОБУЙТЕ ЕЩЁ';
-        btn.disabled = false;
-      });
-    });
-  }
+  var slides = document.querySelectorAll('.ot-slide');
+
+  var cur = 0, iv;
+  function go(i) { slides.forEach(function(s){s.classList.remove('ot-slide--active');}); slides[i].classList.add('ot-slide--active'); cur=i; }
+  function next() { go((cur+1)%slides.length); }
+  iv = setInterval(next, 4500);
 })();
 
+// Hamburger
 (function() {
-  var navLinks = document.querySelectorAll('.nav__link');
-  var sections = document.querySelectorAll('.section, .hero');
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var activeLink = document.querySelector('.nav__link[href="#' + entry.target.id + '"]');
-        if (activeLink) {
-          navLinks.forEach(function(l) { l.classList.remove('nav__link--active'); });
-          activeLink.classList.add('nav__link--active');
-        }
-      }
-    });
-  }, { threshold: 0.3 });
-  sections.forEach(function(s) { if (s.id) observer.observe(s); });
-})();
-
-(function() {
-  var hamburger = document.getElementById('hamburger');
-  var nav = document.querySelector('.nav');
-  if (hamburger && nav) {
-    hamburger.addEventListener('click', function() {
-      nav.classList.toggle('nav--open');
-      hamburger.classList.toggle('hamburger--active');
-    });
-    nav.querySelectorAll('.nav__link').forEach(function(link) {
-      link.addEventListener('click', function() {
-        nav.classList.remove('nav--open');
-        hamburger.classList.remove('hamburger--active');
-      });
-    });
-  }
-})();
-
-(function() {
-  var items = document.querySelectorAll('.faq__item');
-  items.forEach(function(item) {
-    var question = item.querySelector('.faq__question');
-    question.addEventListener('click', function() {
-      var isOpen = item.classList.contains('faq__item--open');
-      items.forEach(function(i) { i.classList.remove('faq__item--open'); });
-      if (!isOpen) item.classList.add('faq__item--open');
-    });
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    var open = menu.classList.toggle('ot-mobile-menu--open');
+    btn.classList.toggle('ot-hamburger--open', open);
   });
 })();
 
+// Messenger FAB
 (function() {
   var fab = document.getElementById('messengerFab');
   var toggle = document.getElementById('messengerFabToggle');
-  if (fab && toggle) {
-    toggle.addEventListener('click', function() {
-      fab.classList.toggle('messenger-fab--open');
-    });
-    document.addEventListener('click', function(e) {
-      if (!fab.contains(e.target)) fab.classList.remove('messenger-fab--open');
-    });
-  }
+  if (!toggle || !fab) return;
+  toggle.addEventListener('click', function() { fab.classList.toggle('messenger-fab--open'); });
+  document.addEventListener('click', function(e) {
+    if (!fab.contains(e.target)) fab.classList.remove('messenger-fab--open');
+  });
 })();
 
+// Price Tabs
 (function() {
-  var btns = document.querySelectorAll('.tabs__btn');
+  var tabs = document.querySelectorAll('.ot-ptab');
+  var panels = document.querySelectorAll('.ot-ptab-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t){t.classList.remove('ot-ptab--active');});
+      panels.forEach(function(p){p.classList.remove('ot-ptab-panel--active');});
+      tab.classList.add('ot-ptab--active');
+      var target = document.getElementById(tab.getAttribute('data-target'));
+      if (target) target.classList.add('ot-ptab-panel--active');
+    });
+  });
+})();
 
-  var panels = document.querySelectorAll('.tabs__panel');
-  btns.forEach(function(btn) {
+// FAQ
+(function() {
+  var items = document.querySelectorAll('.ot-faq__item');
+  items.forEach(function(item) {
+    var btn = item.querySelector('.ot-faq__q');
     btn.addEventListener('click', function() {
-      btns.forEach(function(b) { b.classList.remove('tabs__btn--active'); });
-      panels.forEach(function(p) { p.classList.remove('tabs__panel--active'); });
-      btn.classList.add('tabs__btn--active');
-      var tab = document.getElementById('tab-' + btn.dataset.tab);
-      if (tab) tab.classList.add('tabs__panel--active');
+      var open = item.classList.toggle('ot-faq__item--open');
     });
   });
 })();
 
+// Fade-in on scroll
 (function() {
-  var els = document.querySelectorAll('.fade-in');
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in--visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  els.forEach(function(el) { observer.observe(el); });
+  var els = document.querySelectorAll('.ot-fade-in');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('ot-fade-in--visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('ot-fade-in--visible'); });
+  }
 })();
-</script>
 
-<div class="cookie-banner" id="cookieBanner">
-  <p class="cookie-banner__text">Этот сайт использует файлы cookie для аналитики (Яндекс.Метрика). Продолжая использовать сайт, вы соглашаетесь на обработку данных. <a href="/privacy/" target="_blank">Подробнее</a></p>
-  <button class="cookie-banner__btn" id="cookieAccept">Принять</button>
-</div>
-
-<style>
-.cookie-banner {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: #1a1a1a; border-top: 1px solid #333;
-  padding: 14px 20px; display: flex; align-items: center;
-  justify-content: center; gap: 16px; flex-wrap: wrap;
-  z-index: 9999; font-size: 13px;
-}
-.cookie-banner__text { color: #ccc; margin: 0; }
-.cookie-banner__text a { color: #D9714E; }
-.cookie-banner__btn {
-  background: #D9714E; color: #1a1a1a; border: none;
-  padding: 8px 24px; border-radius: 4px; cursor: pointer;
-  font-family: 'Montserrat', sans-serif; font-weight: 600;
-  font-size: 13px; white-space: nowrap;
-}
-.cookie-banner__btn:hover { background: #c98867; }
-</style>
-
-<script>
+// Form submit
 (function() {
-  var banner = document.getElementById('cookieBanner');
-  var btn = document.getElementById('cookieAccept');
-  if (!banner || !btn) return;
-  if (localStorage.getItem('cookieConsent')) {
-    banner.style.display = 'none';
-    return;
-  }
-  btn.addEventListener('click', function() {
-    localStorage.setItem('cookieConsent', '1');
-    banner.style.display = 'none';
-  });
-})();
-</script>
-
-<script>
-// Mobile tabs - sync with desktop tabs
-(function() {
-  var mobileTabs = document.getElementById('mobileTabs');
-  if (!mobileTabs) return;
-
-  var mobileBtns = mobileTabs.querySelectorAll('.mobile-tabs__btn');
-  var desktopBtns = document.querySelectorAll('.tabs__btn');
-
-  function switchTab(tabId) {
-    desktopBtns.forEach(function(dt) {
-      dt.classList.remove('tabs__btn--active');
-      if (dt.dataset.tab === tabId) {
-        dt.classList.add('tabs__btn--active');
-      }
-    });
-
-    var panels = document.querySelectorAll('.tabs__panel');
-    panels.forEach(function(p) { p.classList.remove('tabs__panel--active'); });
-    var targetPanel = document.getElementById('tab-' + tabId);
-    if (targetPanel) targetPanel.classList.add('tabs__panel--active');
-
-    mobileBtns.forEach(function(mb) {
-      mb.classList.remove('mobile-tabs__btn--active');
-      var mappedId = mb.dataset.tab.replace('tab-', '');
-      if (mappedId === tabId) {
-        mb.classList.add('mobile-tabs__btn--active');
-        mb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-    });
-  }
-
-  mobileBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var tabId = this.dataset.tab.replace('tab-', '');
-      switchTab(tabId);
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('submitBtn');
+    btn.textContent = 'ОТПРАВЛЯЕМ...';
+    btn.disabled = true;
+    var data = {
+      name: form.elements.namedItem('name').value.trim(),
+      phone: form.elements.namedItem('phone').value.trim(),
+      message: '[Внутренняя отделка] ' + form.elements.namedItem('message').value.trim(),
+      consent: form.elements.namedItem('consent').checked
+    };
+    fetch('https://d5d01eb689qn07cv0ocu.sax5b7yq.apigw.yandexcloud.net/api/website-lead', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+    .then(function(){
+      form.querySelectorAll('.ot-form__input, .ot-btn--primary, .ot-form__checkbox').forEach(function(el){el.style.display='none';});
+      document.getElementById('formSuccess').style.display='block';
+    }).catch(function(){
+      btn.textContent='ОШИБКА, ПОПРОБУЙТЕ ЕЩЁ';
+      btn.disabled=false;
     });
   });
-
-  desktopBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      switchTab(this.dataset.tab);
-    });
-  });
-
-  var activeDesktop = document.querySelector('.tabs__btn--active');
-  if (activeDesktop) {
-    switchTab(activeDesktop.dataset.tab);
-  }
 })();
 </script>
 </body>

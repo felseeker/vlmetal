@@ -26,7 +26,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../style.css?v=32">
+  <script src="../theme-init.js"></script>
+  <link rel="stylesheet" href="../style.css?v=33">
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
   <link rel="apple-touch-icon" sizes="48x48" href="/favicon.png">
@@ -243,6 +245,10 @@
       <a href="#faq" class="nav__link">ВОПРОСЫ</a>
       <a href="#contacts" class="nav__link">КОНТАКТЫ</a>
     </nav>
+    <button class="theme-toggle" aria-label="Переключить тему">
+      <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+      <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.7A8.5 8.5 0 0 1 9.3 3.5a.7.7 0 0 0-.9-.9 10 10 0 1 0 13 13 .7.7 0 0 0-.9-.9z"/></svg>
+    </button>
     <a href="#contacts" class="btn btn--header">СВЯЗАТЬСЯ</a>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span>
@@ -344,9 +350,9 @@
 <section class="section" style="padding:32px 0;">
   <div class="container">
     <a href="/otdelka/" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px 32px;border:2px solid rgba(255,106,0,0.4);border-radius:10px;background:linear-gradient(135deg, var(--bg-card), rgba(255,106,0,0.06));text-decoration:none;color:inherit;transition:border-color .3s, transform .3s;box-shadow:0 4px 20px rgba(255,106,0,0.1);">
-      <div style="display:flex;align-items:center;gap:16px;">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <span style="flex-shrink:0;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#ff6a00;background:rgba(255,106,0,0.15);padding:6px 12px;border-radius:20px;">ВТОРОЕ НАПРАВЛЕНИЕ</span>
-        <span style="font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:clamp(13px,1.4vw,18px);">Ремонтируете квартиру или дом? Мы также делаем внутреннюю отделку под ключ →</span>
+        <span style="font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:clamp(13px,1.4vw,18px);flex:1 1 200px;min-width:0;">Ремонтируете квартиру или дом? Мы также делаем внутреннюю отделку под ключ →</span>
       </div>
       <span class="btn btn--secondary" style="pointer-events:none;">ПОДРОБНЕЕ</span>
     </a>
@@ -888,9 +894,7 @@
     <div class="testimonials-scroll fade-in">
       <div class="testimonial-card">
         <div class="testimonial-card__header">
-          <div class="testimonial-card__avatar" style="background: linear-gradient(135deg, #ff6a00, #ff9500);">
-            <img src="../img/naves-avt-1.jpg" alt="Навес" loading="lazy">
-          </div>
+          <div class="testimonial-card__avatar" aria-hidden="true">Н</div>
           <div class="testimonial-card__info">
             <div class="testimonial-card__stars">★★★★★</div>
             <p class="testimonial-card__name">Никита Д.</p>
@@ -901,9 +905,7 @@
       </div>
       <div class="testimonial-card">
         <div class="testimonial-card__header">
-          <div class="testimonial-card__avatar" style="background: linear-gradient(135deg, #ff6a00, #cc5500);">
-            <img src="../img/vorota-1.jpg" alt="Ворота" loading="lazy">
-          </div>
+          <div class="testimonial-card__avatar" aria-hidden="true">М</div>
           <div class="testimonial-card__info">
             <div class="testimonial-card__stars">★★★★☆</div>
             <p class="testimonial-card__name">Михаил Л.</p>
@@ -914,15 +916,14 @@
       </div>
       <div class="testimonial-card">
         <div class="testimonial-card__header">
-          <div class="testimonial-card__avatar" style="background: linear-gradient(135deg, #ff6a00, #e65c00);">
-            <img src="../img/lestnica-3.jpg" alt="Лестница" loading="lazy">
-          </div>
+          <div class="testimonial-card__avatar" aria-hidden="true">Е</div>
           <div class="testimonial-card__info">
             <div class="testimonial-card__stars">★★★★★</div>
             <p class="testimonial-card__name">Евгений Л.</p>
             <p class="testimonial-card__role">Владивосток</p>
           </div>
         </div>
+
         <p class="testimonial-card__text">«Заказывал лестницу и перила на балконы. Качественно, красиво, в срок и за ту цену, которую назвали.»</p>
       </div>
     </div>
@@ -1014,9 +1015,11 @@
          </div>
       </div>
     </div>
-  </div>
-</section>
-</main>
+   </div>
+ </section>
+ </main>
+
+<script src="../theme-toggle.js"></script>
 
 <footer class="footer" itemscope itemtype="https://schema.org/WPFooter">
   <div class="container">

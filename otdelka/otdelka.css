@@ -1,0 +1,1532 @@
+/* ============================================================
+   OTDELKA PAGE — White/Graphite/Yellow Theme + Dark Mode Toggle
+   Version: 3.0
+   ============================================================ */
+
+/* ---- CSS Variables (LIGHT — default) ---- */
+:root {
+  --ot-white:     #fdfbf6;
+  --ot-off:       #f2ede2;
+  --ot-grey:      #e9e1d0;
+  --ot-graphite:  #2d2d2d;
+  --ot-mid:       #5a5650;
+  /* Darkened from #857f73 -> #706a5e: original failed WCAG AA (3.85:1)
+     for normal-size body text on --ot-white/--ot-off backgrounds */
+  --ot-muted:     #706a5e;
+
+  --ot-heading:   #2d2d2d;
+  --ot-yellow:    #F5C518;
+  --ot-yellow2:   #e6b800;
+  --ot-dark:      #1a1a1a;
+  --ot-shadow:    0 4px 32px rgba(45,38,10,0.10);
+  --ot-shadow-lg: 0 12px 48px rgba(45,38,10,0.16);
+  --ot-radius:    10px;
+  --ot-font:      'Montserrat', 'Rajdhani', sans-serif;
+  --ot-transition: 0.25s ease;
+  --ot-header-bg: rgba(255,255,255,0.96);
+  --ot-line-soft: rgba(45,45,45,0.06);
+  --ot-line:      rgba(45,45,45,0.12);
+  --ot-icon-btn-bg: rgba(45,45,45,0.06);
+  /* Darker "ink gold" reserved for small TEXT drawn on light section
+     backgrounds (grey/white) — the raw --ot-yellow button-yellow fails
+     WCAG contrast on near-white backgrounds. Sections that are always
+     dark (hero, --dark) keep using --ot-yellow directly. */
+  --ot-yellow-text: #8a6a00;
+  color-scheme: light;
+}
+
+
+/* ============================================================
+   DARK THEME OVERRIDES
+   Toggled via [data-theme="dark"] on <html>, persisted in localStorage
+   ============================================================ */
+:root[data-theme="dark"] {
+  --ot-white:     #1c1c1c;
+  --ot-off:       #171717;
+  --ot-grey:      #212121;
+  --ot-mid:       #b7b2a8;
+  --ot-muted:     #8f8a80;
+  --ot-heading:   #f2efe9;
+  --ot-shadow:    0 4px 32px rgba(0,0,0,0.35);
+  --ot-shadow-lg: 0 14px 48px rgba(0,0,0,0.5);
+  --ot-header-bg: rgba(18,18,18,0.96);
+  --ot-line-soft: rgba(255,255,255,0.06);
+  --ot-line:      rgba(255,255,255,0.14);
+  --ot-icon-btn-bg: rgba(255,255,255,0.08);
+  /* In dark theme, formerly-light sections (--ot-white/--ot-off/--ot-grey)
+     become dark backgrounds too, so small accent text should switch back
+     to the bright yellow (which now has good contrast again) */
+  --ot-yellow-text: var(--ot-yellow);
+  color-scheme: dark;
+}
+
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+.ot-page {
+  /* Was hardcoded #0a0a0a (always black) regardless of theme — this class
+     selector has higher specificity than style.css's `body{}` rule, so it
+     silently overrode the theme background and could show as black bleed
+     at page edges/overscroll even in the light theme. Now theme-aware:
+     matches --ot-off in light mode, matches the dark hero tone in dark mode. */
+  background: var(--ot-off);
+  color: var(--ot-heading);
+  font-family: var(--ot-font);
+  overflow-x: hidden;
+}
+:root[data-theme="dark"] .ot-page {
+  background: #0a0a0a;
+}
+
+/* Smooth theme-switch transition (skipped on initial paint via .ot-theme-ready) */
+.ot-theme-animated,
+.ot-theme-animated * {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease !important;
+}
+
+/* Subtle grid + warm glow texture reused on every themed section so the
+   background never reads as flat empty white (or flat empty black) */
+.ot-section--white,
+.ot-section--light,
+.ot-section--grey {
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(245,197,24,0.09) 0%, transparent 42%),
+    radial-gradient(circle at 88% 92%, rgba(245,197,24,0.06) 0%, transparent 45%),
+    linear-gradient(var(--ot-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ot-line-soft) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-repeat: repeat;
+}
+.ot-section--light { background-color: var(--ot-off); }
+.ot-section--white { background-color: var(--ot-white); }
+.ot-section--grey  { background-color: var(--ot-grey); }
+
+/* ============================================================
+   SKIP LINK
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--ot-yellow);
+  color: #1a1a1a;
+  font-family: var(--ot-font);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.skip-link:focus { top: 0; }
+
+/* ============================================================
+   HEADER — adapts to theme
+   ============================================================ */
+.ot-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  background: var(--ot-header-bg);
+  border-bottom: 2px solid var(--ot-yellow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+
+.ot-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 64px;
+  max-width: 100%;
+  padding: 0 24px;
+}
+
+/* Logo */
+.ot-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  color: var(--ot-heading);
+}
+.ot-logo__img {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+.ot-logo__text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ot-heading);
+}
+
+/* Nav */
+.ot-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-left: auto;
+}
+.ot-nav__link {
+  color: var(--ot-mid);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--ot-transition), border-color var(--ot-transition);
+}
+.ot-nav__link:hover,
+.ot-nav__link--active {
+  color: var(--ot-heading);
+  border-bottom-color: var(--ot-yellow);
+}
+
+/* Header CTA button */
+.ot-btn--header {
+  padding: 10px 22px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   THEME TOGGLE BUTTON
+   ============================================================ */
+.ot-theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--ot-line);
+  background: var(--ot-icon-btn-bg);
+  color: var(--ot-heading);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.ot-theme-toggle:hover {
+  border-color: var(--ot-yellow);
+  transform: translateY(-1px);
+}
+.ot-theme-toggle svg {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+.ot-theme-toggle__sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  color: var(--ot-yellow2);
+}
+.ot-theme-toggle__moon {
+  opacity: 0;
+  transform: scale(0.4) rotate(-60deg);
+  color: var(--ot-yellow);
+}
+:root[data-theme="dark"] .ot-theme-toggle__sun {
+  opacity: 0;
+  transform: scale(0.4) rotate(60deg);
+}
+:root[data-theme="dark"] .ot-theme-toggle__moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Mobile menu theme toggle row */
+.ot-mobile-menu__theme {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0 4px;
+  margin-top: 4px;
+  border-top: 1px solid var(--ot-line-soft);
+}
+.ot-mobile-menu__theme-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ot-mid);
+}
+
+/* Hamburger */
+.ot-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  flex-shrink: 0;
+}
+.ot-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ot-heading);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.ot-hamburger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ot-hamburger--open span:nth-child(2) { opacity: 0; }
+.ot-hamburger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.ot-mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--ot-header-bg);
+  border-top: 1px solid var(--ot-line-soft);
+  padding: 12px 24px 20px;
+  gap: 2px;
+}
+.ot-mobile-menu--open { display: flex; }
+.ot-mobile-menu__link {
+  color: var(--ot-mid);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ot-line-soft);
+}
+.ot-mobile-menu__link--active { color: var(--ot-heading); }
+
+/* ============================================================
+   FLOATING MESSENGER FAB
+   ============================================================ */
+.messenger-fab {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.messenger-fab__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.messenger-fab.is-open .messenger-fab__menu {
+  max-height: 200px;
+  opacity: 1;
+}
+.messenger-fab__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.messenger-fab__link:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.25); }
+.messenger-fab__link--whatsapp  { background: #25D366; }
+.messenger-fab__link--telegram  { background: #0088CC; }
+.messenger-fab__link--max       { background: #5a4fcf; }
+.messenger-fab__toggle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--ot-graphite);
+  color: var(--ot-yellow);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: background 0.2s, transform 0.2s;
+}
+.messenger-fab__toggle:hover { background: #222; transform: scale(1.05); }
+
+/* Floating CTA */
+.ot-float-btn {
+  position: fixed;
+  bottom: 36px;
+  right: 24px;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ot-yellow);
+  color: #1a1a1a;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 13px 22px;
+  border-radius: 50px;
+  box-shadow: 0 4px 24px rgba(245,197,24,0.5);
+  transition: box-shadow 0.3s, transform 0.3s;
+  font-family: var(--ot-font);
+}
+.ot-float-btn:hover {
+  box-shadow: 0 8px 36px rgba(245,197,24,0.7);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   BREADCRUMBS
+   ============================================================ */
+.ot-breadcrumbs {
+  background: var(--ot-graphite);
+  padding: 64px 0 0;
+}
+.ot-breadcrumbs__list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  padding: 12px 0 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+}
+.ot-breadcrumbs__list a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ot-breadcrumbs__list a:hover { color: var(--ot-yellow); }
+.ot-breadcrumbs__list li:last-child { color: rgba(255,255,255,0.9); }
+.ot-breadcrumbs__sep { color: rgba(255,255,255,0.3); }
+
+/* ============================================================
+   HERO — theme-aware section
+   Originally hardcoded to a permanent dark gradient with hardcoded
+   white text/badges (built before the light/dark toggle existed).
+   That made the hero look like a big dark block even in light theme,
+   inconsistent with the rest of the (now light) page. Default styles
+   below are light-theme-friendly (matching the pattern used on the
+   metallokonstrukcii hero, which stays light with just the breadcrumb
+   bar dark above it); the dark-theme selectors further down restore
+   the original full dark gradient + white text for dark mode.
+   ============================================================ */
+.ot-hero {
+  background: linear-gradient(180deg, var(--ot-grey) 0%, var(--ot-off) 100%);
+  padding: 60px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+:root[data-theme="dark"] .ot-hero {
+  background: linear-gradient(
+    160deg,
+    #1a1a1a 0%,
+    #252525 40%,
+    #3a3a3a 65%,
+    var(--ot-off) 100%
+  );
+}
+
+
+
+
+/* Geometric accent lines */
+.ot-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    linear-gradient(135deg, rgba(245,197,24,0.06) 0%, transparent 50%),
+    linear-gradient(315deg, rgba(245,197,24,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.ot-hero__grid {
+  display: grid;
+  /* minmax(0, 1fr) — without this, a grid track's automatic minimum size
+     is its content's max-content width, so a long unbreakable word can
+     force this column wider than its intended 50% share, overflowing
+     visibly into the image column next to it. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 60px;
+  align-items: center;
+  max-width: 100%;
+  padding: 0 24px 0;
+}
+
+
+/* Hero content (left) */
+.ot-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.ot-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  /* Most .ot-label instances sit on light sections (grey/white) — use the
+     darker ink-gold there. The hero label is the exception (dark bg) and
+     is overridden below to use the bright yellow again. */
+  color: var(--ot-yellow-text);
+}
+/* Hero label: bright yellow only reads on the dark-theme hero; in light
+   theme the hero background is light, so use the ink-gold text tone. */
+.ot-hero__content .ot-label {
+  color: var(--ot-yellow-text);
+}
+:root[data-theme="dark"] .ot-hero__content .ot-label {
+  color: var(--ot-yellow);
+}
+
+
+.ot-hero__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(28px, 4vw, 60px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: 1.15;
+  color: var(--ot-heading);
+  text-transform: uppercase;
+}
+:root[data-theme="dark"] .ot-hero__title { color: #fff; }
+.ot-hero__title--accent { color: var(--ot-yellow); }
+
+.ot-hero__subtitle {
+  font-size: clamp(14px, 1.3vw, 18px);
+  color: var(--ot-mid);
+  line-height: 1.7;
+  max-width: 440px;
+}
+:root[data-theme="dark"] .ot-hero__subtitle { color: rgba(255,255,255,0.65); }
+
+
+.ot-hero__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* Trust bar */
+.ot-trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.ot-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--ot-mid);
+  background: rgba(45,45,45,0.05);
+  border: 1px solid var(--ot-line);
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.ot-trust-item svg { flex-shrink: 0; stroke: var(--ot-yellow2); }
+:root[data-theme="dark"] .ot-trust-item {
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+}
+:root[data-theme="dark"] .ot-trust-item svg { stroke: var(--ot-yellow); }
+
+
+/* Hero image (right) */
+.ot-hero__image {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 60px;
+}
+
+.ot-hero__carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,197,24,0.2);
+}
+
+.ot-slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.ot-slide--active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hero stats */
+.ot-hero__stats {
+  display: flex;
+  gap: 0;
+  margin-top: 16px;
+  background: rgba(45,45,45,0.04);
+  border: 1px solid var(--ot-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+:root[data-theme="dark"] .ot-hero__stats {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+}
+.ot-hero__stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 10px;
+  border-right: 1px solid var(--ot-line);
+  gap: 2px;
+}
+:root[data-theme="dark"] .ot-hero__stat { border-right-color: rgba(255,255,255,0.08); }
+.ot-hero__stat:last-child { border-right: none; }
+.ot-hero__stat-num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 900;
+  color: var(--ot-yellow2);
+  letter-spacing: 1px;
+}
+:root[data-theme="dark"] .ot-hero__stat-num { color: var(--ot-yellow); }
+.ot-hero__stat-label {
+  font-size: 10px;
+  color: var(--ot-mid);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+:root[data-theme="dark"] .ot-hero__stat-label { color: rgba(255,255,255,0.5); }
+
+
+/* Wave transition */
+.ot-wave {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-top: -2px;
+}
+.ot-wave svg {
+  width: 100%;
+  height: 70px;
+  display: block;
+}
+.ot-wave path { fill: var(--ot-off); transition: fill 0.35s ease; }
+
+/* ============================================================
+   FADE IN ANIMATION
+   ============================================================ */
+.ot-fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.ot-fade-in--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.ot-section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.ot-section--dark  {
+  background: var(--ot-graphite);
+  color: #fff;
+  position: relative;
+}
+
+/* Smooth fade at the top/bottom edges of dark sections instead of a hard
+   flat-color cut against the light section above/below. Each dark section
+   on this page has a known, fixed neighbor, so we blend directly into
+   that neighbor's actual background color via a short gradient overlay. */
+#testimonials.ot-section--dark::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--ot-grey), transparent);
+  pointer-events: none;
+}
+#testimonials.ot-section--dark::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(to top, var(--ot-white), transparent);
+  pointer-events: none;
+}
+#contacts.ot-section--dark::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--ot-white), transparent);
+  pointer-events: none;
+}
+
+/* Same fade treatment for the light-toned sections (--light/--grey/--white).
+   These background colors are close but different (off-white/beige/white),
+   so switching between them without a blend produced a visible hard seam
+   at each section boundary, and the 44px grid-line texture pattern also
+   didn't line up across sections, making the seam even more obvious when
+   scrolling. Each transition below fades from the PREVIOUS section's own
+   background color into transparent, blending the two together. */
+#how-we-work.ot-section--grey::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--ot-off), transparent);
+  pointer-events: none;
+}
+#features.ot-section--white::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--ot-grey), transparent);
+  pointer-events: none;
+}
+#pricelist.ot-section--grey::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--ot-white), transparent);
+  pointer-events: none;
+}
+
+
+.ot-section__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(24px, 3vw, 44px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ot-heading);
+  margin: 8px 0 48px;
+  line-height: 1.15;
+}
+.ot-section__title--light { color: #fff; }
+
+.ot-label--light { color: rgba(255,255,255,0.5); }
+
+/* Yellow accent underline on section titles */
+.ot-section__title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--ot-yellow);
+  margin-top: 12px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.ot-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-family: var(--ot-font);
+  font-size: clamp(11px, 1.1vw, 14px);
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--ot-transition);
+  white-space: nowrap;
+}
+
+.ot-btn--primary {
+  background: var(--ot-yellow);
+  color: #1a1a1a;
+  padding: clamp(12px, 1.3vw, 16px) clamp(24px, 2.5vw, 40px);
+}
+.ot-btn--primary:hover {
+  background: var(--ot-yellow2);
+  box-shadow: 0 6px 24px rgba(245,197,24,0.4);
+  transform: translateY(-1px);
+}
+
+.ot-btn--outline {
+  background: transparent;
+  color: var(--ot-heading);
+  border-color: var(--ot-line);
+  padding: clamp(12px, 1.3vw, 16px) clamp(24px, 2.5vw, 40px);
+}
+.ot-btn--outline:hover {
+  border-color: var(--ot-yellow);
+  color: var(--ot-heading);
+}
+:root[data-theme="dark"] .ot-btn--outline {
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.35);
+}
+:root[data-theme="dark"] .ot-btn--outline:hover {
+  color: var(--ot-yellow);
+}
+
+
+.ot-btn--outline-dark {
+  background: transparent;
+  color: var(--ot-heading);
+  border-color: var(--ot-line);
+  padding: clamp(12px, 1.3vw, 16px) clamp(24px, 2.5vw, 40px);
+}
+.ot-btn--outline-dark:hover {
+  border-color: var(--ot-yellow);
+  color: var(--ot-heading);
+  background: rgba(245,197,24,0.08);
+}
+
+.ot-btn--sm {
+  padding: 9px 18px;
+  font-size: 11px;
+}
+
+/* ============================================================
+   CROSSLINK BANNER
+   ============================================================ */
+.ot-crosslink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--ot-graphite);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 20px 28px;
+  border: 1px solid rgba(245,197,24,0.25);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ot-crosslink:hover {
+  border-color: var(--ot-yellow);
+  box-shadow: 0 4px 24px rgba(245,197,24,0.15);
+}
+.ot-crosslink__content { display: flex; flex-direction: column; gap: 4px; }
+.ot-crosslink__tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--ot-yellow);
+}
+.ot-crosslink__text { font-size: 14px; color: rgba(255,255,255,0.8); }
+
+/* ============================================================
+   HOW WE WORK — STEPS
+   ============================================================ */
+.ot-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ot-step {
+  background: var(--ot-white);
+  border-radius: var(--ot-radius);
+  padding: 28px 24px;
+  box-shadow: var(--ot-shadow);
+  border-top: 3px solid var(--ot-yellow);
+  transition: transform var(--ot-transition), box-shadow var(--ot-transition);
+}
+.ot-step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ot-shadow-lg);
+}
+.ot-step__num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  /* Decorative big number on a white/light card — bright yellow is too
+     low-contrast to read as intentional design here, use ink-gold */
+  color: var(--ot-yellow-text);
+  line-height: 1;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.ot-step__title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--ot-heading);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.ot-step__text {
+  font-size: 13px;
+  color: var(--ot-muted);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   FEATURES (why choose us)
+   ============================================================ */
+.ot-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ot-feature-card {
+  background: var(--ot-white);
+  border-radius: var(--ot-radius);
+  padding: 28px 24px;
+  box-shadow: var(--ot-shadow);
+  border: 1px solid var(--ot-line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform var(--ot-transition), box-shadow var(--ot-transition), border-color var(--ot-transition);
+}
+.ot-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ot-shadow-lg);
+  border-color: rgba(245,197,24,0.4);
+}
+.ot-feature-card__icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(245,197,24,0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ot-heading);
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+.ot-feature-card h3 {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--ot-heading);
+  text-transform: uppercase;
+}
+.ot-feature-card p {
+  font-size: 13px;
+  color: var(--ot-muted);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   PRICE LIST — FLOATING CARDS
+   ============================================================ */
+
+/* Price note */
+.ot-price-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245,197,24,0.1);
+  border: 1px solid rgba(245,197,24,0.35);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  color: var(--ot-mid);
+  margin-bottom: 36px;
+}
+.ot-price-note svg { flex-shrink: 0; stroke: var(--ot-yellow2); }
+
+/* Tab nav */
+.ot-ptabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.ot-ptab {
+  background: var(--ot-white);
+  border: 2px solid var(--ot-line);
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ot-mid);
+  cursor: pointer;
+  font-family: var(--ot-font);
+  transition: all var(--ot-transition);
+}
+.ot-ptab:hover {
+  border-color: var(--ot-yellow);
+  color: var(--ot-heading);
+  background: rgba(245,197,24,0.06);
+}
+.ot-ptab--active {
+  background: var(--ot-graphite);
+  border-color: var(--ot-graphite);
+  color: var(--ot-yellow);
+}
+
+/* Tab panels */
+.ot-ptab-panel { display: none; }
+.ot-ptab-panel--active { display: block; }
+
+/* ============================================================
+   FLOATING PRICE CARD (main container for each tab)
+   ============================================================ */
+.ot-price-card {
+  background: var(--ot-white);
+  border-radius: 12px;
+  box-shadow: var(--ot-shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--ot-line-soft);
+}
+
+.ot-price-card__header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 32px;
+  background: var(--ot-graphite);
+  border-bottom: 3px solid var(--ot-yellow);
+}
+.ot-price-card__icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245,197,24,0.15);
+  border-radius: 10px;
+}
+.ot-price-card__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(16px, 1.6vw, 22px);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.ot-price-card__desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 3px;
+}
+
+/* ============================================================
+   PRICE TABLE (floating card style)
+   ============================================================ */
+.ot-price-table-wrap {
+  overflow-x: auto;
+}
+
+.ot-price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.ot-price-table thead tr {
+  background: var(--ot-grey);
+}
+.ot-price-table thead th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ot-mid);
+  border-bottom: 2px solid var(--ot-line);
+}
+.ot-price-table thead th:last-child { text-align: right; }
+
+.ot-price-table tbody tr {
+  border-bottom: 1px solid var(--ot-line-soft);
+  transition: background 0.15s;
+}
+.ot-price-table tbody tr:last-child { border-bottom: none; }
+.ot-price-table tbody tr:hover { background: rgba(245,197,24,0.06); }
+
+.ot-price-table tbody td {
+  padding: 13px 20px;
+  color: var(--ot-heading);
+  vertical-align: middle;
+  line-height: 1.45;
+}
+.ot-price-table tbody td:nth-child(2) {
+  color: var(--ot-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  width: 60px;
+}
+
+/* Price value — right aligned, bold, yellow accent */
+.ot-price-table__price {
+  text-align: right !important;
+  font-weight: 800;
+  color: var(--ot-heading) !important;
+  font-family: 'Montserrat', sans-serif;
+  white-space: nowrap;
+  position: relative;
+}
+.ot-price-table__price::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background: var(--ot-yellow);
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Group header rows */
+.ot-price-table__group td {
+  padding: 12px 20px 8px !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: var(--ot-yellow-text) !important;
+  background: rgba(245,197,24,0.07) !important;
+  border-top: 2px solid rgba(245,197,24,0.25) !important;
+}
+
+.ot-price-table__group td::before { display: none !important; }
+
+/* ============================================================
+   PRICE CTA
+   ============================================================ */
+.ot-price-cta {
+  margin-top: 40px;
+  background: var(--ot-graphite);
+  border-radius: 10px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(245,197,24,0.2);
+}
+.ot-price-cta p {
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.ot-testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ot-review {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color var(--ot-transition), transform var(--ot-transition);
+}
+.ot-review:hover {
+  border-color: rgba(245,197,24,0.4);
+  transform: translateY(-3px);
+}
+.ot-review__stars { color: var(--ot-yellow); font-size: 18px; letter-spacing: 2px; }
+.ot-review__text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; flex: 1; }
+.ot-review__author { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
+.ot-review__author strong { display: block; color: #fff; font-size: 14px; }
+.ot-review__author span { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.ot-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ot-faq__item {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--ot-line-soft);
+  background: var(--ot-white);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  transition: box-shadow var(--ot-transition);
+}
+.ot-faq__item:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+.ot-faq__q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 18px 24px;
+  font-family: var(--ot-font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--ot-heading);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: color var(--ot-transition), background var(--ot-transition);
+}
+.ot-faq__q:hover { background: rgba(245,197,24,0.05); color: var(--ot-heading); }
+
+.ot-faq__arrow {
+  font-size: 16px;
+  /* FAQ items sit on --ot-white — bright yellow arrow is nearly invisible */
+  color: var(--ot-yellow-text);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.ot-faq__item--open .ot-faq__arrow { transform: rotate(180deg); }
+.ot-faq__item--open .ot-faq__q { background: rgba(245,197,24,0.06); }
+
+.ot-faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.ot-faq__item--open .ot-faq__a { max-height: 300px; }
+
+.ot-faq__a p {
+  padding: 0 24px 18px;
+  font-size: 14px;
+  color: var(--ot-mid);
+  line-height: 1.75;
+}
+
+/* ============================================================
+   CONTACTS SECTION
+   ============================================================ */
+.ot-contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Form */
+.ot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 32px;
+}
+.ot-form__input {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #fff;
+  font-family: var(--ot-font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.ot-form__input:focus {
+  border-color: var(--ot-yellow);
+  box-shadow: 0 0 0 3px rgba(245,197,24,0.12);
+}
+.ot-form__input::placeholder { color: rgba(255,255,255,0.3); }
+.ot-form__textarea { resize: vertical; min-height: 100px; }
+
+.ot-form__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  user-select: none;
+}
+.ot-form__checkbox input[type="checkbox"] { display: none; }
+.ot-form__checkmark {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2px solid rgba(245,197,24,0.4);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.ot-form__checkbox input:checked + .ot-form__checkmark {
+  background: var(--ot-yellow);
+  border-color: var(--ot-yellow);
+}
+.ot-form__checkmark::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid #1a1a1a;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.ot-form__checkbox input:checked + .ot-form__checkmark::after { opacity: 1; }
+.ot-form__checkbox a { color: var(--ot-yellow); text-decoration: underline; }
+
+/* Contacts info */
+.ot-contacts__info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ot-contacts__map iframe {
+  width: 100%;
+  height: 240px;
+  border-radius: 10px;
+  border: 1px solid rgba(245,197,24,0.2) !important;
+}
+.ot-contacts__details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ot-contacts__address { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.ot-contacts__address span { font-size: 12px; color: rgba(255,255,255,0.4); }
+.ot-contacts__phone a { color: var(--ot-yellow); font-size: 20px; font-weight: 700; text-decoration: none; }
+.ot-contacts__messengers { font-size: 14px; color: rgba(255,255,255,0.5); }
+.ot-contacts__messengers a { color: rgba(255,255,255,0.65); text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,0.25); transition: color 0.2s; }
+.ot-contacts__messengers a:hover { color: var(--ot-yellow); border-color: var(--ot-yellow); }
+.ot-contacts__hours { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+.ot-contacts__communities { margin-top: 8px; }
+.ot-contacts__communities-title {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ot-yellow);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.ot-contacts__community-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ot-contacts__community-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  height: 40px;
+  padding: 0 14px;
+  border: 2px solid rgba(245,197,24,0.4);
+  border-radius: 8px;
+  background: rgba(245,197,24,0.06);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.ot-contacts__community-links a:hover {
+  background: rgba(245,197,24,0.18);
+  border-color: var(--ot-yellow);
+  transform: translateY(-2px);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.ot-footer {
+  background: var(--ot-dark);
+  padding: 40px 0 24px;
+  color: rgba(255,255,255,0.6);
+}
+/* Footer is always dark (--ot-dark) regardless of theme — logo text uses
+   --ot-heading which becomes dark graphite in light theme, going nearly
+   invisible on the dark footer. Force light text here explicitly. */
+.ot-footer .ot-logo,
+.ot-footer .ot-logo__text {
+  color: #f2efe9;
+}
+
+.ot-footer .container {
+  max-width: 100%;
+  padding: 0 24px;
+}
+.ot-footer__line {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--ot-yellow), transparent);
+  opacity: 0.3;
+  margin-bottom: 32px;
+}
+.ot-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.ot-footer__col { display: flex; flex-direction: column; gap: 8px; }
+.ot-footer__col h4 {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 4px;
+}
+.ot-footer__col a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ot-footer__col a:hover { color: var(--ot-yellow); }
+.ot-footer__col p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.ot-footer__text { font-size: 13px; color: rgba(255,255,255,0.45); max-width: 320px; line-height: 1.7; }
+.ot-footer__social { display: flex; gap: 10px; margin-top: 4px; }
+.ot-footer__social a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.ot-footer__social a:hover { border-color: var(--ot-yellow); color: var(--ot-yellow); }
+.ot-footer__company {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  text-align: center;
+}
+.ot-footer__company p {
+  color: rgba(255,255,255,0.25);
+  font-size: clamp(9px, 0.8vw, 11px);
+  line-height: 1.6;
+  margin: 1px 0;
+}
+.ot-footer__company p:first-child { color: rgba(255,255,255,0.35); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .ot-steps { grid-template-columns: repeat(2, 1fr); }
+  .ot-features { grid-template-columns: repeat(2, 1fr); }
+  .ot-footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  .ot-hero__grid { grid-template-columns: 1fr; gap: 32px; }
+  .ot-hero__content { padding-bottom: 0; }
+  .ot-hero__image { padding-bottom: 0; }
+  .ot-contacts { grid-template-columns: 1fr; }
+  .ot-testimonials { grid-template-columns: 1fr; }
+  .ot-nav { display: none; }
+  .ot-hamburger { display: flex; }
+  .ot-btn--header { display: none; }
+}
+
+@media (max-width: 700px) {
+  .ot-hero { padding-top: 40px; }
+  .ot-hero__grid { padding: 0 16px; }
+  .ot-steps { grid-template-columns: 1fr; }
+  .ot-features { grid-template-columns: 1fr; }
+  .ot-ptabs__nav { gap: 6px; }
+  .ot-ptab { padding: 7px 12px; font-size: 10px; }
+  .ot-price-cta { flex-direction: column; text-align: center; }
+  .ot-footer__grid { grid-template-columns: 1fr; gap: 24px; }
+  .ot-crosslink { flex-direction: column; align-items: flex-start; }
+  .ot-contacts { gap: 32px; }
+  .ot-form { padding: 20px; }
+  .ot-price-card__header { padding: 18px 20px; }
+  .ot-price-table thead th,
+  .ot-price-table tbody td { padding: 11px 14px; }
+  .ot-section { padding: 60px 0; }
+}
+
+@media (max-width: 480px) {
+  .ot-hero__title { font-size: clamp(24px, 8vw, 38px); }
+  .ot-float-btn span { display: none; }
+  .ot-trust-bar { flex-direction: column; }
+  .ot-hero__stats { display: none; }
+}
+
+/* ============================================================
+   LARGE SCREENS
+   ============================================================ */
+@media (min-width: 1600px) {
+  .ot-header__inner,
+  .ot-hero__grid,
+  .ot-footer .container {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+  .container {
+    padding: 0 48px;
+  }
+}
