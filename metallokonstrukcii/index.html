@@ -27,7 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
   <script src="../theme-init.js"></script>
-  <link rel="stylesheet" href="../style.css?v=34">
+  <link rel="stylesheet" href="../style.css?v=35">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
@@ -241,6 +241,8 @@
       <a href="/" class="nav__link">ГЛАВНАЯ</a>
       <a href="/metallokonstrukcii/" class="nav__link nav__link--active">МЕТАЛЛОКОНСТРУКЦИИ</a>
       <a href="/otdelka/" class="nav__link">ВНУТРЕННЯЯ ОТДЕЛКА</a>
+      <a href="/portfolio/" class="nav__link">ПРИМЕРЫ РАБОТ</a>
+      <a href="/about/" class="nav__link">О КОМПАНИИ</a>
       <a href="#testimonials" class="nav__link">ОТЗЫВЫ</a>
       <a href="#faq" class="nav__link">ВОПРОСЫ</a>
       <a href="#contacts" class="nav__link">КОНТАКТЫ</a>
@@ -1068,7 +1070,8 @@
       <div class="footer__col">
         <h4 class="footer__col-title">РЕСУРСЫ</h4>
         <a href="/" class="footer__link">Главная</a>
-        <a href="#about" class="footer__link">О нас</a>
+        <a href="/about/" class="footer__link">О компании</a>
+        <a href="/portfolio/" class="footer__link">Примеры работ</a>
         <a href="#faq" class="footer__link">FAQ</a>
         <a href="#contacts" class="footer__link">Контакты</a>
       </div>
@@ -1344,6 +1347,79 @@
   if (activeDesktop) {
     switchTab(activeDesktop.dataset.tab);
   }
+})();
+</script>
+
+<!-- Motion: animated counters + stagger animations -->
+<script>
+(function() {
+  // Animated counters: count up from 0 to target number
+  var statEls = document.querySelectorAll('.about__stat-number');
+  var counted = false;
+
+  function animateCounters() {
+    if (counted) return;
+    counted = true;
+    statEls.forEach(function(el, idx) {
+      var text = el.textContent;
+      var match = text.match(/(\d+)/);
+      if (!match) return;
+      var target = parseInt(match[1], 10);
+      var suffix = text.replace(match[1], '');
+      var duration = 1200;
+      var start = performance.now();
+
+      function step(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target + suffix;
+          el.setAttribute('data-counted', '');
+        }
+      }
+      setTimeout(function() { requestAnimationFrame(step); }, idx * 150);
+    });
+  }
+
+  // Stagger animation for hero stats
+  var stats = document.querySelectorAll('.about__stat');
+  var statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var allStats = Array.from(entry.target.parentElement.querySelectorAll('.about__stat'));
+        allStats.forEach(function(stat, i) {
+          setTimeout(function() { stat.classList.add('about__stat--visible'); }, i * 100);
+        });
+        animateCounters();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  if (stats.length > 0) statsObserver.observe(stats[0].parentElement);
+
+  // Enhanced fade-in with stagger support
+  var fadeEls = document.querySelectorAll('.fade-in');
+  var fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var parent = entry.target.parentElement;
+        if (parent && parent.classList.contains('grid')) {
+          var siblings = Array.from(parent.querySelectorAll('.fade-in'));
+          siblings.forEach(function(sib, i) {
+            setTimeout(function() { sib.classList.add('fade-in--visible'); }, i * 80);
+          });
+        } else {
+          entry.target.classList.add('fade-in--visible');
+        }
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  fadeEls.forEach(function(el) { fadeObserver.observe(el); });
 })();
 </script>
 </body>

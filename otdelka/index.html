@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-direction="otdelka">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +28,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../style.css?v=34">
-  <link rel="stylesheet" href="otdelka.css?v=3">
+  <link rel="stylesheet" href="../style.css?v=35">
+  <link rel="stylesheet" href="otdelka.css?v=4">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
@@ -174,6 +174,8 @@
       <a href="/" class="ot-nav__link">ГЛАВНАЯ</a>
       <a href="/metallokonstrukcii/" class="ot-nav__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
       <a href="/otdelka/" class="ot-nav__link ot-nav__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
+      <a href="/portfolio/" class="ot-nav__link">ПРИМЕРЫ РАБОТ</a>
+      <a href="/about/" class="ot-nav__link">О КОМПАНИИ</a>
       <a href="#testimonials" class="ot-nav__link">ОТЗЫВЫ</a>
       <a href="#faq" class="ot-nav__link">ВОПРОСЫ</a>
       <a href="#contacts" class="ot-nav__link">КОНТАКТЫ</a>
@@ -192,6 +194,8 @@
     <a href="/" class="ot-mobile-menu__link">ГЛАВНАЯ</a>
     <a href="/metallokonstrukcii/" class="ot-mobile-menu__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
     <a href="/otdelka/" class="ot-mobile-menu__link ot-mobile-menu__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
+    <a href="/portfolio/" class="ot-mobile-menu__link">ПРИМЕРЫ РАБОТ</a>
+    <a href="/about/" class="ot-mobile-menu__link">О КОМПАНИИ</a>
     <a href="#testimonials" class="ot-mobile-menu__link">ОТЗЫВЫ</a>
     <a href="#faq" class="ot-mobile-menu__link">ВОПРОСЫ</a>
     <a href="#contacts" class="ot-mobile-menu__link">КОНТАКТЫ</a>
@@ -1053,6 +1057,8 @@
       <div class="ot-footer__col">
         <h4>РЕСУРСЫ</h4>
         <a href="/">Главная</a>
+        <a href="/portfolio/">Примеры работ</a>
+        <a href="/about/">О компании</a>
         <a href="#faq">FAQ</a>
         <a href="#contacts">Контакты</a>
         <a href="/privacy/">Конфиденциальность</a>
@@ -1214,6 +1220,79 @@
       btn.disabled=false;
     });
   });
+})();
+</script>
+
+<!-- Motion: animated counters + stagger animations -->
+<script>
+(function() {
+  // Animated counters: count up from 0 to target number
+  var statEls = document.querySelectorAll('.ot-hero__stat-num');
+  var counted = false;
+
+  function animateCounters() {
+    if (counted) return;
+    counted = true;
+    statEls.forEach(function(el, idx) {
+      var text = el.textContent;
+      var match = text.match(/(\d+)/);
+      if (!match) return;
+      var target = parseInt(match[1], 10);
+      var suffix = text.replace(match[1], '');
+      var duration = 1200;
+      var start = performance.now();
+
+      function step(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target + suffix;
+          el.setAttribute('data-counted', '');
+        }
+      }
+      setTimeout(function() { requestAnimationFrame(step); }, idx * 150);
+    });
+  }
+
+  // Stagger animation for hero stats
+  var stats = document.querySelectorAll('.ot-hero__stat');
+  var statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var allStats = Array.from(entry.target.parentElement.querySelectorAll('.ot-hero__stat'));
+        allStats.forEach(function(stat, i) {
+          setTimeout(function() { stat.classList.add('ot-hero__stat--visible'); }, i * 100);
+        });
+        animateCounters();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  if (stats.length > 0) statsObserver.observe(stats[0].parentElement);
+
+  // Enhanced fade-in with stagger support
+  var fadeEls = document.querySelectorAll('.ot-fade-in');
+  var fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var parent = entry.target.parentElement;
+        if (parent && parent.classList.contains('grid')) {
+          var siblings = Array.from(parent.querySelectorAll('.ot-fade-in'));
+          siblings.forEach(function(sib, i) {
+            setTimeout(function() { sib.classList.add('ot-fade-in--visible'); }, i * 80);
+          });
+        } else {
+          entry.target.classList.add('ot-fade-in--visible');
+        }
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  fadeEls.forEach(function(el) { fadeObserver.observe(el); });
 })();
 </script>
 </body>

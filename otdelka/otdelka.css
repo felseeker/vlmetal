@@ -1549,6 +1549,52 @@
   outline-offset: 2px;
 }
 
+/* === Spring hover для кнопок/карточек === */
+.ot-btn,
+.ot-price-card {
+  transition: transform 0.3s linear(0, 0.1144, 0.3475, 0.5885, 0.7844, 0.9194, 0.9987, 1.0359, 1.046, 1.0413, 1.0308, 1.0196, 1.0104, 1.004, 1.0002, 0.9984, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+.ot-btn:hover,
+.ot-price-card:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+.ot-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* === Section reveal с spring-кривой === */
+.ot-fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.5s ease, transform 0.5s linear(0, 0.0448, 0.1559, 0.3027, 0.4615, 0.6151, 0.7521, 0.8663, 0.9554, 1.0199, 1.0621, 1.0856, 1.0944, 1.0924, 1.0833, 1.0701, 1.0552, 1.0403, 1.0268, 1.0154, 1.0063, 0.9996, 0.995, 0.9923, 0.9912, 0.9911, 0.9918, 0.993, 0.9944, 0.9958, 0.9971, 0.9983, 0.9992, 0.9999, 1.0004, 1, 1);
+}
+
+.ot-fade-in--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Hero stats stagger === */
+.ot-hero__stat {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s linear(0, 0.1144, 0.3475, 0.5885, 0.7844, 0.9194, 0.9987, 1.0359, 1.046, 1.0413, 1.0308, 1.0196, 1.0104, 1.004, 1.0002, 0.9984, 1);
+}
+.ot-hero__stat--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Card image hover zoom === */
+.ot-price-card:hover .ot-price-card__header {
+  transform: scale(1.04);
+}
+.ot-price-card .ot-price-card__header {
+  transition: transform 0.4s linear(0, 0.1144, 0.3475, 0.5885, 0.7844, 0.9194, 0.9987, 1.0359, 1.046, 1.0413, 1.0308, 1.0196, 1.0104, 1.004, 1.0002, 0.9984, 1);
+}
+
 /* === Accessibility: уважать системную настройку "уменьшить движение" === */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1564,3 +1610,102 @@
     transition: none !important;
   }
 }
+
+/* ============================================================
+   DIRECTION LAYER
+   The page keeps its content-specific components for now, but
+   inherits the shared industrial visual language from style.css.
+   ============================================================ */
+html[data-direction="otdelka"] body.ot-page {
+  background: var(--site-ink, #111315);
+  color: var(--text-primary, #fff);
+  font-family: var(--site-body, 'Rajdhani', 'Montserrat', sans-serif);
+}
+html[data-direction="otdelka"] .ot-header {
+  background: rgba(17,19,21,.88);
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(18px);
+}
+html[data-direction="otdelka"] .ot-logo__text,
+html[data-direction="otdelka"] .ot-nav__link,
+html[data-direction="otdelka"] .ot-btn,
+html[data-direction="otdelka"] .ot-section__title,
+html[data-direction="otdelka"] .ot-hero__title,
+html[data-direction="otdelka"] .ot-footer h4 {
+  font-family: var(--site-display, 'Montserrat', sans-serif);
+}
+html[data-direction="otdelka"] .ot-hero,
+html[data-direction="otdelka"] .ot-section--white,
+html[data-direction="otdelka"] .ot-section--light,
+html[data-direction="otdelka"] .ot-section--grey {
+  background: var(--site-ink, #111315);
+}
+html[data-direction="otdelka"] .ot-section--dark,
+html[data-direction="otdelka"] .ot-footer {
+  background: #0b0d0f;
+}
+html[data-direction="otdelka"] .ot-price-card,
+html[data-direction="otdelka"] .ot-review,
+html[data-direction="otdelka"] .ot-feature-card,
+html[data-direction="otdelka"] .ot-step {
+  background: var(--site-ink-soft, #1b1e20);
+  border-color: rgba(255,255,255,.14);
+  border-radius: var(--site-radius, 2px);
+}
+html[data-direction="otdelka"] .ot-hero__title--accent,
+html[data-direction="otdelka"] .ot-label,
+html[data-direction="otdelka"] .ot-price-table__price,
+html[data-direction="otdelka"] .ot-step__num,
+html[data-direction="otdelka"] .ot-section__title::after {
+  color: var(--accent, #f2bd19);
+}
+html[data-direction="otdelka"] .ot-btn--primary,
+html[data-direction="otdelka"] .ot-btn--header,
+html[data-direction="otdelka"] .ot-ptab--active {
+  background: var(--accent, #f2bd19);
+  color: #111315;
+  border-color: var(--accent, #f2bd19);
+}
+html[data-direction="otdelka"] .ot-btn--outline,
+html[data-direction="otdelka"] .ot-btn--outline-dark,
+html[data-direction="otdelka"] .ot-ptab {
+  border-color: rgba(255,255,255,.22);
+  color: var(--text-primary, #fff);
+}
+html[data-direction="otdelka"] .ot-price-table,
+html[data-direction="otdelka"] .ot-faq__item,
+html[data-direction="otdelka"] .ot-form__input {
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.035);
+  color: var(--text-primary, #fff);
+}
+html[data-direction="otdelka"] .ot-faq__q,
+html[data-direction="otdelka"] .ot-price-card__title,
+html[data-direction="otdelka"] .ot-section__title { color: var(--text-primary, #fff); }
+html[data-direction="otdelka"] .ot-hero__subtitle,
+html[data-direction="otdelka"] .ot-step__text,
+html[data-direction="otdelka"] .ot-feature-card p,
+html[data-direction="otdelka"] .ot-review__text { color: var(--text-secondary, #aab0b5); }
+
+html[data-direction="otdelka"][data-theme="light"] body.ot-page {
+  background: var(--site-paper, #f2f0eb);
+  color: #17191b;
+}
+html[data-direction="otdelka"][data-theme="light"] .ot-header,
+html[data-direction="otdelka"][data-theme="light"] .ot-footer { background: rgba(242,240,235,.94); border-color: rgba(17,19,21,.16); }
+html[data-direction="otdelka"][data-theme="light"] .ot-hero,
+html[data-direction="otdelka"][data-theme="light"] .ot-section--white,
+html[data-direction="otdelka"][data-theme="light"] .ot-section--light,
+html[data-direction="otdelka"][data-theme="light"] .ot-section--grey { background: var(--site-paper, #f2f0eb); }
+html[data-direction="otdelka"][data-theme="light"] .ot-section--dark { background: #e6e3dc; }
+html[data-direction="otdelka"][data-theme="light"] .ot-price-card,
+html[data-direction="otdelka"][data-theme="light"] .ot-review,
+html[data-direction="otdelka"][data-theme="light"] .ot-feature-card,
+html[data-direction="otdelka"][data-theme="light"] .ot-step { background: rgba(255,255,255,.74); border-color: rgba(17,19,21,.16); }
+html[data-direction="otdelka"][data-theme="light"] .ot-faq__q,
+html[data-direction="otdelka"][data-theme="light"] .ot-price-card__title,
+html[data-direction="otdelka"][data-theme="light"] .ot-section__title { color: #17191b; }
+html[data-direction="otdelka"][data-theme="light"] .ot-hero__subtitle,
+html[data-direction="otdelka"][data-theme="light"] .ot-step__text,
+html[data-direction="otdelka"][data-theme="light"] .ot-feature-card p,
+html[data-direction="otdelka"][data-theme="light"] .ot-review__text { color: #4d5358; }
