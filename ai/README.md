@@ -13,6 +13,14 @@
 - `REDESIGN_RULES.md` — обязательные визуальные и UX-правила полного редизайна.
 - `REDESIGN_ARCHITECTURE.md` — архитектура пяти страниц, shared-компонентов и будущего CRM sync.
 - `REDESIGN_ROADMAP.md` — пошаговый план полного редизайна и QA-gates.
+- `TASTE_REDESIGN_PLAN.md` — обязательный anti-slop план с dials, layout grammar, motion и CRM-ограничениями.
+- `TASTE_AUDIT.md` — аудит, почему прошлые версии визуально не отличались от старого сайта.
+
+## External design skills researched
+
+- Taste Skill: `https://github.com/Leonxlnx/taste-skill`.
+- Relevant install names: `design-taste-frontend`, `redesign-existing-projects`, `high-end-visual-design`.
+- Taste MCP: `https://github.com/with0utwhy/taste-mcp` — hosted paid human review; не использовать без отдельного согласия на оплату.
 
 ## Кратко о проекте
 
