@@ -1,8 +1,74 @@
 [
-  {"id":"work-gates-1","title":"Входная группа для частного дома","category":"Ворота","direction":"metall","description":"Изготовление и монтаж ворот и забора по размерам участка.","image":"../img/vorota-zabor-1.jpg","alt":"Откатные ворота и забор на частном объекте","featured":true},
-  {"id":"work-naves-1","title":"Односкатный автонавес","category":"Навесы","direction":"metall","description":"Профильная труба и кровля под сценарий использования участка.","image":"../img/naves-avt-1.jpg","alt":"Односкатный автонавес на один автомобиль","featured":true},
-  {"id":"work-mangal-1","title":"Барбекю-комплекс «Огонёк»","category":"Мангалы","direction":"metall","description":"Сталь 4 мм, термостойкая эмаль и отделка лиственницей.","image":"../img/mangal-ogonek-dvoynoy.jpg","alt":"Барбекю-комплекс Огонёк Двойной","featured":true},
-  {"id":"work-stairs-1","title":"Каркас лестницы","category":"Лестницы","direction":"metall","description":"Точная геометрия и подготовка металлического каркаса под отделку.","image":"../img/lestnica-karkas.jpg","alt":"Каркас металлической лестницы","featured":true},
-  {"id":"work-interior-1","title":"Входная зона и тамбур","category":"Отделка","direction":"otdelka","description":"Комплексная работа с единым подрядчиком.","image":"../img/lowrise-tambur-1.jpg","alt":"Отделка входной зоны и тамбура","featured":true},
-  {"id":"work-shop-1","title":"Сварка и сборка в цеху","category":"Производство","direction":"metall","description":"Производственный этап с контролем качества соединений.","image":"../img/gal-svarka.jpg","alt":"Сварочные работы в производственном цехе","featured":false}
+  {
+    "id": "work-gates-1",
+    "title": "Входная группа для частного дома",
+    "category": "Ворота",
+    "direction": "metall",
+    "description": "Изготовление и монтаж ворот и забора по размерам участка.",
+    "images": [
+      "../img/vorota-zabor-1.jpg"
+    ],
+    "date": "",
+    "featured": true
+  },
+  {
+    "id": "work-naves-1",
+    "title": "Односкатный автонавес",
+    "category": "Навесы",
+    "direction": "metall",
+    "description": "Профильная труба и кровля под сценарий использования участка.",
+    "images": [
+      "../img/naves-avt-1.jpg"
+    ],
+    "date": "",
+    "featured": true
+  },
+  {
+    "id": "work-mangal-1",
+    "title": "Барбекю-комплекс «Огонёк»",
+    "category": "Мангалы",
+    "direction": "metall",
+    "description": "Сталь 4 мм, термостойкая эмаль и отделка лиственницей.",
+    "images": [
+      "../img/mangal-ogonek-dvoynoy.jpg"
+    ],
+    "date": "",
+    "featured": true
+  },
+  {
+    "id": "work-stairs-1",
+    "title": "Каркас лестницы",
+    "category": "Лестницы",
+    "direction": "metall",
+    "description": "Точная геометрия и подготовка металлического каркаса под отделку.",
+    "images": [
+      "../img/lestnica-karkas.jpg"
+    ],
+    "date": "",
+    "featured": true
+  },
+  {
+    "id": "work-interior-1",
+    "title": "Входная зона и тамбур",
+    "category": "Отделка",
+    "direction": "otdelka",
+    "description": "Комплексная работа с единым подрядчиком.",
+    "images": [
+      "../img/lowrise-tambur-1.jpg"
+    ],
+    "date": "",
+    "featured": true
+  },
+  {
+    "id": "work-shop-1",
+    "title": "Сварка и сборка в цеху",
+    "category": "Производство",
+    "direction": "metall",
+    "description": "Производственный этап с контролем качества соединений.",
+    "images": [
+      "../img/gal-svarka.jpg"
+    ],
+    "date": "",
+    "featured": false
+  }
 ]

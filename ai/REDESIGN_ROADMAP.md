@@ -33,6 +33,15 @@
 - [ ] Сохранить жёлтый accent только через `data-direction="otdelka"`.
 - [ ] Проверить честность текстов и изображений отделки.
 
+### Текущий изолированный MVP
+
+- [x] Создан изолированный сайт в `redesign/` с шестью статическими страницами, общим `site.css` и `site.js`.
+- [x] CRM contract формы сохранён: `website-lead`, поля `name`, `phone`, `message`, `consent`.
+- [x] Локальные `catalog.json` и `portfolio.json` подготовлены для будущего build-time sync.
+- [x] Добавлен локальный `scripts/sync-content.js` с режимом `--local`, без деплоя.
+- [x] В CRM API добавлен resource `portfolio`, validation `catalog.unit` и Gateway routes; деплой не выполнялся.
+- [x] В CRM добавлен Portfolio CRUD route/module и пункт навигации; CRM production не изменялся.
+
 ## Stage 3 — данные и портфолио
 
 - [ ] Вынести 40 позиций металла из HTML в структурированный источник данных.
