@@ -1617,7 +1617,8 @@
    inherits the shared industrial visual language from style.css.
    ============================================================ */
 html[data-direction="otdelka"] body.ot-page {
-  background: var(--site-ink, #111315);
+  background: var(--site-ink, #111315) !important;
+  background-image: none !important;
   color: var(--text-primary, #fff);
   font-family: var(--site-body, 'Rajdhani', 'Montserrat', sans-serif);
 }
