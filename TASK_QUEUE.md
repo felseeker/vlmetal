@@ -1,25 +1,25 @@
-# TASK_QUEUE.md — Пошаговый план доработки
+﻿# TASK_QUEUE.md — Пошаговый план доработки
 
 ## Текущее состояние
 
-**Commit:** `4277c6a` "Переписать изолированный preview в новую editorial композицию"
+**Commit:** `9e1a9ad` "Завершить новую editorial композицию preview"
 
 **Что сделано:**
 - [x] Изолированный `redesign/` с переписанными страницами агентами
 - [x] CRM backend: portfolio resource, catalog.unit
 - [x] CRM frontend: Portfolio CRUD, catalog unit field
 - [x] Новый CSS shell с grid background
-- [x] Главная страница переписана с новой композицией (last uncommitted change)
-- [x] Playwright QA 48 states passed (до последней правки главной)
+- [x] Главная страница переписана с новой композицией и checkpoint-commit создан
+- [x] Playwright QA 48 states passed после переписывания страниц и shell
 - [x] План на 1302 строки создан
 
 **Что НЕ сделано:**
-- [ ] Главная страница с новой композицией не закоммичена
-- [ ] Новые CSS классы для главной не добавлены полностью
-- [ ] Responsive для новой главной не проверен
-- [ ] Страницы направлений всё ещё используют старый порядок секций
-- [ ] Portfolio всё ещё grid 3-column, не asymmetric
-- [ ] Финальная QA после всех изменений
+- [x] Главная страница с новой композицией закоммичена в `9e1a9ad`
+- [x] Новые CSS классы для главной добавлены и проверены
+- [x] Responsive для новой главной проверен
+- [x] Страницы направлений переписаны агентом в новую композицию
+- [x] Portfolio переписан агентом в editorial archive
+- [x] Финальная QA после agent-изменений и shell changes пройдена
 - [ ] Владелец не видел preview
 
 ---
@@ -43,9 +43,9 @@
    - `@media (max-width: 640px)`: `.facts-bar-grid`, `.timeline` → одна колонка
 
 **Definition of Done:**
-- [ ] Все классы из `redesign/index.html` имеют CSS definitions
-- [ ] `git diff --check` passed
-- [ ] Файл сохранён
+- [x] Все классы из `redesign/index.html` имеют CSS definitions
+- [x] `git diff --check` passed
+- [x] Файл сохранён
 
 ---
 
@@ -76,10 +76,10 @@ Start-Sleep -Seconds 2
 6. Проверь тёмную тему: кликни theme toggle
 
 **Definition of Done:**
-- [ ] Главная открывается без console errors
-- [ ] Изображения загружаются (нет 404)
-- [ ] Layout не ломается на 375/768/1024/1440
-- [ ] Grid background видна
+- [x] Главная открывается без console errors
+- [x] Изображения загружаются (нет 404)
+- [x] Layout не ломается на 375/768/1024/1440
+- [x] Grid background видна
 
 ---
 
@@ -105,10 +105,10 @@ const checks = await page.evaluate(() => ({
 ```
 
 **Definition of Done:**
-- [ ] `h1 === 1`
-- [ ] `header === 1`, `footer === 1`
-- [ ] Все новые секции присутствуют
-- [ ] `overflow === false` на всех widths
+- [x] `h1 === 1`
+- [x] `header === 1`, `footer === 1`
+- [x] Все новые секции присутствуют
+- [x] `overflow === false` на всех widths
 
 ---
 
@@ -126,9 +126,9 @@ git log --oneline -3
 ```
 
 **Definition of Done:**
-- [ ] Коммит создан
-- [ ] `otdelka/` не попала в коммит
-- [ ] Новый commit hash есть
+- [x] Коммит создан
+- [x] `otdelka/` не попала в коммит
+- [x] Новый commit hash есть
 
 ---
 
@@ -153,11 +153,11 @@ git log --oneline -3
 6. Relative paths `../img/`, `../css/site.css?v=1`
 
 **Definition of Done:**
-- [ ] Композиция визуально отличается от старой
-- [ ] Нет повторяющихся card rows
-- [ ] Numbered services list
-- [ ] Production timeline вместо generic process
-- [ ] Один h1
+- [x] Композиция визуально отличается от старой
+- [x] Нет повторяющихся card rows
+- [x] Numbered services list
+- [x] Production timeline вместо generic process
+- [x] Один h1
 
 ---
 
@@ -176,8 +176,8 @@ git log --oneline -3
 3. Если есть `.project-strip` — добавь horizontal scroll container
 
 **Definition of Done:**
-- [ ] Все классы из HTML имеют CSS
-- [ ] Responsive rules добавлены
+- [x] Все классы из HTML имеют CSS
+- [x] Responsive rules добавлены
 
 ---
 
@@ -200,11 +200,11 @@ git log --oneline -3
 6. Используй те же классы что металл
 
 **Definition of Done:**
-- [ ] `data-direction="otdelka"` на html
-- [ ] Amber accent работает через CSS tokens
-- [ ] Композиция аналогична металлу
-- [ ] Нет `.ot-*` классов
-- [ ] Один h1
+- [x] `data-direction="otdelka"` на html
+- [x] Amber accent работает через CSS tokens
+- [x] Композиция аналогична металлу
+- [x] Нет `.ot-*` классов
+- [x] Один h1
 
 ---
 
@@ -236,10 +236,10 @@ git log --oneline -3
 5. Сохрани filters и data attributes
 
 **Definition of Done:**
-- [ ] Grid asymmetric
-- [ ] Первый проект занимает 2 колонки
-- [ ] Filters работают
-- [ ] Выглядит как magazine spread, не Shopify
+- [x] Grid asymmetric
+- [x] Первый проект занимает 2 колонки
+- [x] Filters работают
+- [x] Выглядит как magazine spread, не Shopify
 
 ---
 
@@ -272,9 +272,9 @@ return {states:48,failures};
 ```
 
 **Definition of Done:**
-- [ ] `failures.length === 0`
-- [ ] Console errors = 0 на всех страницах
-- [ ] Images загружаются
+- [x] `failures.length === 0`
+- [x] Console errors = 0 на всех страницах
+- [x] Images загружаются
 
 ---
 
@@ -312,10 +312,10 @@ return {menuOpen, tabActive, filtered, hasConsent, hasStatus};
 ```
 
 **Definition of Done:**
-- [ ] Menu открывается
-- [ ] Tabs переключаются
-- [ ] Filters работают
-- [ ] Forms имеют consent и status
+- [x] Menu открывается
+- [x] Tabs переключаются
+- [x] Filters работают
+- [x] Forms имеют consent и status
 
 ---
 
@@ -332,9 +332,9 @@ git log --oneline -5
 ```
 
 **Definition of Done:**
-- [ ] Все изменения `redesign/` закоммичены
-- [ ] `otdelka/` НЕ в коммите
-- [ ] Новый hash создан
+- [x] Все изменения `redesign/` закоммичены
+- [x] `otdelka/` НЕ в коммите
+- [x] Новый hash создан
 
 ---
 
@@ -405,8 +405,8 @@ http://localhost:8095/ (корень без `/redesign/`)
 ```
 
 **Definition of Done:**
-- [ ] `redesign/README.md` создан
-- [ ] Файл закоммичен
+- [x] `redesign/README.md` создан
+- [x] Файл закоммичен
 
 ---
 
@@ -475,3 +475,4 @@ URL: http://localhost:8095/redesign/
 - [ ] Ничего не задеплоено
 
 **Когда все пункты выполнены — задача на этапе "Ready for Owner Review".**
+
