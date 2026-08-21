@@ -15,6 +15,7 @@
 - `REDESIGN_ROADMAP.md` — пошаговый план полного редизайна и QA-gates.
 - `TASTE_REDESIGN_PLAN.md` — обязательный anti-slop план с dials, layout grammar, motion и CRM-ограничениями.
 - `TASTE_AUDIT.md` — аудит, почему прошлые версии визуально не отличались от старого сайта.
+- `FULL_REDESIGN_EXECUTION_PLAN.md` — полный исполнительный план редизайна, CRM, QA, migration и release-gates.
 
 ## External design skills researched
 
