@@ -3,27 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    // Apply saved theme before first paint to avoid flash of wrong theme (FOUC)
-    // Uses the same 'site-theme' key as the rest of the site so the choice
-    // persists when navigating between pages.
-    (function() {
-      try {
-        var saved = localStorage.getItem('site-theme');
-        if (saved === 'light' || saved === 'dark') {
-          document.documentElement.setAttribute('data-theme', saved);
-        }
-      } catch (e) {}
-    })();
-  </script>
-  <title>Внутренняя отделка квартир и домов во Владивостоке под ключ | Концепция строительства</title>
+  <script src="../theme-init.js"></script>
+  <title>Внутренняя отделка квартир и домов | Владивосток</title>
 
-  <meta name="description" content="Внутренняя отделка квартир и домов во Владивостоке под ключ: черновая и чистовая отделка, потолки, полы, электрика, сантехника, дизайн-проект. Договор с ООО, гарантия на работы.">
+  <meta name="description" content="Внутренняя отделка квартир и домов во Владивостоке под ключ: черновая и чистовая отделка, потолки, полы, электрика, сантехника. Договор, гарантия.">
   <meta name="keywords" content="внутренняя отделка владивосток, ремонт квартир под ключ владивосток, чистовая отделка, черновая отделка, натяжные потолки владивосток, укладка полов, электромонтаж, сантехника, ремонт домов, дизайн-проект квартиры">
   <link rel="canonical" href="https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/otdelka/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Внутренняя отделка квартир и домов во Владивостоке — Концепция строительства">
-  <meta property="og:description" content="Черновая и чистовая отделка, ремонт под ключ во Владивостоке. Договор с ООО, гарантия на работы.">
+  <meta property="og:description" content="Внутренняя отделка квартир и домов во Владивостоке под ключ: черновая и чистовая отделка, потолки, полы, электрика, сантехника. Договор, гарантия.">
   <meta property="og:image" content="https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/img/lowrise-tambur-1.jpg">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="960">
@@ -40,18 +28,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../style.css?v=32">
-  <link rel="stylesheet" href="otdelka.css?v=2">
+  <link rel="stylesheet" href="../style.css?v=34">
+  <link rel="stylesheet" href="otdelka.css?v=3">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
-  <link rel="apple-touch-icon" sizes="48x48" href="/favicon.png">
-  <link rel="preload" as="image" href="../img/lowrise-tambur-1.jpg" fetchpriority="high">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="preload" as="image" href="../img/lowrise-tambur-1.webp" type="image/webp" fetchpriority="high">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Концепция строительства — Внутренняя отделка",
+    "name": "Концепция строительства",
     "description": "Внутренняя отделка квартир и домов во Владивостоке под ключ: черновая и чистовая отделка, потолки, полы, электрика, сантехника.",
     "url": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/otdelka/",
     "telephone": "+79242310478",
@@ -69,12 +57,13 @@
       { "@type": "City", "name": "Владивосток" },
       { "@type": "State", "name": "Приморский край" }
     ],
-    "priceRange": "OT 100₽/м²",
+    "priceRange": "От 100 ₽/м²",
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "16:00" }
     ],
     "image": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/img/logo_big.png",
+    "logo": { "@type": "ImageObject", "url": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/img/logo_big.png", "width": 120, "height": 120 },
     "sameAs": [
       "https://t.me/KCTROOO",
       "https://wa.me/message/VJAZDFZV5M5SF1",
@@ -89,6 +78,62 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/" },
       { "@type": "ListItem", "position": 2, "name": "Внутренняя отделка", "item": "https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/otdelka/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Сколько длится ремонт квартиры под ключ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Черновая отделка однокомнатной квартиры — от 2 до 4 недель. Чистовая — от 3 до 6 недель. Полный ремонт под ключ — от 1,5 до 3 месяцев в зависимости от площади и сложности."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Выезжаете на замер бесплатно?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, замер и предварительный расчёт стоимости — бесплатно по Владивостоку."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Работаете со своими материалами или закупаете сами?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Возможны оба варианта: закупаем материалы по согласованному списку и смете, либо работаем с материалами заказчика."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Даёте ли гарантию на отделочные работы?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, гарантия на выполненные работы фиксируется в договоре подряда. Работаем официально, по договору с ООО «Концепция Строительства»."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Можно ли заказать только часть работ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, можно заказать как ремонт под ключ, так и отдельные виды работ: только потолки, только полы, только электрику и т.д."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Делаете дизайн-проект перед началом ремонта?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, разрабатываем дизайн-проект с визуализацией по желанию заказчика — это помогает точнее рассчитать смету и избежать переделок."
+        }
+      }
     ]
   }
   </script>
@@ -233,10 +278,22 @@
     </div>
     <div class="ot-hero__image ot-fade-in">
       <div class="ot-hero__carousel">
-        <img class="ot-slide ot-slide--active" src="../img/lowrise-tambur-1.jpg" alt="Внутренняя отделка — тамбур" width="1280" height="960" fetchpriority="high">
-        <img class="ot-slide" src="../img/lowrise-vhod.jpg" alt="Отделка входной зоны" width="1280" height="960" loading="lazy">
-        <img class="ot-slide" src="../img/lowrise-2etazh.jpg" alt="Отделка второго этажа" width="1280" height="960" loading="lazy">
-        <img class="ot-slide" src="../img/other-oblitsovka.jpg" alt="Облицовка помещения" width="1280" height="960" loading="lazy">
+        <picture>
+          <source srcset="../img/lowrise-tambur-1.webp" type="image/webp">
+          <img class="ot-slide ot-slide--active" src="../img/lowrise-tambur-1.jpg" alt="Внутренняя отделка — тамбур" width="1280" height="960" fetchpriority="high">
+        </picture>
+        <picture>
+          <source srcset="../img/lowrise-vhod.webp" type="image/webp">
+          <img class="ot-slide" src="../img/lowrise-vhod.jpg" alt="Отделка входной зоны" width="1280" height="960" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="../img/lowrise-2etazh.webp" type="image/webp">
+          <img class="ot-slide" src="../img/lowrise-2etazh.jpg" alt="Отделка второго этажа" width="1280" height="960" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="../img/other-oblitsovka.webp" type="image/webp">
+          <img class="ot-slide" src="../img/other-oblitsovka.jpg" alt="Облицовка помещения" width="1280" height="960" loading="lazy">
+        </picture>
       </div>
       <div class="ot-hero__stats">
         <div class="ot-hero__stat">
@@ -371,23 +428,23 @@
 
     <!-- Tabs -->
     <div class="ot-price-tabs ot-fade-in">
-      <div class="ot-ptabs__nav" id="priceTabs">
-        <button class="ot-ptab ot-ptab--active" data-target="pt-grunting">ГРУНТОВКА И ШТУКАТУРКА</button>
-        <button class="ot-ptab" data-target="pt-gkl">ГКЛ И ОТКОСЫ</button>
-        <button class="ot-ptab" data-target="pt-walls">СТЕНЫ ЧИСТОВЫЕ</button>
-        <button class="ot-ptab" data-target="pt-ceiling">ПОТОЛОК</button>
-        <button class="ot-ptab" data-target="pt-floor">ПОЛЫ</button>
-        <button class="ot-ptab" data-target="pt-tile">ПЛИТОЧНЫЕ РАБОТЫ</button>
-        <button class="ot-ptab" data-target="pt-electro">ЭЛЕКТРОМОНТАЖ</button>
-        <button class="ot-ptab" data-target="pt-santech">САНТЕХНИКА</button>
-        <button class="ot-ptab" data-target="pt-demo">ДЕМОНТАЖ И ПЕРЕГОРОДКИ</button>
+      <div class="ot-ptabs__nav" id="priceTabs" role="tablist" aria-label="Категории прайс-листа отделки">
+        <button class="ot-ptab ot-ptab--active" id="ptbtn-grunting" data-target="pt-grunting" role="tab" aria-selected="true" aria-controls="pt-grunting">ГРУНТОВКА И ШТУКАТУРКА</button>
+        <button class="ot-ptab" id="ptbtn-gkl" data-target="pt-gkl" role="tab" aria-selected="false" aria-controls="pt-gkl">ГКЛ И ОТКОСЫ</button>
+        <button class="ot-ptab" id="ptbtn-walls" data-target="pt-walls" role="tab" aria-selected="false" aria-controls="pt-walls">СТЕНЫ ЧИСТОВЫЕ</button>
+        <button class="ot-ptab" id="ptbtn-ceiling" data-target="pt-ceiling" role="tab" aria-selected="false" aria-controls="pt-ceiling">ПОТОЛОК</button>
+        <button class="ot-ptab" id="ptbtn-floor" data-target="pt-floor" role="tab" aria-selected="false" aria-controls="pt-floor">ПОЛЫ</button>
+        <button class="ot-ptab" id="ptbtn-tile" data-target="pt-tile" role="tab" aria-selected="false" aria-controls="pt-tile">ПЛИТОЧНЫЕ РАБОТЫ</button>
+        <button class="ot-ptab" id="ptbtn-electro" data-target="pt-electro" role="tab" aria-selected="false" aria-controls="pt-electro">ЭЛЕКТРОМОНТАЖ</button>
+        <button class="ot-ptab" id="ptbtn-santech" data-target="pt-santech" role="tab" aria-selected="false" aria-controls="pt-santech">САНТЕХНИКА</button>
+        <button class="ot-ptab" id="ptbtn-demo" data-target="pt-demo" role="tab" aria-selected="false" aria-controls="pt-demo">ДЕМОНТАЖ И ПЕРЕГОРОДКИ</button>
       </div>
 
       <!-- ГРУНТОВКА И ШТУКАТУРКА -->
-      <div class="ot-ptab-panel ot-ptab-panel--active" id="pt-grunting">
+      <div class="ot-ptab-panel ot-ptab-panel--active" id="pt-grunting" role="tabpanel" aria-labelledby="ptbtn-grunting">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">🖌</span>
+            <span class="ot-price-card__icon" aria-hidden="true">🖌</span>
             <div>
               <h3 class="ot-price-card__title">Грунтовка и штукатурка</h3>
               <p class="ot-price-card__desc">Подготовительные работы для поверхностей стен, потолков и полов</p>
@@ -422,10 +479,10 @@
       </div>
 
       <!-- ГКЛ И ОТКОСЫ -->
-      <div class="ot-ptab-panel" id="pt-gkl">
+      <div class="ot-ptab-panel" id="pt-gkl" role="tabpanel" aria-labelledby="ptbtn-gkl">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">📐</span>
+            <span class="ot-price-card__icon" aria-hidden="true">📐</span>
             <div>
               <h3 class="ot-price-card__title">ГКЛ и откосы</h3>
               <p class="ot-price-card__desc">Обшивка гипсокартоном, устройство откосов, коробов и грильято</p>
@@ -465,10 +522,10 @@
       </div>
 
       <!-- СТЕНЫ ЧИСТОВЫЕ -->
-      <div class="ot-ptab-panel" id="pt-walls">
+      <div class="ot-ptab-panel" id="pt-walls" role="tabpanel" aria-labelledby="ptbtn-walls">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">🎨</span>
+            <span class="ot-price-card__icon" aria-hidden="true">🎨</span>
             <div>
               <h3 class="ot-price-card__title">Стены чистовые</h3>
               <p class="ot-price-card__desc">Финишная отделка стен: шпаклевание, покраска, обои, декоративная штукатурка</p>
@@ -509,10 +566,10 @@
       </div>
 
       <!-- ПОТОЛОК -->
-      <div class="ot-ptab-panel" id="pt-ceiling">
+      <div class="ot-ptab-panel" id="pt-ceiling" role="tabpanel" aria-labelledby="ptbtn-ceiling">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">⬆</span>
+            <span class="ot-price-card__icon" aria-hidden="true">⬆</span>
             <div>
               <h3 class="ot-price-card__title">Потолок</h3>
               <p class="ot-price-card__desc">Каркасные системы, ГКЛ, шпаклевание и покраска потолков</p>
@@ -553,10 +610,10 @@
       </div>
 
       <!-- ПОЛЫ -->
-      <div class="ot-ptab-panel" id="pt-floor">
+      <div class="ot-ptab-panel" id="pt-floor" role="tabpanel" aria-labelledby="ptbtn-floor">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">⬇</span>
+            <span class="ot-price-card__icon" aria-hidden="true">⬇</span>
             <div>
               <h3 class="ot-price-card__title">Полы</h3>
               <p class="ot-price-card__desc">Черновые и чистовые полы: стяжка, тёплый пол, финишные покрытия</p>
@@ -592,10 +649,10 @@
       </div>
 
       <!-- ПЛИТОЧНЫЕ РАБОТЫ -->
-      <div class="ot-ptab-panel" id="pt-tile">
+      <div class="ot-ptab-panel" id="pt-tile" role="tabpanel" aria-labelledby="ptbtn-tile">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">🔲</span>
+            <span class="ot-price-card__icon" aria-hidden="true">🔲</span>
             <div>
               <h3 class="ot-price-card__title">Плиточные работы</h3>
               <p class="ot-price-card__desc">Укладка плитки и керамогранита различных форматов, гидроизоляция, затирка</p>
@@ -637,10 +694,10 @@
       </div>
 
       <!-- ЭЛЕКТРОМОНТАЖ -->
-      <div class="ot-ptab-panel" id="pt-electro">
+      <div class="ot-ptab-panel" id="pt-electro" role="tabpanel" aria-labelledby="ptbtn-electro">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">⚡</span>
+            <span class="ot-price-card__icon" aria-hidden="true">⚡</span>
             <div>
               <h3 class="ot-price-card__title">Электромонтажные работы</h3>
               <p class="ot-price-card__desc">Монтаж розеток, освещения, щитов, кабельных систем, видеонаблюдения</p>
@@ -730,10 +787,10 @@
       </div>
 
       <!-- САНТЕХНИКА -->
-      <div class="ot-ptab-panel" id="pt-santech">
+      <div class="ot-ptab-panel" id="pt-santech" role="tabpanel" aria-labelledby="ptbtn-santech">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">🚿</span>
+            <span class="ot-price-card__icon" aria-hidden="true">🚿</span>
             <div>
               <h3 class="ot-price-card__title">Сантехника</h3>
               <p class="ot-price-card__desc">Инженерная и чистовая сантехника: разводка, тёплый пол, установка приборов</p>
@@ -787,10 +844,10 @@
       </div>
 
       <!-- ДЕМОНТАЖ И ПЕРЕГОРОДКИ -->
-      <div class="ot-ptab-panel" id="pt-demo">
+      <div class="ot-ptab-panel" id="pt-demo" role="tabpanel" aria-labelledby="ptbtn-demo">
         <div class="ot-price-card ot-fade-in">
           <div class="ot-price-card__header">
-            <span class="ot-price-card__icon">🔨</span>
+            <span class="ot-price-card__icon" aria-hidden="true">🔨</span>
             <div>
               <h3 class="ot-price-card__title">Демонтаж и перегородки</h3>
               <p class="ot-price-card__desc">Снос и демонтаж старых конструкций, возведение перегородок, общестроительные работы</p>
@@ -884,28 +941,28 @@
     <h2 class="ot-section__title ot-fade-in">ЧАСТЫЕ ВОПРОСЫ</h2>
     <div class="ot-faq ot-fade-in">
       <div class="ot-faq__item">
-        <button class="ot-faq__q">СКОЛЬКО ДЛИТСЯ РЕМОНТ КВАРТИРЫ ПОД КЛЮЧ?<span class="ot-faq__arrow">▾</span></button>
-        <div class="ot-faq__a"><p>Черновая отделка однокомнатной квартиры — от 2 до 4 недель. Чистовая — от 3 до 6 недель. Полный ремонт под ключ — от 1,5 до 3 месяцев в зависимости от площади и сложности.</p></div>
+        <button class="ot-faq__q" aria-expanded="false" aria-controls="ot-faq-a-1">СКОЛЬКО ДЛИТСЯ РЕМОНТ КВАРТИРЫ ПОД КЛЮЧ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a" id="ot-faq-a-1"><p>Черновая отделка однокомнатной квартиры — от 2 до 4 недель. Чистовая — от 3 до 6 недель. Полный ремонт под ключ — от 1,5 до 3 месяцев в зависимости от площади и сложности.</p></div>
       </div>
       <div class="ot-faq__item">
-        <button class="ot-faq__q">ВЫЕЗЖАЕТЕ НА ЗАМЕР БЕСПЛАТНО?<span class="ot-faq__arrow">▾</span></button>
-        <div class="ot-faq__a"><p>Да, замер и предварительный расчёт стоимости — бесплатно по Владивостоку.</p></div>
+        <button class="ot-faq__q" aria-expanded="false" aria-controls="ot-faq-a-2">ВЫЕЗЖАЕТЕ НА ЗАМЕР БЕСПЛАТНО?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a" id="ot-faq-a-2"><p>Да, замер и предварительный расчёт стоимости — бесплатно по Владивостоку.</p></div>
       </div>
       <div class="ot-faq__item">
-        <button class="ot-faq__q">РАБОТАЕТЕ СО СВОИМИ МАТЕРИАЛАМИ ИЛИ ЗАКУПАЕТЕ САМИ?<span class="ot-faq__arrow">▾</span></button>
-        <div class="ot-faq__a"><p>Возможны оба варианта: закупаем материалы по согласованному списку и смете, либо работаем с материалами заказчика.</p></div>
+        <button class="ot-faq__q" aria-expanded="false" aria-controls="ot-faq-a-3">РАБОТАЕТЕ СО СВОИМИ МАТЕРИАЛАМИ ИЛИ ЗАКУПАЕТЕ САМИ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a" id="ot-faq-a-3"><p>Возможны оба варианта: закупаем материалы по согласованному списку и смете, либо работаем с материалами заказчика.</p></div>
       </div>
       <div class="ot-faq__item">
-        <button class="ot-faq__q">ДАЁТЕ ЛИ ГАРАНТИЮ НА ОТДЕЛОЧНЫЕ РАБОТЫ?<span class="ot-faq__arrow">▾</span></button>
-        <div class="ot-faq__a"><p>Да, гарантия на выполненные работы фиксируется в договоре подряда. Работаем официально, по договору с ООО «Концепция Строительства».</p></div>
+        <button class="ot-faq__q" aria-expanded="false" aria-controls="ot-faq-a-4">ДАЁТЕ ЛИ ГАРАНТИЮ НА ОТДЕЛОЧНЫЕ РАБОТЫ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a" id="ot-faq-a-4"><p>Да, гарантия на выполненные работы фиксируется в договоре подряда. Работаем официально, по договору с ООО «Концепция Строительства».</p></div>
       </div>
       <div class="ot-faq__item">
-        <button class="ot-faq__q">МОЖНО ЛИ ЗАКАЗАТЬ ТОЛЬКО ЧАСТЬ РАБОТ?<span class="ot-faq__arrow">▾</span></button>
-        <div class="ot-faq__a"><p>Да, можно заказать как ремонт под ключ, так и отдельные виды работ: только потолки, только полы, только электрику и т.д.</p></div>
+        <button class="ot-faq__q" aria-expanded="false" aria-controls="ot-faq-a-5">МОЖНО ЛИ ЗАКАЗАТЬ ТОЛЬКО ЧАСТЬ РАБОТ?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a" id="ot-faq-a-5"><p>Да, можно заказать как ремонт под ключ, так и отдельные виды работ: только потолки, только полы, только электрику и т.д.</p></div>
       </div>
       <div class="ot-faq__item">
-        <button class="ot-faq__q">ДЕЛАЕТЕ ДИЗАЙН-ПРОЕКТ ПЕРЕД НАЧАЛОМ РЕМОНТА?<span class="ot-faq__arrow">▾</span></button>
-        <div class="ot-faq__a"><p>Да, разрабатываем дизайн-проект с визуализацией по желанию заказчика — это помогает точнее рассчитать смету и избежать переделок.</p></div>
+        <button class="ot-faq__q" aria-expanded="false" aria-controls="ot-faq-a-6">ДЕЛАЕТЕ ДИЗАЙН-ПРОЕКТ ПЕРЕД НАЧАЛОМ РЕМОНТА?<span class="ot-faq__arrow">▾</span></button>
+        <div class="ot-faq__a" id="ot-faq-a-6"><p>Да, разрабатываем дизайн-проект с визуализацией по желанию заказчика — это помогает точнее рассчитать смету и избежать переделок.</p></div>
       </div>
     </div>
   </div>
@@ -918,7 +975,7 @@
     <h2 class="ot-section__title ot-section__title--light ot-fade-in">СВЯЖИТЕСЬ С НАМИ</h2>
     <div class="ot-contacts">
       <form class="ot-form ot-fade-in" id="contactForm">
-        <div id="formSuccess" style="display:none; text-align:center; padding:40px 0;">
+        <div id="formSuccess" role="status" aria-live="polite" style="display:none; text-align:center; padding:40px 0;">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="display:block;margin:0 auto;">
             <circle cx="12" cy="12" r="10" stroke="#F5C518" stroke-width="1.5"/>
             <path d="M8 12L11 15L16 9" stroke="#F5C518" stroke-width="2" stroke-linecap="round"/>
@@ -926,10 +983,13 @@
           <p style="margin-top:16px;font-size:clamp(16px,1.6vw,22px);font-weight:700;letter-spacing:1px;color:#fff;">ЗАЯВКА ОТПРАВЛЕНА</p>
           <p style="color:#aaa;margin-top:6px;">Мы свяжемся с вами в ближайшее время</p>
         </div>
-        <input type="text" class="ot-form__input" name="name" placeholder="Имя" required>
-        <input type="tel" class="ot-form__input" name="phone" placeholder="Телефон" required>
+        <label for="cf-name" class="sr-only">Имя</label>
+        <input type="text" id="cf-name" class="ot-form__input" name="name" placeholder="Имя" required>
+        <label for="cf-phone" class="sr-only">Телефон</label>
+        <input type="tel" id="cf-phone" class="ot-form__input" name="phone" placeholder="Телефон" required>
         <input type="hidden" name="direction" value="Внутренняя отделка">
-        <textarea class="ot-form__input ot-form__textarea" name="message" placeholder="Сообщение (площадь, адрес, какие работы нужны)" rows="4"></textarea>
+        <label for="cf-message" class="sr-only">Сообщение</label>
+        <textarea id="cf-message" class="ot-form__input ot-form__textarea" name="message" placeholder="Сообщение (площадь, адрес, какие работы нужны)" rows="4"></textarea>
         <label class="ot-form__checkbox">
           <input type="checkbox" name="consent" required>
           <span class="ot-form__checkmark"></span>
@@ -1055,9 +1115,10 @@
   var slides = document.querySelectorAll('.ot-slide');
 
   var cur = 0, iv;
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function go(i) { slides.forEach(function(s){s.classList.remove('ot-slide--active');}); slides[i].classList.add('ot-slide--active'); cur=i; }
   function next() { go((cur+1)%slides.length); }
-  iv = setInterval(next, 4500);
+  if (!prefersReducedMotion) { iv = setInterval(next, 4500); }
 })();
 
 // Hamburger
@@ -1088,9 +1149,10 @@
   var panels = document.querySelectorAll('.ot-ptab-panel');
   tabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
-      tabs.forEach(function(t){t.classList.remove('ot-ptab--active');});
+      tabs.forEach(function(t){t.classList.remove('ot-ptab--active'); t.setAttribute('aria-selected', 'false');});
       panels.forEach(function(p){p.classList.remove('ot-ptab-panel--active');});
       tab.classList.add('ot-ptab--active');
+      tab.setAttribute('aria-selected', 'true');
       var target = document.getElementById(tab.getAttribute('data-target'));
       if (target) target.classList.add('ot-ptab-panel--active');
     });
@@ -1104,6 +1166,7 @@
     var btn = item.querySelector('.ot-faq__q');
     btn.addEventListener('click', function() {
       var open = item.classList.toggle('ot-faq__item--open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   });
 })();

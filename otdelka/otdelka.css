@@ -202,6 +202,11 @@
   letter-spacing: 1.5px;
   border-radius: 6px;
   flex-shrink: 0;
+  background: var(--ot-yellow);
+  color: #1a1a1a;
+}
+.ot-btn--header:hover {
+  background: var(--ot-yellow2);
 }
 
 /* ============================================================
@@ -212,8 +217,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   border-radius: 50%;
   border: 1px solid var(--ot-line);
@@ -272,6 +277,10 @@
 .ot-hamburger {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
   gap: 5px;
   background: none;
   border: none;
@@ -1528,5 +1537,30 @@
   }
   .container {
     padding: 0 48px;
+  }
+}
+
+/* === Accessibility: видимый фокус для клавиатурной навигации === */
+.ot-ptab:focus-visible,
+.ot-faq__q:focus-visible,
+.ot-theme-toggle:focus-visible,
+.ot-hamburger:focus-visible {
+  outline: 2px solid var(--ot-yellow);
+  outline-offset: 2px;
+}
+
+/* === Accessibility: уважать системную настройку "уменьшить движение" === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ot-slide {
+    transition: none !important;
   }
 }

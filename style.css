@@ -97,8 +97,8 @@ html[data-theme="light"] body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   border-radius: 50%;
   border: 1px solid rgba(var(--accent-rgb), 0.3);
@@ -1026,6 +1026,19 @@ body {
 }
 
 /* Skip to content */
+/* Visually hidden but accessible to screen readers (labels for inputs, etc.) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: absolute;
   top: -100%;
@@ -2256,8 +2269,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: 1px solid rgba(var(--accent-rgb), 0.3);
   border-radius: 4px;
@@ -3395,6 +3408,39 @@ html[data-theme="light"] .card__caption {
 }
 html[data-theme="light"] .pricing-card__list li {
   color: var(--text-primary);
+}
+
+/* === Accessibility: видимый фокус для клавиатурной навигации === */
+.btn:focus-visible,
+.nav__link:focus-visible,
+.hamburger:focus-visible,
+.theme-toggle:focus-visible,
+.tabs__btn:focus-visible,
+.faq__question:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* === Accessibility: уважать системную настройку "уменьшить движение" === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero__sparks,
+  .sparks,
+  .social-proof__track {
+    animation: none !important;
+  }
+
+  .hero__slide {
+    transition: none !important;
+  }
 }
 
 
