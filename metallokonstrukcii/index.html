@@ -27,7 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
   <script src="../theme-init.js"></script>
-  <link rel="stylesheet" href="../style.css?v=35">
+  <link rel="stylesheet" href="../style.css?v=36">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
@@ -259,6 +259,15 @@
     </button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" class="mobile-menu__link">ГЛАВНАЯ</a>
+  <a href="/metallokonstrukcii/" class="mobile-menu__link">МЕТАЛЛ</a>
+  <a href="/otdelka/" class="mobile-menu__link">ОТДЕЛКА</a>
+  <a href="/portfolio/" class="mobile-menu__link">ПРИМЕРЫ РАБОТ</a>
+  <a href="/about/" class="mobile-menu__link">О КОМПАНИИ</a>
+  <a href="#contacts" class="mobile-menu__link">ОБСУДИТЬ ЗАДАЧУ</a>
+</div>
 
 <a href="#contacts" class="float-btn">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -1177,14 +1186,16 @@
 (function() {
   var hamburger = document.getElementById('hamburger');
   var nav = document.querySelector('.nav');
+  var mobileMenu = document.getElementById('mobileMenu');
   if (hamburger && nav) {
     hamburger.addEventListener('click', function() {
-      nav.classList.toggle('nav--open');
-      hamburger.classList.toggle('hamburger--active');
+      var open = mobileMenu ? mobileMenu.classList.toggle('mobile-menu--open') : nav.classList.toggle('nav--open');
+      hamburger.classList.toggle('hamburger--active', open);
     });
-    nav.querySelectorAll('.nav__link').forEach(function(link) {
+    document.querySelectorAll('.nav__link, .mobile-menu__link').forEach(function(link) {
       link.addEventListener('click', function() {
         nav.classList.remove('nav--open');
+        if (mobileMenu) mobileMenu.classList.remove('mobile-menu--open');
         hamburger.classList.remove('hamburger--active');
       });
     });
