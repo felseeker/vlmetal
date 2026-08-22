@@ -239,19 +239,15 @@
     </a>
     <nav class="nav" aria-label="Основное меню">
       <a href="/" class="nav__link">ГЛАВНАЯ</a>
-      <a href="/metallokonstrukcii/" class="nav__link nav__link--active">МЕТАЛЛОКОНСТРУКЦИИ</a>
       <a href="/otdelka/" class="nav__link">ВНУТРЕННЯЯ ОТДЕЛКА</a>
+      <a href="/metallokonstrukcii/" class="nav__link nav__link--active">МЕТАЛЛ</a>
       <a href="/portfolio/" class="nav__link">ПРИМЕРЫ РАБОТ</a>
-      <a href="/about/" class="nav__link">О КОМПАНИИ</a>
-      <a href="#testimonials" class="nav__link">ОТЗЫВЫ</a>
-      <a href="#faq" class="nav__link">ВОПРОСЫ</a>
-      <a href="#contacts" class="nav__link">КОНТАКТЫ</a>
+      <a href="/about/" class="nav__link">О НАС</a>
     </nav>
     <button class="theme-toggle" aria-label="Переключить тему">
       <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
       <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.7A8.5 8.5 0 0 1 9.3 3.5a.7.7 0 0 0-.9-.9 10 10 0 1 0 13 13 .7.7 0 0 0-.9-.9z"/></svg>
     </button>
-    <a href="#contacts" class="btn btn--header">СВЯЗАТЬСЯ</a>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span>
       <span></span>
@@ -266,7 +262,6 @@
   <a href="/otdelka/" class="mobile-menu__link">ОТДЕЛКА</a>
   <a href="/portfolio/" class="mobile-menu__link">ПРИМЕРЫ РАБОТ</a>
   <a href="/about/" class="mobile-menu__link">О КОМПАНИИ</a>
-  <a href="#contacts" class="mobile-menu__link">ОБСУДИТЬ ЗАДАЧУ</a>
 </div>
 
 <a href="#contacts" class="float-btn">
@@ -590,7 +585,7 @@
   <div class="container">
     <p class="section__label fade-in">УСЛУГИ</p>
     <h2 class="section__title fade-in">УСЛУГИ МЕТАЛЛООБРАБОТКИ</h2>
-    <div class="tabs fade-in">
+     <div class="tabs fade-in">
       <div class="tabs__nav" role="tablist" aria-label="Категории услуг металлообработки">
         <button class="tabs__btn tabs__btn--active" id="tabbtn-mangals" data-tab="mangals" role="tab" aria-selected="true" aria-controls="tab-mangals">МАНГАЛЫ</button>
         <button class="tabs__btn" id="tabbtn-gates" data-tab="gates" role="tab" aria-selected="false" aria-controls="tab-gates">ВОРОТА</button>
@@ -600,7 +595,8 @@
         <button class="tabs__btn" id="tabbtn-lowrise" data-tab="lowrise" role="tab" aria-selected="false" aria-controls="tab-lowrise">МАЛОЭТАЖНОЕ СТРОИТЕЛЬСТВО</button>
         <button class="tabs__btn" id="tabbtn-other" data-tab="other" role="tab" aria-selected="false" aria-controls="tab-other">БЕЗ КАТЕГОРИИ</button>
       </div>
-      <div class="tabs__content">
+      <div class="catalog-live" data-catalog-live aria-live="polite"><p class="catalog-live__status">Загрузка актуального прайс-листа…</p></div>
+       <div class="tabs__content" data-catalog-fallback>
         <!-- Мангалы -->
         <div class="tabs__panel tabs__panel--active" id="tab-mangals" role="tabpanel" aria-labelledby="tabbtn-mangals">
           <p class="tabs__desc">Мангалы на заказ во Владивостоке: комплексы из стали 4 мм с термостойкой эмалью до 1200°C. Отделка — лиственница сибирская, печи с шамотным кирпичом.</p>
@@ -1045,7 +1041,7 @@
  </section>
  </main>
 
-<script src="../theme-toggle.js"></script>
+<script src="../theme-toggle.js"></script><script src="../site-shell.js"></script><script src="../catalog-loader.js"></script>
 
 <footer class="footer" itemscope itemtype="https://schema.org/WPFooter">
   <div class="container">

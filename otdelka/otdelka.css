@@ -1,3 +1,6 @@
+/* Shared shell: the top bar contains only page navigation and theme/menu controls. */
+.ot-header .ot-btn--header { display: none; }
+
 /* ============================================================
    OTDELKA PAGE — White/Graphite/Yellow Theme + Dark Mode Toggle
    Version: 3.0

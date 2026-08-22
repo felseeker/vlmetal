@@ -7,6 +7,21 @@
   box-sizing: border-box;
 }
 
+/* Header contains only the five page destinations and system controls. */
+.header .btn--header,
+.ot-header .ot-btn--header {
+  display: none;
+}
+
+.catalog-live { margin-top: 32px; }
+.catalog-live__scroll { overflow-x: auto; }
+.catalog-live__table { width: 100%; min-width: 680px; border-collapse: collapse; background: var(--bg-card); }
+.catalog-live__table th, .catalog-live__table td { padding: 16px 18px; border-bottom: 1px solid rgba(var(--accent-rgb), .18); text-align: left; vertical-align: top; }
+.catalog-live__table th { color: var(--accent); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.catalog-live__table td:last-child { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.catalog-live__table small { display: block; max-width: 600px; margin-top: 5px; color: var(--text-secondary); font-size: 13px; font-weight: 400; }
+.catalog-live__status { color: var(--text-secondary); }
+
 :root {
   --bg-primary: #0a0a0a;
   --bg-card: #111118;
