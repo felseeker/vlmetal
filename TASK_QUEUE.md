@@ -1,55 +1,378 @@
-﻿# TASK_QUEUE.md — Пошаговый план доработки
+﻿# TASK_QUEUE.md — КРИТИЧЕСКИЙ ПЛАН: ПОЛНАЯ ПЕРЕЗАГРУЗКА
+
+## КРИТИЧЕСКАЯ БЛОКИРОВКА
+
+**ВСЕ ПРЕДЫДУЩИЕ ТРИ ИТЕРАЦИИ ПРОВАЛЕНЫ.**
+
+Владелец отклонил каждую версию потому что я создавал технически новый HTML с теми же паттернами:
+- hero → карточки → преимущества → процесс → форма
+- centered symmetric compositions
+- feature cards как основной layout
+- marketing copy вместо конкретики
+
+**Это была не моя задача улучшать лендинг. Задача была создать ДРУГОЙ продукт.**
+
+---
+
+## НОВОЕ ТРЕБОВАНИЕ (Обязательное)
+
+### Главная страница → Промышленный каталог
+
+**ЗАПРЕЩЕНО:**
+- Hero-блок с центрированным текстом
+- Секции «почему мы», «преимущества», «как работаем»
+- Карточки услуг
+- Блоки процесса/этапов
+- CTA форма внизу страницы
+
+**ТРЕБУЕТСЯ:**
+- Рабочая навигационная панель как первый экран
+- Split-screen с доминирующим изображением объекта
+- Вертикальная навигационная ось (металл/отделка/портфолио)
+- Контакты как отдельная страница, не блок
+
+### Страницы направлений → Технические досье
+
+**ЗАПРЕЩЕНО:**
+- Feature cards с иконками
+- Блоки «наши преимущества»
+- Generic process cards
+
+**ТРЕБУЕТСЯ:**
+- Таблица услуг с параметрами и единицами
+- Производственный timeline с реальными этапами
+- Списки технических возможностей
+- Меньше маркетинга, больше параметров (материалы, сроки, площади)
+
+### Портфолио → Асимметричный фотоархив
+
+**ЗАПРЕЩЕНО:**
+- Uniform grid 3×N с одинаковыми карточками
+- Product catalog layout
+
+**ТРЕБУЕТСЯ:**
+- Разные размеры изображений (asymmetric grid)
+- Даты, площади, статусы проектов
+- Editorial magazine spread
+
+---
+
+## АРХИТЕКТУРНЫЙ ТЕСТ
+
+Удали все стили со старого и нового сайта. 
+
+Если HTML-структуры похожи → ПРОВАЛ.
+
+Если можно описать страницу как "hero → карточки → преимущества → процесс → форма" → ПРОВАЛ.
+
+---
 
 ## Текущее состояние
 
-**Commit:** `9e1a9ad` "Завершить новую editorial композицию preview"
+**Commit:** `55e229d` "Зафиксировать локальный preview после полного QA"
 
-**Что сделано:**
-- [x] Изолированный `redesign/` с переписанными страницами агентами
+**Что сделано технически (но визуально провалено):**
+- [x] Изолированный `redesign/` создан
 - [x] CRM backend: portfolio resource, catalog.unit
 - [x] CRM frontend: Portfolio CRUD, catalog unit field
-- [x] Новый CSS shell с grid background
-- [x] Главная страница переписана с новой композицией и checkpoint-commit создан
-- [x] Playwright QA 48 states passed после переписывания страниц и shell
-- [x] План на 1302 строки создан
+- [x] CSS shell с grid background
+- [x] Playwright QA 48 states passed
+- [x] Interactive QA passed
 
 **Что НЕ сделано:**
-- [x] Главная страница с новой композицией закоммичена в `9e1a9ad`
-- [x] Новые CSS классы для главной добавлены и проверены
-- [x] Responsive для новой главной проверен
-- [x] Страницы направлений переписаны агентом в новую композицию
-- [x] Portfolio переписан агентом в editorial archive
-- [x] Финальная QA после agent-изменений и shell changes пройдена
-- [ ] Владелец не видел preview
+- [ ] Создан ДЕЙСТВИТЕЛЬНО НОВЫЙ дизайн (не улучшенная версия старого)
+- [ ] HTML-структура РАДИКАЛЬНО отличается от старой
+- [ ] Композиция НЕВОЗМОЖНА для описания как "hero → cards → trust → process"
+- [ ] Владелец одобрил визуальный результат
 
 ---
 
-## Шаг 1: Завершить CSS для новой главной
+## ШАГ 1: ПОЛНАЯ ПЕРЕЗАГРУЗКА ГЛАВНОЙ СТРАНИЦЫ
 
-**Цель:** Добавить недостающие классы для компонентов новой главной страницы.
+**Цель:** Создать промышленный каталог, НЕ лендинг.
+
+**Действие:**
+1. Открой `redesign/index.html`
+2. УДАЛИ всё между `<main>` и `</main>`
+3. Создай НОВУЮ структуру:
+
+```html
+<main>
+  <!-- Рабочая навигационная панель -->
+  <section class="catalog-nav">
+    <div class="wrap">
+      <div class="catalog-nav-grid">
+        <div class="nav-block" data-direction="metall">
+          <span class="nav-number">01</span>
+          <h2>Металлоконструкции</h2>
+          <ul class="nav-quick-links">
+            <li><a href="../metallokonstrukcii/">Услуги и цены</a></li>
+            <li><a href="../portfolio/?direction=metall">Объекты</a></li>
+          </ul>
+        </div>
+        <div class="nav-block" data-direction="otdelka">
+          <span class="nav-number">02</span>
+          <h2>Отделочные работы</h2>
+          <ul class="nav-quick-links">
+            <li><a href="../otdelka/">Услуги и цены</a></li>
+            <li><a href="../portfolio/?direction=otdelka">Объекты</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Доминирующее изображение + вертикальная ось -->
+  <section class="feature-split">
+    <div class="wrap">
+      <div class="feature-split-grid">
+        <div class="feature-split-media">
+          <img src="../img/warehouse-structure.jpg" alt="Складское здание" width="800" height="600" loading="eager" fetchpriority="high">
+        </div>
+        <div class="feature-split-axis">
+          <p class="label">Последний объект</p>
+          <h3>Складской комплекс 2400 м²</h3>
+          <dl class="specs">
+            <div><dt>Площадь:</dt><dd>2400 м²</dd></div>
+            <div><dt>Срок:</dt><dd>45 дней</dd></div>
+            <div><dt>Материал:</dt><dd>ЛСТК, сэндвич</dd></div>
+          </dl>
+          <a href="../portfolio/" class="btn">Все объекты</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Параметры работы (не преимущества) -->
+  <section class="work-params">
+    <div class="wrap">
+      <h2>Параметры работы</h2>
+      <dl class="params-grid">
+        <div><dt>Опыт:</dt><dd>с 2015 года</dd></div>
+        <div><dt>Объектов:</dt><dd>150+ по Владивостоку и ДВ</dd></div>
+        <div><dt>Гарантия:</dt><dd>от 12 месяцев</dd></div>
+        <div><dt>Контроль:</dt><dd>технический надзор на всех этапах</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+```
+
+4. Сохрани
+
+**Definition of Done:**
+- [ ] Нет hero-блока
+- [ ] Нет секций «преимущества», «этапы», «почему мы»
+- [ ] Первый экран — навигационная панель с двумя направлениями
+- [ ] Крупное изображение объекта с параметрами, не маркетингом
+- [ ] HTML радикально отличается от старого
+
+---
+
+## ШАГ 2: ДОБАВИТЬ CSS ДЛЯ НОВОЙ СТРУКТУРЫ
+
+**Цель:** Поддержать новые классы промышленного каталога.
 
 **Действие:**
 1. Открой `redesign/css/site.css`
-2. Проверь наличие классов:
-   - `.hero-full`, `.hero-full-grid`, `.hero-full-content`, `.hero-full-media`, `.hero-full-actions`, `.hero-full-lead`, `.label`
-   - `.direction-bar`, `.direction-bar-grid`, `.direction-choice`, `.direction-choice-number`
-   - `.case-feature`, `.case-feature-grid`, `.case-feature-media`, `.case-feature-body`
-   - `.facts-bar`, `.facts-bar-grid`, `.fact-item`
-   - `.timeline-section`, `.section-head-center`, `.timeline`, `.timeline-item`, `.timeline-number`
-   - `.contact-section`, `.contact-section-grid`, `.contact-section-info`, `.contact-methods`
-3. Если какие-то классы отсутствуют — добавь их согласно `.clinerules` секции "UI-компоненты"
-4. Добавь responsive rules для новых компонентов:
-   - `@media (max-width: 1100px)`: `.hero-full-grid`, `.direction-bar-grid`, `.case-feature-grid`, `.contact-section-grid` → одна колонка
-   - `@media (max-width: 640px)`: `.facts-bar-grid`, `.timeline` → одна колонка
+2. Добавь секцию:
+
+```css
+/* Catalog navigation panel */
+.catalog-nav { padding: 60px 0; }
+.catalog-nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.nav-block { padding: 40px; background: var(--surface); border-radius: var(--radius); border-left: 3px solid var(--accent); }
+.nav-block[data-direction="otdelka"] { border-color: #a87800; }
+.nav-number { display: block; font: 700 14px/1 var(--mono); color: var(--accent); margin-bottom: 16px; }
+.nav-quick-links { list-style: none; padding: 0; margin: 16px 0 0; }
+.nav-quick-links li { margin: 8px 0; }
+.nav-quick-links a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+.nav-quick-links a:hover { border-color: var(--accent); }
+
+/* Feature split */
+.feature-split { padding: 80px 0; }
+.feature-split-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 60px; align-items: start; }
+.feature-split-media img { width: 100%; height: auto; border-radius: var(--radius); }
+.feature-split-axis { position: sticky; top: 100px; }
+.specs { margin: 24px 0; }
+.specs div { display: grid; grid-template-columns: 120px 1fr; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.specs dt { font-weight: 500; color: var(--muted); }
+.specs dd { margin: 0; font-weight: 600; }
+
+/* Work params */
+.work-params { padding: 60px 0; background: var(--surface); }
+.params-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin: 40px 0 0; }
+.params-grid div { }
+.params-grid dt { font: 700 14px/1 var(--mono); color: var(--muted); margin-bottom: 8px; }
+.params-grid dd { margin: 0; font-size: 18px; font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .catalog-nav-grid { grid-template-columns: 1fr; }
+  .feature-split-grid { grid-template-columns: 1fr; }
+  .feature-split-axis { position: static; }
+  .params-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .params-grid { grid-template-columns: 1fr; }
+}
+```
+
+3. Сохрани
 
 **Definition of Done:**
-- [x] Все классы из `redesign/index.html` имеют CSS definitions
-- [x] `git diff --check` passed
-- [x] Файл сохранён
+- [ ] Все новые классы имеют CSS
+- [ ] Responsive rules добавлены
+- [ ] `git diff --check` passed
 
 ---
 
-## Шаг 2: Проверить новую главную страницу локально
+## ШАГ 3: ПЕРЕПИСАТЬ СТРАНИЦУ МЕТАЛЛА
+
+**Цель:** Техническое досье, НЕ feature-лендинг.
+
+**Действие:**
+1. Открой `redesign/metallokonstrukcii/index.html`
+2. УДАЛИ весь `<main>`
+3. Создай НОВУЮ структуру:
+
+```html
+<main>
+  <!-- Brief hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="label">Направление 01</p>
+      <h1>Металлоконструкции</h1>
+      <p class="lead">Проектирование, изготовление и монтаж каркасов зданий, навесов, ограждений по Владивостоку и Дальнему Востоку.</p>
+    </div>
+  </section>
+
+  <!-- Services table (NOT cards) -->
+  <section class="services-table-section">
+    <div class="wrap">
+      <h2>Услуги и параметры</h2>
+      <table class="services-table">
+        <thead>
+          <tr>
+            <th>Услуга</th>
+            <th>Единица</th>
+            <th>Срок</th>
+            <th>Примечание</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Каркас здания ЛСТК</td>
+            <td>м²</td>
+            <td>от 30 дней</td>
+            <td>С проектом и монтажом</td>
+          </tr>
+          <tr>
+            <td>Навес автомобильный</td>
+            <td>шт</td>
+            <td>от 7 дней</td>
+            <td>Под ключ</td>
+          </tr>
+          <tr>
+            <td>Ограждение периметра</td>
+            <td>м.п.</td>
+            <td>от 5 дней</td>
+            <td>Профлист, ворота, калитка</td>
+          </tr>
+          <!-- добавь остальные из catalog.json -->
+        </tbody>
+      </table>
+      <a href="#prices" class="btn">Прайс-лист</a>
+    </div>
+  </section>
+
+  <!-- Production timeline (NOT generic process) -->
+  <section class="production-timeline">
+    <div class="wrap">
+      <h2>Производственный цикл</h2>
+      <ol class="timeline-steps">
+        <li>
+          <span class="step-number">01</span>
+          <h3>Выезд на объект</h3>
+          <p>Замеры, фотофиксация, анализ грунта и нагрузок</p>
+          <span class="step-duration">1-2 дня</span>
+        </li>
+        <li>
+          <span class="step-number">02</span>
+          <h3>Проектирование</h3>
+          <p>Конструкторская документация, расчёты, согласование</p>
+          <span class="step-duration">5-10 дней</span>
+        </li>
+        <li>
+          <span class="step-number">03</span>
+          <h3>Изготовление</h3>
+          <p>Раскрой, сварка, антикоррозийная обработка</p>
+          <span class="step-duration">10-20 дней</span>
+        </li>
+        <li>
+          <span class="step-number">04</span>
+          <h3>Монтаж</h3>
+          <p>Фундамент, сборка, обшивка, кровля</p>
+          <span class="step-duration">7-15 дней</span>
+        </li>
+        <li>
+          <span class="step-number">05</span>
+          <h3>Приёмка</h3>
+          <p>Технический надзор, устранение замечаний, гарантия</p>
+          <span class="step-duration">1 день</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Price tabs (keep existing structure) -->
+  <section id="prices" class="section">
+    <div class="wrap">
+      <h2>Прайс-лист</h2>
+      <!-- existing price-tabs code -->
+    </div>
+  </section>
+
+  <!-- Selected work (NOT cards grid) -->
+  <section class="selected-work">
+    <div class="wrap">
+      <h2>Избранные объекты</h2>
+      <div class="work-strip">
+        <article class="work-item">
+          <img src="../img/warehouse.jpg" alt="Складской комплекс" width="600" height="400" loading="lazy">
+          <p class="work-meta">2400 м² / 45 дней / ЛСТК</p>
+          <h3>Складской комплекс</h3>
+        </article>
+        <!-- add 2-3 more -->
+      </div>
+      <a href="../portfolio/?direction=metall" class="btn">Все объекты металл</a>
+    </div>
+  </section>
+
+  <!-- Contact form -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Заявка на расчёт</h2>
+      <form data-lead-form data-direction="metall">
+        <!-- existing form code -->
+      </form>
+    </div>
+  </section>
+</main>
+```
+
+4. Сохрани
+
+**Definition of Done:**
+- [ ] Нет feature cards
+- [ ] Есть таблица услуг
+- [ ] Production timeline с реальными этапами и сроками
+- [ ] Один h1
+- [ ] HTML радикально отличается от старой версии
+
+---
+
+## ШАГ 4: ДОБАВИТЬ CSS ДЛЯ СТРАНИЦЫ МЕТАЛЛА
 
 **Цель:** Убедиться что новая композиция работает на всех разрешениях.
 
