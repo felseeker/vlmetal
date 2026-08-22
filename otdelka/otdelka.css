@@ -1706,6 +1706,67 @@ html[data-direction="otdelka"][data-theme="light"] .ot-price-card,
 html[data-direction="otdelka"][data-theme="light"] .ot-review,
 html[data-direction="otdelka"][data-theme="light"] .ot-feature-card,
 html[data-direction="otdelka"][data-theme="light"] .ot-step { background: rgba(255,255,255,.74); border-color: rgba(17,19,21,.16); }
+/* Shared shell contract: the page keeps its content modules but inherits the
+   same tokens, dimensions and dark-first surfaces as the rest of the site. */
+:root {
+  --ot-white: var(--bg-card);
+  --ot-off: var(--bg-primary);
+  --ot-grey: #17171b;
+  --ot-graphite: var(--text-primary);
+  --ot-mid: var(--text-secondary);
+  --ot-muted: var(--text-secondary);
+  --ot-heading: var(--text-primary);
+  --ot-yellow: var(--accent);
+  --ot-yellow2: var(--accent);
+  --ot-dark: var(--bg-primary);
+  --ot-font: var(--font-family);
+  --ot-header-bg: var(--header-bg);
+  --ot-line-soft: rgba(var(--accent-rgb), .15);
+  --ot-line: rgba(var(--accent-rgb), .25);
+  --ot-icon-btn-bg: rgba(var(--accent-rgb), .08);
+  --ot-yellow-text: var(--accent-text);
+}
+
+:root[data-theme="light"] {
+  --ot-white: var(--bg-card);
+  --ot-off: var(--bg-primary);
+  --ot-grey: #eee9df;
+  --ot-graphite: var(--text-primary);
+  --ot-mid: var(--text-secondary);
+  --ot-muted: var(--text-secondary);
+  --ot-heading: var(--text-primary);
+  --ot-yellow: var(--accent);
+  --ot-yellow2: var(--accent);
+  --ot-dark: #262421;
+  --ot-header-bg: var(--header-bg);
+  --ot-line-soft: var(--line-1);
+  --ot-line: var(--line-3);
+  --ot-icon-btn-bg: rgba(var(--graphite-rgb), .06);
+  --ot-yellow-text: var(--accent-text);
+}
+
+.ot-page { background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-family); }
+.ot-header { height: 60px; border-bottom: 1px solid rgba(var(--accent-rgb), .15); box-shadow: none; }
+.ot-header__inner { height: 60px; max-width: 1440px; margin: 0 auto; padding: 0 24px; }
+.ot-header .header__inner { max-width: 1440px; margin: 0 auto; }
+.ot-header .logo { color: var(--text-primary); }
+.ot-header .nav { margin-left: auto; }
+.ot-header .theme-toggle { color: var(--text-primary); border-color: rgba(var(--accent-rgb), .3); background: rgba(var(--accent-rgb), .08); }
+.ot-header .hamburger { display: none; }
+.ot-logo__img { width: 38px; height: 38px; }
+.ot-logo__text { font-family: var(--font-family); font-size: 13px; letter-spacing: 2px; }
+.ot-nav { gap: 20px; }
+.ot-nav__link { font-family: var(--font-family); font-size: 11px; letter-spacing: 1px; }
+.ot-theme-toggle { width: 44px; height: 44px; border-radius: 50%; }
+.ot-mobile-menu { background: var(--header-bg); }
+.ot-mobile-menu__link { font-family: var(--font-family); }
+@media (max-width: 1100px) {
+  .ot-header .nav { display: none; }
+  .ot-header .hamburger { display: flex; margin-left: auto; }
+  .ot-header .ot-mobile-menu { display: none; }
+  .ot-header .ot-mobile-menu.ot-mobile-menu--open { display: flex; }
+}
+
 html[data-direction="otdelka"][data-theme="light"] .ot-faq__q,
 html[data-direction="otdelka"][data-theme="light"] .ot-price-card__title,
 html[data-direction="otdelka"][data-theme="light"] .ot-section__title { color: #17191b; }

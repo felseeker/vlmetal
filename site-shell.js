@@ -24,6 +24,9 @@
   function init() {
     render(document.querySelector('.nav, .ot-nav'), false);
     render(document.querySelector('.mobile-menu, .ot-mobile-menu'), true);
+    document.querySelectorAll('.header .btn--header, .ot-header .ot-btn--header').forEach(function (button) {
+      button.remove();
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -164,37 +164,37 @@
 <a href="#hero" class="skip-link">Перейти к содержимому</a>
 
 <!-- HEADER — светлая тема -->
-<header class="ot-header" itemscope itemtype="https://schema.org/WPHeader" role="banner">
-  <div class="container ot-header__inner">
-    <a href="/" class="ot-logo" style="text-decoration:none;color:inherit;">
-      <img src="../img/logo_big.png" alt="Концепция строительства" class="ot-logo__img">
-      <span class="ot-logo__text">КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА</span>
+<header class="header ot-header" itemscope itemtype="https://schema.org/WPHeader" role="banner">
+  <div class="container header__inner ot-header__inner">
+    <a href="/" class="logo ot-logo" style="text-decoration:none;color:inherit;">
+      <img src="../img/logo_big.png" alt="Концепция строительства" class="logo__img ot-logo__img">
+      <span class="logo__text ot-logo__text">КОНЦЕПЦИЯ СТРОИТЕЛЬСТВА</span>
     </a>
-    <nav class="ot-nav" aria-label="Основное меню">
+    <nav class="nav ot-nav" aria-label="Основное меню">
       <a href="/" class="ot-nav__link">ГЛАВНАЯ</a>
-      <a href="/metallokonstrukcii/" class="ot-nav__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
+      <a href="/metallokonstrukcii/" class="ot-nav__link">МЕТАЛЛ</a>
       <a href="/otdelka/" class="ot-nav__link ot-nav__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
       <a href="/portfolio/" class="ot-nav__link">ПРИМЕРЫ РАБОТ</a>
-      <a href="/about/" class="ot-nav__link">О КОМПАНИИ</a>
+      <a href="/about/" class="ot-nav__link">О НАС</a>
     </nav>
-    <button class="ot-theme-toggle" id="themeToggle" aria-label="Переключить тему">
+    <button class="theme-toggle ot-theme-toggle" id="themeToggle" aria-label="Переключить тему">
       <svg class="ot-theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
       <svg class="ot-theme-toggle__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.7A8.5 8.5 0 0 1 9.3 3.5a.7.7 0 0 0-.9-.9 10 10 0 1 0 13 13 .7.7 0 0 0-.9-.9z"/></svg>
     </button>
-    <button class="ot-hamburger" id="hamburger" aria-label="Меню">
+    <button class="hamburger ot-hamburger" id="hamburger" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
   </div>
   <!-- Mobile menu -->
-  <div class="ot-mobile-menu" id="mobileMenu">
+  <div class="mobile-menu ot-mobile-menu" id="mobileMenu">
     <a href="/" class="ot-mobile-menu__link">ГЛАВНАЯ</a>
-    <a href="/metallokonstrukcii/" class="ot-mobile-menu__link">МЕТАЛЛОКОНСТРУКЦИИ</a>
+    <a href="/metallokonstrukcii/" class="ot-mobile-menu__link">МЕТАЛЛ</a>
     <a href="/otdelka/" class="ot-mobile-menu__link ot-mobile-menu__link--active">ВНУТРЕННЯЯ ОТДЕЛКА</a>
     <a href="/portfolio/" class="ot-mobile-menu__link">ПРИМЕРЫ РАБОТ</a>
-    <a href="/about/" class="ot-mobile-menu__link">О КОМПАНИИ</a>
+    <a href="/about/" class="ot-mobile-menu__link">О НАС</a>
     <div class="ot-mobile-menu__theme">
       <span class="ot-mobile-menu__theme-label">ТЁМНАЯ ТЕМА</span>
-      <button class="ot-theme-toggle" id="themeToggleMobile" aria-label="Переключить тему">
+      <button class="theme-toggle ot-theme-toggle" id="themeToggleMobile" aria-label="Переключить тему">
         <svg class="ot-theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
         <svg class="ot-theme-toggle__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.7A8.5 8.5 0 0 1 9.3 3.5a.7.7 0 0 0-.9-.9 10 10 0 1 0 13 13 .7.7 0 0 0-.9-.9z"/></svg>
       </button>
@@ -1019,7 +1019,7 @@
 </section>
 </main>
 
-<footer class="ot-footer">
+<footer class="footer ot-footer">
   <div class="container">
     <div class="ot-footer__line"></div>
     <div class="ot-footer__grid">
@@ -1072,43 +1072,6 @@
 </footer>
 
 <script>
-// Theme toggle (light/dark) with localStorage persistence
-// Shares the 'site-theme' key with the rest of the site so switching
-// theme on one page keeps it consistent when navigating to another.
-(function() {
-  var root = document.documentElement;
-  var STORAGE_KEY = 'site-theme';
-  var btns = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')].filter(Boolean);
-  if (!btns.length) return;
-
-  function getTheme() {
-    return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-  }
-
-
-  function setTheme(theme, animate) {
-    if (animate) {
-      document.body.classList.add('ot-theme-animated');
-      window.setTimeout(function() {
-        document.body.classList.remove('ot-theme-animated');
-      }, 400);
-    }
-    root.setAttribute('data-theme', theme);
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
-    btns.forEach(function(b) { b.setAttribute('aria-pressed', theme === 'dark'); });
-  }
-
-  btns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var next = getTheme() === 'dark' ? 'light' : 'dark';
-      setTheme(next, true);
-    });
-  });
-
-  // Sync initial aria state
-  btns.forEach(function(b) { b.setAttribute('aria-pressed', getTheme() === 'dark'); });
-})();
-
 // Carousel
 (function() {
   var slides = document.querySelectorAll('.ot-slide');
@@ -1288,6 +1251,6 @@
   fadeEls.forEach(function(el) { fadeObserver.observe(el); });
 })();
 </script>
-  <script src="../site-shell.js"></script>
+<script src="../theme-toggle.js"></script><script src="../site-shell.js"></script>
 </body>
 </html>
