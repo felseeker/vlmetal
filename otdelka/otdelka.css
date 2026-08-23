@@ -1727,6 +1727,14 @@ html[data-direction="otdelka"][data-theme="light"] .ot-step { background: rgba(2
   --ot-yellow-text: var(--accent-text);
 }
 
+.ot-price-table tbody td,
+.ot-price-table tbody td p,
+.ot-price-table tbody td span { color: var(--text-primary, #fff); }
+.ot-price-table tbody td:nth-child(2) { color: var(--text-secondary, #888); }
+.ot-price-table__price { color: var(--accent, #ff6a00) !important; }
+html[data-theme="light"] .ot-price-table tbody td { color: #262421; }
+html[data-theme="light"] .ot-price-table tbody td:nth-child(2) { color: #4a4638; }
+
 :root[data-theme="light"] {
   --ot-white: var(--bg-card);
   --ot-off: var(--bg-primary);
@@ -1760,6 +1768,23 @@ html[data-direction="otdelka"][data-theme="light"] .ot-step { background: rgba(2
 .ot-theme-toggle { width: 44px; height: 44px; border-radius: 50%; }
 .ot-mobile-menu { background: var(--header-bg); }
 .ot-mobile-menu__link { font-family: var(--font-family); }
+.ot-page {
+  background-color: var(--bg-primary);
+  background-image: linear-gradient(var(--grid-color, rgba(255,255,255,.045)) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color, rgba(255,255,255,.045)) 1px, transparent 1px);
+  background-size: var(--grid-size, 60px) var(--grid-size, 60px);
+}
+html[data-theme="light"] .ot-page {
+  background-color: var(--bg-primary);
+  background-image: linear-gradient(var(--grid-color, rgba(63,69,76,.09)) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color, rgba(63,69,76,.09)) 1px, transparent 1px);
+}
+body.ot-page,
+html[data-theme="light"] body.ot-page {
+  background-image: linear-gradient(var(--grid-color, rgba(255,255,255,.045)) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color, rgba(255,255,255,.045)) 1px, transparent 1px) !important;
+  background-size: var(--grid-size, 60px) var(--grid-size, 60px) !important;
+}
+.ot-footer { background: var(--footer-bg); border-top-color: rgba(var(--graphite-rgb, 63,69,76), .35); }
+.ot-footer__col h4, .ot-footer__col a, .ot-footer__contact, .ot-footer__text { color: var(--text-secondary, #888); }
+.ot-footer__col a:hover { color: var(--accent); }
 @media (max-width: 1100px) {
   .ot-header .nav { display: none; }
   .ot-header .hamburger { display: flex; margin-left: auto; }
@@ -1774,3 +1799,10 @@ html[data-direction="otdelka"][data-theme="light"] .ot-hero__subtitle,
 html[data-direction="otdelka"][data-theme="light"] .ot-step__text,
 html[data-direction="otdelka"][data-theme="light"] .ot-feature-card p,
 html[data-direction="otdelka"][data-theme="light"] .ot-review__text { color: #4d5358; }
+
+/* Final page-specific override must come after every legacy reset above. */
+html[data-direction="otdelka"] body.ot-page,
+html[data-direction="otdelka"][data-theme="light"] body.ot-page {
+  background-image: linear-gradient(var(--grid-color, rgba(255,255,255,.045)) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color, rgba(255,255,255,.045)) 1px, transparent 1px) !important;
+  background-size: var(--grid-size, 60px) var(--grid-size, 60px) !important;
+}

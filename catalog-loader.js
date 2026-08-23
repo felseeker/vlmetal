@@ -15,6 +15,22 @@
     return '<div class="catalog-live__scroll"><table class="catalog-live__table"><thead><tr><th>Наименование</th><th>Ед.</th><th>Цена</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
   }
 
+  function renderFallback() {
+    var rows = [];
+    document.querySelectorAll('.tabs__panel').forEach(function (panel) {
+      var category = panel.querySelector('.tabs__desc');
+      var title = panel.id.replace('tab-', '').toUpperCase();
+      rows.push('<tr class="price-table__category"><td colspan="3">' + escape(title) + '</td></tr>');
+      panel.querySelectorAll('.card--product').forEach(function (card) {
+        var name = card.querySelector('.card__title');
+        var description = card.querySelector('.card__text');
+        var price = card.querySelector('.card__price');
+        if (name) rows.push('<tr><td><strong>' + escape(name.textContent) + '</strong><small>' + escape(description ? description.textContent : '') + '</small></td><td>шт</td><td>' + escape(price ? price.textContent : 'По запросу') + '</td></tr>');
+      });
+    });
+    return '<div class="catalog-live__scroll"><table class="catalog-live__table"><thead><tr><th>Наименование</th><th>Ед.</th><th>Цена</th></tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
+  }
+
   function init() {
     var target = document.querySelector('[data-catalog-live]');
     if (!target) return;
@@ -28,7 +44,9 @@
         if (fallback) fallback.hidden = true;
       })
       .catch(function (error) {
-        target.innerHTML = '<p class="catalog-live__status">Актуальный прайс временно недоступен. Показан сохранённый прайс-лист.</p>';
+        target.innerHTML = '<p class="catalog-live__status">Сохранённый прайс-лист</p>' + renderFallback();
+        var fallback = document.querySelector('[data-catalog-fallback]');
+        if (fallback) fallback.hidden = true;
         target.classList.add('is-error');
         console.warn(error.message);
       });
