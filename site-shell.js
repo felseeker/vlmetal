@@ -31,7 +31,7 @@
   }
 
   function addSharedContact() {
-    if (window.location.pathname.indexOf('/privacy') !== -1 || document.querySelector('.contacts__map, .ot-contacts')) return;
+    if (window.location.pathname.indexOf('/privacy') !== -1 || document.querySelector('.shared-contact')) return;
     var footer = document.querySelector('footer');
     if (!footer) return;
     var section = document.createElement('section');
