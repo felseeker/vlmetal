@@ -3878,7 +3878,7 @@ html body { background-image: linear-gradient(var(--grid-color, rgba(255,255,255
 
 /* Interior price page uses the same shell as the rest of the site. The old
    page markup is retained only as a data source for its complete price list. */
-body.ot-page main > section:not(#pricelist):not(.ot-hero) { display: none !important; }
+body.ot-page main > section:not(.ot-hero) { display: block !important; }
 body.ot-page .ot-section--light { display: none !important; }
 body.ot-page .ot-hero { display: block !important; min-height: 0 !important; padding: 124px 0 82px !important; background: transparent !important; color: var(--text-primary) !important; }
 body.ot-page .ot-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); gap: 64px; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
@@ -4236,4 +4236,256 @@ html[data-theme="light"] body.ot-page #pricelist .ot-price-cta p {
   body.ot-page #pricelist .ot-price-cta .ot-btn {
     width: 100%;
   }
+}
+
+/* Detailed finishing page sections. */
+body.ot-page #how-we-work,
+body.ot-page #features,
+body.ot-page #testimonials,
+body.ot-page #faq,
+body.ot-page #contacts {
+  display: block !important;
+  position: relative;
+}
+
+body.ot-page #how-we-work,
+body.ot-page #testimonials,
+body.ot-page #contacts {
+  background: rgba(12, 12, 17, .82) !important;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  border-bottom: 1px solid rgba(var(--accent-rgb), .12);
+}
+
+body.ot-page #features,
+body.ot-page #faq {
+  background: transparent !important;
+}
+
+body.ot-page #how-we-work .container,
+body.ot-page #features .container,
+body.ot-page #testimonials .container,
+body.ot-page #faq .container,
+body.ot-page #contacts .container {
+  max-width: 1200px;
+}
+
+body.ot-page .ot-section__title {
+  max-width: 760px;
+  text-wrap: balance;
+}
+
+body.ot-page .ot-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 34px;
+  background: rgba(var(--accent-rgb), .24);
+}
+
+body.ot-page .ot-step {
+  min-height: 230px;
+  padding: 26px 24px;
+  background: #15151b;
+  border-top: 3px solid transparent;
+  transition: border-color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+body.ot-page .ot-step:hover {
+  background: #1c1c24;
+  border-top-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+body.ot-page .ot-step__num {
+  margin-bottom: 34px;
+  color: var(--accent);
+  font: 800 32px/1 var(--site-display, 'Montserrat', sans-serif);
+}
+
+body.ot-page .ot-step__title,
+body.ot-page .ot-feature-card h3 {
+  color: var(--text-primary);
+  font: 700 14px/1.25 var(--site-display, 'Montserrat', sans-serif);
+  letter-spacing: .05em;
+}
+
+body.ot-page .ot-step__text,
+body.ot-page .ot-feature-card p,
+body.ot-page .ot-review__text,
+body.ot-page .ot-faq__a p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+body.ot-page .ot-feature-card {
+  min-height: 210px;
+  padding: 26px 24px;
+  background: rgba(20, 20, 27, .86);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-top: 2px solid transparent;
+  transition: border-color .2s ease, transform .2s ease, background-color .2s ease;
+}
+
+body.ot-page .ot-feature-card:hover {
+  background: rgba(29, 29, 37, .96);
+  border-top-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+body.ot-page .ot-feature-card__icon {
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+body.ot-page .ot-feature-card p {
+  margin-top: 12px;
+}
+
+body.ot-page .ot-testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 34px;
+}
+
+body.ot-page .ot-review {
+  min-height: 220px;
+  padding: 26px;
+  background: #15151b;
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+body.ot-page .ot-review__stars {
+  margin-bottom: 22px;
+  color: var(--accent);
+  letter-spacing: .2em;
+}
+
+body.ot-page .ot-review__author {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 24px;
+}
+
+body.ot-page .ot-review__author strong { color: #fff; font-size: 13px; }
+body.ot-page .ot-review__author span { color: #77777f; font-size: 12px; }
+
+body.ot-page .ot-faq {
+  max-width: 900px;
+  margin-top: 34px;
+  border-top: 1px solid rgba(var(--accent-rgb), .3);
+}
+
+body.ot-page .ot-faq__item { border-bottom: 1px solid rgba(255, 255, 255, .12); }
+
+body.ot-page .ot-faq__q {
+  display: flex;
+  width: 100%;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  cursor: pointer;
+  font: 700 12px/1.35 var(--site-display, 'Montserrat', sans-serif);
+  letter-spacing: .04em;
+  text-align: left;
+}
+
+body.ot-page .ot-faq__arrow {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 20px;
+  transition: transform .2s ease;
+}
+
+body.ot-page .ot-faq__item--open .ot-faq__arrow { transform: rotate(180deg); }
+body.ot-page .ot-faq__a { display: none; padding: 0 36px 20px 0; }
+body.ot-page .ot-faq__item--open .ot-faq__a { display: block; }
+
+body.ot-page .ot-contacts {
+  display: grid;
+  grid-template-columns: minmax(300px, .85fr) minmax(0, 1.15fr);
+  gap: 42px;
+  margin-top: 34px;
+}
+
+body.ot-page .ot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+  background: #15151b;
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+body.ot-page .ot-form__input {
+  width: 100%;
+  min-height: 50px;
+  padding: 14px 16px;
+  background: #0e0e13;
+  border: 1px solid rgba(255, 255, 255, .14);
+  color: #fff;
+  font: 400 14px/1.4 var(--site-body, 'Rajdhani', sans-serif);
+}
+
+body.ot-page .ot-form__input:focus {
+  border-color: var(--accent);
+  outline: 2px solid rgba(var(--accent-rgb), .2);
+  outline-offset: 1px;
+}
+
+body.ot-page .ot-form__textarea { min-height: 112px; resize: vertical; }
+
+body.ot-page .ot-form__checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #96969d;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+body.ot-page .ot-form__checkbox a { color: var(--accent); }
+body.ot-page .ot-form .ot-btn { min-height: 50px; border: 1px solid var(--accent); cursor: pointer; }
+body.ot-page .ot-contacts__info { min-width: 0; }
+body.ot-page .ot-contacts__map iframe { display: block; width: 100%; border: 1px solid rgba(var(--accent-rgb), .3) !important; border-radius: 0 !important; }
+body.ot-page .ot-contacts__details { padding: 22px 0 0; color: var(--text-secondary); }
+body.ot-page .ot-contacts__details a { color: var(--accent); }
+body.ot-page .ot-contacts__phone { margin-top: 14px; font-size: 24px; font-weight: 700; }
+body.ot-page .ot-contacts__messengers,
+body.ot-page .ot-contacts__hours { margin-top: 10px; font-size: 13px; }
+body.ot-page .ot-contacts__communities { margin-top: 24px; }
+body.ot-page .ot-contacts__communities-title { color: var(--accent); font-size: 10px; letter-spacing: .14em; }
+body.ot-page .ot-contacts__community-links { display: flex; gap: 10px; margin-top: 10px; }
+body.ot-page .ot-contacts__community-links a { padding: 8px 12px; border: 1px solid rgba(var(--accent-rgb), .3); }
+
+html[data-theme="light"] body.ot-page #how-we-work,
+html[data-theme="light"] body.ot-page #testimonials,
+html[data-theme="light"] body.ot-page #contacts { background: rgba(237, 231, 216, .78) !important; }
+html[data-theme="light"] body.ot-page .ot-step,
+html[data-theme="light"] body.ot-page .ot-review,
+html[data-theme="light"] body.ot-page .ot-form { background: #fff; }
+html[data-theme="light"] body.ot-page .ot-feature-card { background: rgba(255, 255, 255, .85); }
+html[data-theme="light"] body.ot-page .ot-step__title,
+html[data-theme="light"] body.ot-page .ot-feature-card h3,
+html[data-theme="light"] body.ot-page .ot-faq__q { color: var(--text-primary); }
+html[data-theme="light"] body.ot-page .ot-form__input { background: #f8f5ee; color: var(--text-primary); border-color: rgba(var(--graphite-rgb), .2); }
+
+@media (max-width: 900px) {
+  body.ot-page .ot-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.ot-page .ot-testimonials { grid-template-columns: 1fr; }
+  body.ot-page .ot-contacts { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  body.ot-page .ot-steps { grid-template-columns: 1fr; }
+  body.ot-page .ot-step { min-height: 0; }
+  body.ot-page .ot-step__num { margin-bottom: 22px; }
+  body.ot-page .ot-form { padding: 20px; }
 }
