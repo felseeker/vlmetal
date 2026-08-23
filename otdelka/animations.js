@@ -3,10 +3,10 @@ import { inView, animate, scroll } from 'https://esm.sh/motion@11';
 
 /* Reveal elements as they enter viewport. */
 function initRevealAnimations() {
-  const reveals = document.querySelectorAll('.ot-hero, #pricelist .ot-label, #pricelist .ot-section__title, .ot-price-card, .ot-ptab, .shared-contact');
+  const reveals = document.querySelectorAll('.ot-hero__content, .ot-hero__image, #pricelist .ot-label, #pricelist .ot-section__title, .shared-contact');
   
   reveals.forEach((element, index) => {
-    const delay = index * 0.05;
+    const delay = index * 0.08;
     
     /* Set initial state. */
     element.style.opacity = '0';
@@ -17,7 +17,19 @@ function initRevealAnimations() {
       animate(
         element,
         { opacity: 1, transform: 'translateY(0)' },
-        { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }
+        { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
+      );
+    }, { amount: 0.2 });
+  });
+  
+  /* Separate animation for price cards with stagger. */
+  const priceCards = document.querySelectorAll('.ot-ptab-panel--active .ot-price-card');
+  priceCards.forEach((card, index) => {
+    inView(card, () => {
+      animate(
+        card,
+        { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0)'] },
+        { duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }
       );
     }, { amount: 0.15 });
   });
