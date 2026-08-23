@@ -3940,3 +3940,185 @@ body.ot-page .ot-crosslink { display: none !important; }
 .ot-price-table td:last-child { width: 150px; color: var(--accent); font-weight: 700; text-align: right; white-space: nowrap; }
 .ot-price-table tr:last-child td { border-bottom: 0; }
 @media (max-width: 640px) { .ot-price-table { min-width: 620px; } .ot-price-group { overflow-x: auto; } .ot-price-group h3 { position: sticky; left: 0; } }
+
+/* Price register visual system. Keep this block last so the retained legacy
+   markup receives the same deliberate treatment as the rest of the site. */
+body.ot-page #pricelist {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(var(--graphite-rgb, 18, 18, 24), .72), rgba(var(--graphite-rgb, 18, 18, 24), .94)),
+    radial-gradient(circle at 88% 8%, rgba(var(--accent-rgb), .16), transparent 34%),
+    var(--bg-primary) !important;
+  border-top: 1px solid rgba(var(--accent-rgb), .24);
+  border-bottom: 1px solid rgba(var(--accent-rgb), .24);
+}
+
+body.ot-page #pricelist::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 8%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(var(--accent-rgb), .45), transparent);
+  content: '';
+}
+
+body.ot-page #pricelist > .container {
+  position: relative;
+}
+
+body.ot-page #pricelist > .container > .ot-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 8px 12px;
+  border: 1px solid rgba(var(--accent-rgb), .38);
+  background: rgba(var(--accent-rgb), .08);
+}
+
+body.ot-page #pricelist > .container > .ot-label::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), .8);
+  content: '';
+}
+
+body.ot-page #pricelist .ot-section__title {
+  max-width: 760px;
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+
+body.ot-page #pricelist .ot-price-note {
+  max-width: 680px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+}
+
+body.ot-page #pricelist .ot-ptabs__nav {
+  position: sticky;
+  z-index: 3;
+  top: 72px;
+  margin: 34px 0 26px;
+  padding: 10px;
+  border: 1px solid rgba(var(--accent-rgb), .2);
+  background: rgba(10, 10, 10, .88);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .24);
+  backdrop-filter: blur(14px);
+}
+
+body.ot-page #pricelist .ot-ptab {
+  border-color: transparent;
+  background: transparent;
+  color: #a8a8ad;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+body.ot-page #pricelist .ot-ptab:hover {
+  border-color: rgba(var(--accent-rgb), .35);
+  background: rgba(var(--accent-rgb), .1);
+  color: #fff;
+}
+
+body.ot-page #pricelist .ot-ptab--active {
+  background: var(--accent);
+  color: var(--btn-text-on-accent);
+  box-shadow: 0 5px 18px rgba(var(--accent-rgb), .22);
+}
+
+body.ot-page #pricelist .ot-price-card {
+  overflow: hidden;
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 2px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .26);
+}
+
+body.ot-page #pricelist .ot-price-card__header {
+  position: relative;
+  padding: 26px 28px 23px;
+  background: linear-gradient(105deg, #202026, #15151b 64%, rgba(var(--accent-rgb), .1));
+  border-bottom: 1px solid rgba(var(--accent-rgb), .32);
+}
+
+body.ot-page #pricelist .ot-price-card__header::after {
+  position: absolute;
+  right: 28px;
+  bottom: 0;
+  width: 72px;
+  height: 3px;
+  background: var(--accent);
+  content: '';
+}
+
+body.ot-page #pricelist .ot-price-card__title {
+  font-size: clamp(18px, 2vw, 23px);
+  letter-spacing: -.015em;
+}
+
+body.ot-page #pricelist .ot-price-table {
+  background: #111118;
+}
+
+body.ot-page #pricelist .ot-price-table th,
+body.ot-page #pricelist .ot-price-table td {
+  padding: 16px 20px;
+  border-color: rgba(255, 255, 255, .08);
+}
+
+body.ot-page #pricelist .ot-price-table th {
+  background: #0d0d12;
+}
+
+body.ot-page #pricelist .ot-price-table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, .025);
+}
+
+body.ot-page #pricelist .ot-price-table tbody tr:hover td {
+  background: rgba(var(--accent-rgb), .08);
+}
+
+body.ot-page #pricelist .ot-price-table td:first-child {
+  color: #f1f1f3 !important;
+}
+
+body.ot-page #pricelist .ot-price-table td:nth-child(2) {
+  color: #98989f !important;
+  font-family: var(--site-display, 'Montserrat', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+body.ot-page #pricelist .ot-price-table .ot-price-table__price {
+  color: var(--accent) !important;
+  font-family: var(--site-display, 'Montserrat', sans-serif);
+  font-size: 15px;
+}
+
+html[data-theme="light"] body.ot-page #pricelist {
+  background: linear-gradient(180deg, rgba(247, 243, 234, .96), rgba(237, 231, 216, .98)) !important;
+}
+
+html[data-theme="light"] body.ot-page #pricelist .ot-ptabs__nav {
+  background: rgba(255, 255, 255, .9);
+}
+
+html[data-theme="light"] body.ot-page #pricelist .ot-ptab { color: var(--text-secondary); }
+html[data-theme="light"] body.ot-page #pricelist .ot-price-card,
+html[data-theme="light"] body.ot-page #pricelist .ot-price-table { background: #fff; }
+html[data-theme="light"] body.ot-page #pricelist .ot-price-card__header { background: linear-gradient(105deg, #fff, #f5efe2); }
+html[data-theme="light"] body.ot-page #pricelist .ot-price-table th { background: #f5efe2; }
+html[data-theme="light"] body.ot-page #pricelist .ot-price-table td:first-child { color: var(--text-primary) !important; }
+
+@media (max-width: 640px) {
+  body.ot-page #pricelist .ot-ptabs__nav { top: 60px; margin-top: 24px; padding: 8px; }
+  body.ot-page #pricelist .ot-price-card__header { padding: 22px 18px 20px; }
+  body.ot-page #pricelist .ot-price-table th,
+  body.ot-page #pricelist .ot-price-table td { padding: 14px 16px; }
+}
