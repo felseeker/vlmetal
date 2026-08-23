@@ -1,38 +1,40 @@
 /* Reveal animations and scroll effects for the interior page. */
 import { inView, animate, scroll } from 'https://esm.sh/motion@11';
 
+/* Reveal animations and scroll effects for the interior page. */
+import { inView, animate, scroll } from 'https://esm.sh/motion@11';
+
 /* Reveal elements as they enter viewport. */
 function initRevealAnimations() {
-  const reveals = document.querySelectorAll('.ot-hero__content, .ot-hero__image, #pricelist .ot-label, #pricelist .ot-section__title, .shared-contact');
+  /* Only animate hero elements, not the price list. */
+  const heroContent = document.querySelector('.ot-hero__content');
+  const heroImage = document.querySelector('.ot-hero__image');
   
-  reveals.forEach((element, index) => {
-    const delay = index * 0.08;
+  if (heroContent) {
+    heroContent.style.opacity = '0';
+    heroContent.style.transform = 'translateY(24px)';
     
-    /* Set initial state. */
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(24px)';
-    
-    /* Trigger when in view. */
-    inView(element, () => {
+    inView(heroContent, () => {
       animate(
-        element,
+        heroContent,
         { opacity: 1, transform: 'translateY(0)' },
-        { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
+        { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
       );
     }, { amount: 0.2 });
-  });
+  }
   
-  /* Separate animation for price cards with stagger. */
-  const priceCards = document.querySelectorAll('.ot-ptab-panel--active .ot-price-card');
-  priceCards.forEach((card, index) => {
-    inView(card, () => {
+  if (heroImage) {
+    heroImage.style.opacity = '0';
+    heroImage.style.transform = 'translateY(24px)';
+    
+    inView(heroImage, () => {
       animate(
-        card,
-        { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0)'] },
-        { duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }
+        heroImage,
+        { opacity: 1, transform: 'translateY(0)' },
+        { duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }
       );
-    }, { amount: 0.15 });
-  });
+    }, { amount: 0.2 });
+  }
 }
 
 /* Parallax effect for hero image. */
