@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../style.css?v=43">
+  <link rel="stylesheet" href="../style.css?v=44">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
@@ -1252,27 +1252,8 @@
   }, { threshold: 0.5 });
   if (stats.length > 0) statsObserver.observe(stats[0].parentElement);
 
-  // Enhanced fade-in with stagger support
-  var fadeEls = document.querySelectorAll('.ot-fade-in');
-  var fadeObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var parent = entry.target.parentElement;
-        if (parent && parent.classList.contains('grid')) {
-          var siblings = Array.from(parent.querySelectorAll('.ot-fade-in'));
-          siblings.forEach(function(sib, i) {
-            setTimeout(function() { sib.classList.add('ot-fade-in--visible'); }, i * 80);
-          });
-        } else {
-          entry.target.classList.add('ot-fade-in--visible');
-        }
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  fadeEls.forEach(function(el) { fadeObserver.observe(el); });
 })();
 </script>
-<script src="../theme-toggle.js?v=2"></script><script src="../site-shell.js?v=5"></script>
+<script src="../theme-toggle.js?v=2"></script><script src="../site-shell.js?v=5"></script><script type="module" src="animations.js?v=1"></script>
 </body>
 </html>

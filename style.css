@@ -3879,6 +3879,7 @@ html body { background-image: linear-gradient(var(--grid-color, rgba(255,255,255
 /* Interior price page uses the same shell as the rest of the site. The old
    page markup is retained only as a data source for its complete price list. */
 body.ot-page main > section:not(#pricelist):not(.ot-hero) { display: none !important; }
+body.ot-page .ot-section--light { display: none !important; }
 body.ot-page .ot-hero { display: block !important; min-height: 0 !important; padding: 124px 0 82px !important; background: transparent !important; color: var(--text-primary) !important; }
 body.ot-page .ot-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); gap: 64px; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
 body.ot-page .ot-hero__content { max-width: 620px; }
@@ -3908,11 +3909,11 @@ body.ot-page #pricelist .ot-ptab { min-height: 42px; padding: 10px 14px; border:
 body.ot-page #pricelist .ot-ptab:hover, body.ot-page #pricelist .ot-ptab--active { background: var(--accent); border-color: var(--accent); color: var(--btn-text-on-accent); }
 body.ot-page #pricelist .ot-ptab-panel { display: none; }
 body.ot-page #pricelist .ot-ptab-panel--active { display: block; }
-body.ot-page #pricelist .ot-price-card { overflow-x: auto; background: var(--bg-card); border: 1px solid rgba(var(--accent-rgb), .22); }
-body.ot-page #pricelist .ot-price-card__header { padding: 20px; border-bottom: 1px solid rgba(var(--accent-rgb), .18); }
+body.ot-page #pricelist .ot-price-card { overflow-x: auto; background: rgba(var(--graphite-rgb), .08); border: 1px solid rgba(var(--accent-rgb), .22); border-radius: var(--border-radius); }
+body.ot-page #pricelist .ot-price-card__header { padding: 20px; border-bottom: 1px solid rgba(var(--accent-rgb), .18); background: rgba(var(--graphite-rgb), .15); }
 body.ot-page #pricelist .ot-price-card__icon { display: none; }
-body.ot-page #pricelist .ot-price-card__title { color: var(--text-primary) !important; font-size: 22px; }
-body.ot-page #pricelist .ot-price-card__desc { color: var(--text-secondary) !important; }
+body.ot-page #pricelist .ot-price-card__title { color: var(--accent) !important; font-size: 18px; font-weight: 700; letter-spacing: .02em; }
+body.ot-page #pricelist .ot-price-card__desc { margin-top: 6px; color: var(--text-secondary) !important; font-size: 14px; }
 body.ot-page #pricelist .ot-price-table { width: 100%; min-width: 650px; border-collapse: collapse; color: var(--text-primary); }
 body.ot-page #pricelist .ot-price-table th, body.ot-page #pricelist .ot-price-table td { padding: 14px 18px; border-bottom: 1px solid rgba(var(--accent-rgb), .14); text-align: left; vertical-align: top; }
 body.ot-page #pricelist .ot-price-table th { color: var(--accent); font: 700 11px/1.2 var(--site-display, 'Montserrat', sans-serif); letter-spacing: .08em; text-transform: uppercase; }
