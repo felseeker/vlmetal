@@ -871,7 +871,25 @@ function setupMotion() {
     if (lenis) lenis.on('scroll', window.ScrollTrigger.update);
     mediaTweens = [...document.querySelectorAll('.hero__media, .detail-hero__media, .page-intro__media')].map(media => window.gsap.to(media, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: media.parentElement, start: 'top top', end: 'bottom top', scrub: .6 } }));
   }
-  const tickerTracks = [...document.querySelectorAll('.ticker__track')];
+  // Keep the two source copies in one clipping viewport. The first track already
+  // contains the readable items followed by their aria-hidden continuation;
+  // an older second track is hidden rather than animated as a second row.
+  document.querySelectorAll('.ticker').forEach(ticker => {
+    const tracks = [...ticker.querySelectorAll(':scope > .ticker__track')];
+    if (!tracks.length) return;
+    let viewport = ticker.querySelector(':scope > .ticker__viewport');
+    if (!viewport) {
+      viewport = document.createElement('div');
+      viewport.className = 'ticker__viewport';
+      tracks.forEach(track => viewport.appendChild(track));
+      ticker.appendChild(viewport);
+    }
+    viewport.querySelectorAll(':scope > .ticker__track').forEach((track, index) => {
+      track.style.display = index === 0 ? 'flex' : 'none';
+      if (index > 0) track.setAttribute('aria-hidden', 'true');
+    });
+  });
+  const tickerTracks = [...document.querySelectorAll('.ticker__viewport > .ticker__track:first-child')];
   const tickerTweens = hasGsap && !reducedMotion.matches
     ? tickerTracks.map(track => window.gsap.to(track, { xPercent: -50, duration: 40, ease: 'none', repeat: -1 }))
     : [];
@@ -918,6 +936,10 @@ function setupForm() {
   const status = document.querySelector('#formStatus');
   const submit = document.querySelector('#submitButton');
   if (!form) return;
+  const phoneField = form.querySelector('[name="phone"]');
+  const messageField = form.querySelector('[name="message"]');
+  if (phoneField) { phoneField.placeholder = '+7 или международный формат'; phoneField.setAttribute('aria-label', 'Телефон или номер для связи'); const label = phoneField.closest('label'); if (label && label.firstChild) label.firstChild.textContent = 'Телефон или номер для связи'; }
+  if (messageField) messageField.placeholder = 'Можно указать Telegram или WhatsApp.';
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!form.reportValidity()) return;
@@ -925,7 +947,8 @@ function setupForm() {
     submit.textContent = 'Отправляем…';
     const formData = new FormData(form);
     const phone = String(formData.get('phone') || '').trim();
-    if (!/^(?:\+7|8)\s*\(?\d{3}\)?[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}$/.test(phone)) { status.textContent = 'Введите телефон в формате +7 (___) ___-__-__.'; submit.disabled = false; submit.textContent = `Рассчитать стоимость `; submit.insertAdjacentHTML('beforeend', iconArrow); return; }
+    const phoneDigits = phone.replace(/[\s()-]/g, '');
+    if (!/^\+?\d{7,15}$/.test(phoneDigits)) { status.textContent = 'Введите корректный номер телефона в международном формате или укажите удобный способ связи в комментарии.'; submit.disabled = false; submit.textContent = `Рассчитать стоимость `; submit.insertAdjacentHTML('beforeend', iconArrow); return; }
     const service = new URLSearchParams(window.location.search).get('service');
     const direction = String(formData.get('direction') || '').trim();
     const payload = { name: String(formData.get('name') || '').trim(), phone, message: `${service ? `[Услуга: ${service}] ` : ''}[${direction}] ${String(formData.get('message') || '').trim()}`, consent: formData.get('consent') === 'on' };
