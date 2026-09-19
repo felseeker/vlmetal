@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /backup_old_site/
+Disallow: /node_modules/
+
 Sitemap: https://xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai/sitemap.xml
-Host: xn----8sbfkbqbmookekqofldd0ec6lnc.xn--p1ai
