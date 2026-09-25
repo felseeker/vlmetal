@@ -952,14 +952,16 @@ function setupForm() {
     const service = new URLSearchParams(window.location.search).get('service');
     const direction = String(formData.get('direction') || '').trim();
     const payload = { name: String(formData.get('name') || '').trim(), phone, message: `${service ? `[Услуга: ${service}] ` : ''}[${direction}] ${String(formData.get('message') || '').trim()}`, consent: formData.get('consent') === 'on' };
-    const controller = new AbortController(); const timeout = window.setTimeout(() => controller.abort(), 10000);
+    const controller = new AbortController(); const timeout = window.setTimeout(() => controller.abort(), 20000);
     try {
       const response = await fetch('https://d5d01eb689qn07cv0ocu.sax5b7yq.apigw.yandexcloud.net/api/website-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
       if (!response.ok) throw new Error('Request failed');
+      const result = await response.json();
+      if (result.ok !== true || !result.id) throw new Error('Missing confirmation');
       status.textContent = 'Заявка отправлена. Мы свяжемся с вами в ближайшее рабочее время.';
       form.reset();
     } catch {
-      status.textContent = 'Не удалось отправить форму автоматически. Позвоните нам: +7 (924) 231-04-78';
+      status.textContent = 'Не удалось получить подтверждение отправки. Заявка могла сохраниться. Пожалуйста, уточните по телефону: +7 (924) 231-04-78';
     } finally { window.clearTimeout(timeout);
       submit.disabled = false;
       submit.textContent = 'Рассчитать стоимость '; submit.insertAdjacentHTML('beforeend', iconArrow);
