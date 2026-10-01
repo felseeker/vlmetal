@@ -152,23 +152,40 @@ function renderFinishTabs() {
   tabs.replaceChildren();
   const options = catalog.finish.map(category => ({ id: category.id, title: category.title }));
   if (!catalog.finish.some(category => category.id === finishCategoryFilter)) finishCategoryFilter = catalog.finish[0].id;
+  const shortLabels = { 'pt-grunting': 'Черновые', 'pt-gkl': 'ГКЛ и откосы', 'pt-walls': 'Стены', 'pt-ceiling': 'Потолок', 'pt-floor': 'Полы', 'pt-tile': 'Плитка', 'pt-electro': 'Электрика', 'pt-santech': 'Сантехника', 'pt-demo': 'Демонтаж' };
+  const selectCategory = id => {
+    finishCategoryFilter = id;
+    finishSearchTerm = '';
+    const search = document.querySelector('#finishSearch');
+    if (search) search.value = '';
+    tabs.querySelectorAll('.finish-tab').forEach(item => {
+      const active = item.dataset.finishId === finishCategoryFilter;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    renderFinishPanel();
+  };
   options.forEach(option => {
     const tab = document.createElement('button');
     tab.className = `finish-tab${option.id === finishCategoryFilter ? ' is-active' : ''}`;
     tab.type = 'button';
     tab.setAttribute('aria-pressed', String(option.id === finishCategoryFilter));
+    tab.setAttribute('aria-label', option.title);
     tab.dataset.finishId = option.id;
-    tab.textContent = option.title;
-    tab.addEventListener('click', () => {
-      finishCategoryFilter = option.id;
-      tabs.querySelectorAll('.finish-tab').forEach(item => {
-        const active = item.dataset.finishId === finishCategoryFilter;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-pressed', String(active));
-      });
-      renderFinishPanel();
-    });
+    tab.textContent = shortLabels[option.id] || option.title;
+    tab.addEventListener('click', () => selectCategory(option.id));
     tabs.append(tab);
+  });
+  document.querySelectorAll('[data-finish-category]').forEach(card => {
+    if (card.dataset.finishReady) return;
+    card.dataset.finishReady = 'true';
+    card.addEventListener('click', event => {
+      const id = card.dataset.finishCategory;
+      if (!catalog.finish.some(category => category.id === id)) return;
+      event.preventDefault();
+      selectCategory(id);
+      document.querySelector('#pricelist')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
   const search = document.querySelector('#finishSearch');
   if (search && !search.dataset.searchReady) {
