@@ -2,6 +2,8 @@ document.documentElement.classList.add('js-ready');
 
 const PLACEHOLDER_PRICE = 'Цена по индивидуальному расчёту';
 let catalog = window.catalogData || { metal: [], finish: [] };
+let finishCategoryFilter = '';
+let finishSearchTerm = '';
 const assetBase = document.body.dataset.assets || 'assets/';
 const contactHref = assetBase.startsWith('../') ? '../contacts/' : 'contacts/';
 const catalogApiUrl = 'https://d5d01eb689qn07cv0ocu.sax5b7yq.apigw.yandexcloud.net/api/catalog';
@@ -148,44 +150,106 @@ function renderFinishTabs() {
   const tabs = document.querySelector('#finishTabs');
   if (!tabs || !catalog.finish.length) return;
   tabs.replaceChildren();
-  catalog.finish.forEach((category, index) => { const tab = document.createElement('button'); tab.className = `finish-tab${index === 0 ? ' is-active' : ''}`; tab.type = 'button'; tab.role = 'tab'; tab.id = `finish-tab-${category.id}`; tab.tabIndex = index === 0 ? 0 : -1; tab.setAttribute('aria-controls', 'finishPanel'); tab.setAttribute('aria-selected', String(index === 0)); tab.dataset.finishId = category.id; tab.textContent = category.title; tabs.append(tab); });
-  const activateTab = (tab, shouldFocus = false) => {
-    tabs.querySelectorAll('.finish-tab').forEach(item => { const active = item === tab; item.classList.toggle('is-active', active); item.tabIndex = active ? 0 : -1; item.setAttribute('aria-selected', String(active)); });
-    renderFinishPanel(tab.dataset.finishId);
-    setupServiceTriggers();
-    if (shouldFocus) tab.focus();
-  };
-  tabs.querySelectorAll('.finish-tab').forEach(tab => tab.addEventListener('click', () => {
-    activateTab(tab);
-  }));
-  if (tabs.dataset.keyboardReady) return;
-  tabs.dataset.keyboardReady = 'true';
-  tabs.addEventListener('keydown', event => {
-    const tabList = [...tabs.querySelectorAll('.finish-tab')];
-    const currentIndex = tabList.indexOf(document.activeElement);
-    if (currentIndex < 0) return;
-    let nextIndex = currentIndex;
-    if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabList.length;
-    else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabList.length) % tabList.length;
-    else if (event.key === 'Home') nextIndex = 0;
-    else if (event.key === 'End') nextIndex = tabList.length - 1;
-    else return;
-    event.preventDefault();
-    activateTab(tabList[nextIndex], true);
+  const options = catalog.finish.map(category => ({ id: category.id, title: category.title }));
+  if (!catalog.finish.some(category => category.id === finishCategoryFilter)) finishCategoryFilter = catalog.finish[0].id;
+  options.forEach(option => {
+    const tab = document.createElement('button');
+    tab.className = `finish-tab${option.id === finishCategoryFilter ? ' is-active' : ''}`;
+    tab.type = 'button';
+    tab.setAttribute('aria-pressed', String(option.id === finishCategoryFilter));
+    tab.dataset.finishId = option.id;
+    tab.textContent = option.title;
+    tab.addEventListener('click', () => {
+      finishCategoryFilter = option.id;
+      tabs.querySelectorAll('.finish-tab').forEach(item => {
+        const active = item.dataset.finishId === finishCategoryFilter;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      renderFinishPanel();
+    });
+    tabs.append(tab);
   });
+  const search = document.querySelector('#finishSearch');
+  if (search && !search.dataset.searchReady) {
+    search.dataset.searchReady = 'true';
+    search.addEventListener('input', () => {
+      finishSearchTerm = search.value.trim().toLocaleLowerCase('ru-RU').replace(/ё/g, 'е');
+      renderFinishPanel();
+    });
+  }
 }
 
-function renderFinishPanel(id = catalog.finish[0]?.id) {
+function renderFinishPanel() {
   const panel = document.querySelector('#finishPanel');
-  const category = catalog.finish.find(item => item.id === id) || catalog.finish[0];
-  if (!panel || !category) return;
-  panel.replaceChildren(); panel.hidden = false; panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-hidden', 'false'); panel.setAttribute('aria-labelledby', `finish-tab-${category.id}`); panel.setAttribute('aria-expanded', 'true');
-  const top = document.createElement('div'); top.className = 'finish-panel__top'; const copy = document.createElement('div'); appendText(copy, 'h4', '', category.title); appendText(copy, 'p', '', category.description); top.append(copy); appendText(top, 'span', '', `${category.rows.filter(row => row.name).length} позиций`);
-  const wrap = document.createElement('div'); wrap.className = 'finish-table-wrap'; wrap.tabIndex = 0; wrap.setAttribute('data-lenis-prevent', ''); wrap.setAttribute('role', 'region'); wrap.setAttribute('aria-label', 'Прокручиваемый прайс-лист');
-  const table = document.createElement('table'); table.className = 'finish-table'; table.innerHTML = '<thead><tr><th>Наименование работ</th><th>Ед.</th><th>Стоимость</th></tr></thead>'; const tbody = document.createElement('tbody');
-  category.rows.forEach((row, rowIndex) => { const tr = document.createElement('tr'); if (row.group) { tr.className = 'finish-table__group'; const th = document.createElement('th'); th.colSpan = 3; th.textContent = row.group; tr.append(th); } else { const name = document.createElement('td'); const button = document.createElement('button'); button.className = 'finish-row__open'; button.type = 'button'; button.dataset.serviceType = 'finish'; button.dataset.finishId = category.id; button.dataset.finishRow = String(rowIndex); button.textContent = row.name; name.append(button); tr.append(name); appendText(tr, 'td', '', row.unit); appendText(tr, 'td', '', row.price || PLACEHOLDER_PRICE); } tbody.append(tr); });
-  table.append(tbody); wrap.append(table); panel.append(top, wrap);
-  panel.querySelector('.finish-table-wrap')?.addEventListener('wheel', event => event.stopPropagation(), { passive: true });
+  if (!panel) return;
+  panel.replaceChildren();
+  let visibleCount = 0;
+  const query = finishSearchTerm;
+  const normalize = value => textValue(value).toLocaleLowerCase('ru-RU').replace(/ё/g, 'е');
+  catalog.finish.forEach(category => {
+    if (!query && category.id !== finishCategoryFilter) return;
+    const categoryMatches = query && normalize(`${category.title} ${category.description}`).includes(query);
+    const visibleRows = category.rows
+      .map((row, rowIndex) => ({ row, rowIndex }))
+      .filter(({ row }) => row.name && (!query || categoryMatches || normalize(`${row.name} ${row.unit} ${row.price} ${row.group}`).includes(query)));
+    if (!visibleRows.length) return;
+    visibleCount += visibleRows.length;
+    const section = document.createElement('section');
+    section.className = 'price-category';
+    const top = document.createElement('div');
+    top.className = 'price-category__heading';
+    appendText(top, 'h3', '', category.title);
+    appendText(top, 'span', '', `${visibleRows.length} ${query ? 'найдено' : 'позиций'}`);
+    section.append(top);
+    const wrap = document.createElement('div');
+    wrap.className = 'price-table-wrap';
+    wrap.tabIndex = 0;
+    wrap.setAttribute('role', 'region');
+    wrap.setAttribute('aria-label', `Прайс-лист: ${category.title}`);
+    const table = document.createElement('table');
+    table.className = 'price-table';
+    table.innerHTML = '<thead><tr><th>Наименование работ</th><th>Ед.</th><th>Стоимость</th></tr></thead>';
+    const tbody = document.createElement('tbody');
+    const visibleIndexes = new Set(visibleRows.map(item => item.rowIndex));
+    category.rows.forEach((row, rowIndex) => {
+      if (row.group && !query) {
+        const tr = document.createElement('tr');
+        tr.className = 'price-table__group';
+        const th = document.createElement('th');
+        th.colSpan = 3;
+        th.textContent = row.group;
+        tr.append(th);
+        tbody.append(tr);
+      }
+      if (!visibleIndexes.has(rowIndex)) return;
+      const tr = document.createElement('tr');
+      const name = document.createElement('td');
+      const button = document.createElement('button');
+      button.className = 'finish-row__open';
+      button.type = 'button';
+      button.dataset.serviceType = 'finish';
+      button.dataset.finishId = category.id;
+      button.dataset.finishRow = String(rowIndex);
+      button.textContent = row.name;
+      name.append(button);
+      tr.append(name);
+      appendText(tr, 'td', '', row.unit);
+      appendText(tr, 'td', '', row.price || PLACEHOLDER_PRICE);
+      tbody.append(tr);
+    });
+    table.append(tbody);
+    wrap.append(table);
+    section.append(wrap);
+    panel.append(section);
+  });
+  if (!visibleCount) appendText(panel, 'p', 'price-empty', 'По этому запросу ничего не найдено. Попробуйте изменить формулировку.');
+  const count = document.querySelector('#finishCount');
+  if (count) {
+    if (query) count.textContent = `Найдено позиций: ${visibleCount}`;
+    else count.textContent = `${visibleCount} позиций · ${catalog.finish.find(category => category.id === finishCategoryFilter)?.title || ''}`;
+  }
+  setupServiceTriggers();
 }
 
 function normalizeRemoteCatalog(items) {
