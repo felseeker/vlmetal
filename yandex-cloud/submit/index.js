@@ -1,9 +1,9 @@
 /**
  * Yandex Cloud Function — Обработка заявок с сайта vlmetal.ru
- * 
+ *
  * Заменяет Vercel submit.js для соответствия ФЗ-152.
  * Данные хранятся в Яндекс Таблице (сервер в РФ).
- * 
+ *
  * Переменные окружения:
  * - YANDEX_SPREADSHEET_ID — ID Google таблицы для хранения заявок
  * - YANDEX_SPREADSHEET_TOKEN — OAuth токен Яндекс
@@ -39,16 +39,27 @@ module.exports.handler = async (event, context) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  const { name, phone, message } = data;
+  const { name, phone, message, consent, consent_version } = data;
   if (!name || !phone) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Name and phone required' }) };
   }
+  if (consent !== true) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Personal data consent required' }) };
+  }
 
   const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Vladivostok' });
+  const consentVersion = typeof consent_version === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(consent_version)
+    ? consent_version
+    : 'legacy-checkbox';
+  const consentReceivedAt = new Date().toISOString();
+  const messageWithConsent = [
+    String(message || '').trim(),
+    `[Серверная отметка согласия: редакция ${consentVersion}; получено ${consentReceivedAt}]`
+  ].filter(Boolean).join('\n\n');
 
   // 1. Сохраняем в Яндекс Таблицу
   try {
-    await saveToYandexSheet(name, phone, message, timestamp);
+    await saveToYandexSheet(name, phone, messageWithConsent, timestamp);
   } catch (err) {
     console.error('Yandex Sheet error:', err);
     // Продолжаем даже если таблица не сохранилась — уведомления всё равно отправим
@@ -56,7 +67,7 @@ module.exports.handler = async (event, context) => {
 
   // 2. Создаём заявку в CRM. Персональные данные не отправляются в Telegram.
   try {
-    await sendCRMRequest(name, phone, message, timestamp);
+    await sendCRMRequest(name, phone, messageWithConsent, timestamp);
   } catch (err) {
     console.error('CRM error:', err);
     return { statusCode: 502, headers, body: JSON.stringify({ error: 'CRM unavailable' }) };

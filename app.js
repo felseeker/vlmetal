@@ -1032,7 +1032,7 @@ function setupForm() {
     if (!/^\+?\d{7,15}$/.test(phoneDigits)) { status.textContent = 'Введите корректный номер телефона в международном формате или укажите удобный способ связи в комментарии.'; submit.disabled = false; submit.textContent = `Рассчитать стоимость `; submit.insertAdjacentHTML('beforeend', iconArrow); return; }
     const service = new URLSearchParams(window.location.search).get('service');
     const direction = String(formData.get('direction') || '').trim();
-    const payload = { name: String(formData.get('name') || '').trim(), phone, message: `${service ? `[Услуга: ${service}] ` : ''}[${direction}] ${String(formData.get('message') || '').trim()}`, consent: formData.get('consent') === 'on' };
+    const payload = { name: String(formData.get('name') || '').trim(), phone, message: `${service ? `[Услуга: ${service}] ` : ''}[${direction}] ${String(formData.get('message') || '').trim()}\n\n[Согласие на обработку персональных данных: редакция 2026-10-05]`, consent: formData.get('consent') === 'on', consent_version: String(form.querySelector('[name=consent]')?.dataset.consentVersion || '') };
     const controller = new AbortController(); const timeout = window.setTimeout(() => controller.abort(), 20000);
     try {
       const response = await fetch('https://d5d01eb689qn07cv0ocu.sax5b7yq.apigw.yandexcloud.net/api/website-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
